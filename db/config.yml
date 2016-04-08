@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: dmemo_development
+  username: dmemo
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: dmemo_test
+  username: dmemo
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: dmemo
+  username: dmemo
