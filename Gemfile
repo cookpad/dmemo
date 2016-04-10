@@ -9,7 +9,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'jquery-rails'
 
-gem 'capistrano-rails', group: :development
+gem 'faml'
+gem 'haml-rails'
 
 group :development, :test do
   gem 'byebug'
@@ -19,4 +20,5 @@ end
 
 group :development do
   gem 'ridgepole'
+  gem 'capistrano-rails'
 end
