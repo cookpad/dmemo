@@ -1,4 +1,12 @@
+%h2 Data Sources
 %ul
   - @data_sources.each do |data_source|
-    %li= data_source.name
+    %li
+      = data_source.name
+      = link_to "Import", database_memos_path(data_source_id: data_source.id), method: :post
 
+%h2 Databases
+%ul
+  - @database_memos.each do |database_memo|
+    %li
+      = database_memo.name
