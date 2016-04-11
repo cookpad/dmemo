@@ -1,0 +1,23 @@
+%h1.memo_title= @database_memo.name
+
+.memo_description
+  = @database_memo.description
+
+%h2 Tables
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Columns
+  - @database_memo.table_memos.each do |table_memo|
+    %tr
+      %td
+        = link_to table_memo.name, table_memo
+      %td
+        = table_memo.description.truncate(30)
+      %td
+        %ul
+          - table_memo.column_memos.each do |column_memo|
+            %li
+              = column_memo.name
