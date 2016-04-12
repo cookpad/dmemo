@@ -16,9 +16,14 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :development do
   gem 'ridgepole'
   gem 'capistrano-rails'
+end
+
+group :test do
+  gem 'factory_girl_rails'
 end
