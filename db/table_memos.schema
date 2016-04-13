@@ -1,7 +1,7 @@
 create_table "table_memos", force: :cascade do |t|
-  t.integer  "database_memo_id", null: false, unsigned: true
-  t.string   "name",        null: false
-  t.text     "description", null: false, default: ""
-  t.datetime "created_at",  null: false
-  t.datetime "updated_at",  null: false
+  t.integer  "database_memo_id",              null: false
+  t.string   "name",                          null: false
+  t.text     "description",      default: "", null: false
+  t.datetime "created_at",                    null: false
+  t.datetime "updated_at",                    null: false
 end
