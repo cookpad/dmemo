@@ -12,9 +12,18 @@
   %tr
     %th Name
     %th Description
+    %th Sql Type
+    %th Default Value
+    %th Nullable
   - @table_memo.column_memos.each do |column_memo|
     %tr
       %td
         = column_memo.name
       %td
         = column_memo.description.truncate(30)
+      %td
+        = column_memo.sql_type
+      %td
+        = column_memo.default
+      %td
+        = column_memo.nullable

@@ -5,14 +5,14 @@ class DatabaseMemo < ActiveRecord::Base
   def self.import_data_source!(data_source_id)
     data_source = DataSource.find(data_source_id)
 
-    transaction do
-      db_memo = find_or_create_by!(name: data_source.dbname)
+    db_memo = find_or_create_by!(name: data_source.dbname)
 
-      data_source.source_table_classes.each do |table|
-        table_memo = db_memo.table_memos.find_or_create_by!(name: table.table_name)
-        table.columns.each do |column|
-          column_memo = table_memo.column_memos.find_or_create_by!(name: column.name)
-        end
+    data_source.source_table_classes.each do |table_class|
+      table_memo = db_memo.table_memos.find_or_create_by!(name: table_class.table_name)
+      table_class.columns.each do |column|
+        adapter = table_class.connection.pool.connections.first
+        column_memo = table_memo.column_memos.find_or_initialize_by(name: column.name)
+        column_memo.update!(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
       end
     end
   end
