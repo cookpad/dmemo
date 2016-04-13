@@ -3,18 +3,16 @@ class DataSource < ActiveRecord::Base
   module DynamicTable
   end
 
-  def source_db_module
-    return DataSource.const_get(dbname.classify) if DataSource.const_defined?(dbname.classify)
-
-    db_module = Module.new
-    DynamicTable.const_set(dbname.classify, db_module)
+  def source_table_class_name(name)
+    "#{dbname.classify}_#{name.classify}"
   end
 
   def source_base_class
-    return source_db_module.const_get("Base") if source_db_module.const_defined?("Base")
+    base_class_name = source_table_class_name("Base")
+    return DynamicTable.const_get(base_class_name) if DynamicTable.const_defined?(base_class_name)
 
     base_class = Class.new(ActiveRecord::Base)
-    source_db_module.const_set("Base", base_class)
+    DynamicTable.const_set(base_class_name, base_class)
     base_class.establish_connection(
       adapter: adapter,
       host: host,
@@ -27,17 +25,17 @@ class DataSource < ActiveRecord::Base
     base_class
   end
 
-  def source_tables
-    source_base_class.connection.tables.map do |name|
-      fetch_or_define_table_class(source_base_class, source_db_module, name.classify)
-    end
+  def source_table_class(table_name)
+    table_class_name = source_table_class_name(table_name)
+    return DynamicTable.const_get(table_class_name) if DynamicTable.const_defined?(table_class_name)
+    table_class = Class.new(source_base_class)
+    table_class.table_name = table_name
+    DynamicTable.const_set(table_class_name, table_class)
   end
 
-  private
-
-  def fetch_or_define_table_class(base_class, db_module, name)
-    return db_module.const_get(name) if db_module.const_defined?(name)
-    table_class = Class.new(base_class)
-    db_module.const_set(name, table_class)
+  def source_table_classes
+    source_base_class.connection.tables.map do |table_name|
+      source_table_class(table_name)
+    end
   end
 end

@@ -8,7 +8,7 @@ class DatabaseMemo < ActiveRecord::Base
     transaction do
       db_memo = find_or_create_by!(name: data_source.dbname)
 
-      data_source.source_tables.each do |table|
+      data_source.source_table_classes.each do |table|
         table_memo = db_memo.table_memos.find_or_create_by!(name: table.table_name)
         table.columns.each do |column|
           column_memo = table_memo.column_memos.find_or_create_by!(name: column.name)
