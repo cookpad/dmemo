@@ -1,4 +1,8 @@
 class DatabaseMemosController < ApplicationController
+  def index
+    redirect_to root_path
+  end
+
   def show
     @database_memo = DatabaseMemo.find(params[:id])
   end
