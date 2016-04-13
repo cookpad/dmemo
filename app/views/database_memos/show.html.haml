@@ -1,4 +1,5 @@
-%h1.memo_title= @database_memo.name
+- content_for :header do
+  %h1.memo_title= @database_memo.name
 
 .memo_description
   = @database_memo.description

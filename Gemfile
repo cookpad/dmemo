@@ -22,6 +22,7 @@ end
 group :development do
   gem 'ridgepole'
   gem 'capistrano-rails'
+  gem 'bower-rails'
 end
 
 group :test do

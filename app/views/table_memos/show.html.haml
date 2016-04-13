@@ -1,7 +1,8 @@
-%h1.memo_title
-  = link_to @table_memo.database_memo.name, @table_memo.database_memo
-  \/
-  = @table_memo.name
+- content_for :header do
+  %h1.memo_title
+    = link_to @table_memo.database_memo.name, @table_memo.database_memo
+    \/
+    = @table_memo.name
 
 .memo_description
   = @table_memo.description
