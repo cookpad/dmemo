@@ -1,13 +1,6 @@
 - content_for :header do
   %h1.memo_title Home
 
-%h2 Data Sources
-%ul
-  - @data_sources.each do |data_source|
-    %li
-      = data_source.name
-      = link_to "Import", database_memos_path(data_source_id: data_source.id), method: :post
-
 .box
   .box-header.with-border
     %h2.box-title Databases

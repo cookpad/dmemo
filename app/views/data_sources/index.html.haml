@@ -1,0 +1,37 @@
+- content_for :header do
+  %h1.page-header Data Sources
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li.active
+      Data Sources
+
+.box
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+        %th Host
+        %th Port
+        %th Database Name
+        %th
+      - @data_sources.each do |data_source|
+        %tr
+          %td
+            = data_source.name
+          %td
+            = data_source.description.truncate(50)
+          %td
+            = data_source.host
+          %td
+            = data_source.port
+          %td
+            = data_source.dbname
+          %td
+            = link_to edit_data_source_path(data_source) do
+              %i.fa.fa-edit
+              Edit
