@@ -2,7 +2,6 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "admin-lte": "2.3.3",
-    "font-awesome": "4.5.0",
-    "ionicons": "2.0.1"
+    "font-awesome": "4.5.0"
   }
 }
