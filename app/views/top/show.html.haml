@@ -9,7 +9,8 @@
       = link_to "Import", database_memos_path(data_source_id: data_source.id), method: :post
 
 %h2 Databases
-%table
+
+%table.table.table-hover.table-bordered.table-striped{ role: "grid" }
   %thead
     %tr
       %th Database
@@ -23,6 +24,4 @@
         %td
           = database_memo.description.truncate(30)
         %td
-          %ul
-          - database_memo.table_memos.each do |table_memo|
-            %li= table_memo.name
+          = database_memo.table_memos.map(&:name).join(", ").truncate(300)

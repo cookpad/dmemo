@@ -6,7 +6,7 @@
 
 %h2 Tables
 
-%table
+%table.table.table-hover.table-bordered.table-striped{ role: "grid" }
   %tr
     %th Name
     %th Description
@@ -18,7 +18,4 @@
       %td
         = table_memo.description.truncate(30)
       %td
-        %ul
-          - table_memo.column_memos.each do |column_memo|
-            %li
-              = column_memo.name
+        = table_memo.column_memos.map(&:name).join(", ").truncate(300)
