@@ -1,21 +1,32 @@
 - content_for :header do
-  %h1.memo_title= @database_memo.name
+  %h1.page-header= @database_memo.name
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li.active
+      = @database_memo.name
 
 .memo_description
   = @database_memo.description
 
-%h2 Tables
+.box
+  .box-header.with-border
+    %h2.box-title Tables
 
-%table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-  %tr
-    %th Name
-    %th Description
-    %th Columns
-  - @database_memo.table_memos.each do |table_memo|
-    %tr
-      %td
-        = link_to table_memo.name, [@database_memo, table_memo]
-      %td
-        = table_memo.description.truncate(30)
-      %td
-        = table_memo.column_memos.map(&:name).join(", ").truncate(300)
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+        %th Columns
+      - @database_memo.table_memos.each do |table_memo|
+        %tr
+          %td
+            = link_to table_memo.name, [@database_memo, table_memo]
+          %td
+            = table_memo.description.truncate(30)
+          %td
+            = table_memo.column_memos.map(&:name).join(", ").truncate(300)

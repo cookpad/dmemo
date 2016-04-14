@@ -1,5 +1,5 @@
 - content_for :header do
-  %h1 Database Memo
+  %h1.memo_title Home
 
 %h2 Data Sources
 %ul
@@ -8,20 +8,23 @@
       = data_source.name
       = link_to "Import", database_memos_path(data_source_id: data_source.id), method: :post
 
-%h2 Databases
+.box
+  .box-header.with-border
+    %h2.box-title Databases
 
-%table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-  %thead
-    %tr
-      %th Database
-      %th Description
-      %th Tables
-  %tbody
-    - @database_memos.each do |database_memo|
-      %tr
-        %td
-          = link_to database_memo.name, database_memo
-        %td
-          = database_memo.description.truncate(30)
-        %td
-          = database_memo.table_memos.map(&:name).join(", ").truncate(300)
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %thead
+        %tr
+          %th Database
+          %th Description
+          %th Tables
+      %tbody
+        - @database_memos.each do |database_memo|
+          %tr
+            %td
+              = link_to database_memo.name, database_memo
+            %td
+              = database_memo.description.truncate(30)
+            %td
+              = database_memo.table_memos.map(&:name).join(", ").truncate(300)

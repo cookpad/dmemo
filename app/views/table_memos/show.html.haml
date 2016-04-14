@@ -1,30 +1,39 @@
 - content_for :header do
-  %h1.memo_title
-    = link_to @table_memo.database_memo.name, @table_memo.database_memo
-    \/
-    = @table_memo.name
+  %h1.memo_title= @table_memo.name
+  %ul.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to @table_memo.database_memo.name, @table_memo.database_memo
+    %li.active
+      = @table_memo.name
 
 .memo_description
   = @table_memo.description
 
-%h2 Columns
+.box
+  .box-header.with-border
+    %h2.box-title Columns
 
-%table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-  %tr
-    %th Name
-    %th Description
-    %th Sql Type
-    %th Default Value
-    %th Nullable
-  - @table_memo.column_memos.each do |column_memo|
-    %tr
-      %td
-        = column_memo.name
-      %td
-        = column_memo.description.truncate(30)
-      %td
-        = column_memo.sql_type
-      %td
-        = column_memo.default
-      %td
-        = column_memo.nullable
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+        %th Sql Type
+        %th Default Value
+        %th Nullable
+      - @table_memo.column_memos.each do |column_memo|
+        %tr
+          %td
+            = column_memo.name
+          %td
+            = column_memo.description.truncate(30)
+          %td
+            = column_memo.sql_type
+          %td
+            = column_memo.default
+          %td
+            = column_memo.nullable
