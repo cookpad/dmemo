@@ -6,7 +6,8 @@ create_table "data_sources", force: :cascade do |t|
   t.integer  "port",        null: false
   t.string   "dbname",      null: false
   t.string   "user",        null: false
-  t.string   "password",    null: false
+  t.string   "password"
+  t.string   "encoding"
   t.datetime "created_at",  null: false
   t.datetime "updated_at",  null: false
 end

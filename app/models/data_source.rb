@@ -20,6 +20,7 @@ class DataSource < ActiveRecord::Base
       username: user,
       password: password,
       database: dbname,
+      encoding: encoding,
     )
 
     base_class
