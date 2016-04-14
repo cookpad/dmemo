@@ -55,16 +55,14 @@
               %a{ href: "#" }
                 %i.fa.fa-link
                 %span Another Link
-            %li.treeview
-              %a{ href: "#" }
+            %li.treeview.active
+              %a
                 %i.fa.fa-link
-                %span Multilevel
+                %span Database Memos
                 %i.fa.fa-angle-left.pull-right
               %ul.treeview-menu
-                %li
-                  %a{ href: "#" } Link in level 2
-                %li
-                  %a{ href: "#" } Link in level 2
+                - @database_memos.each do |database_memo|
+                  %li= link_to database_memo.name, database_memo
 
       .content-wrapper
         %section.content-header
