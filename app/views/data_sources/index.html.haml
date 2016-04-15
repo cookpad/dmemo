@@ -10,6 +10,10 @@
       Data Sources
 
 .box
+  .box-header.with-border
+    = link_to new_data_source_path, class: "btn btn-default pull-right" do
+      %i.fa.fa-plus
+      New Data Source
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %tr

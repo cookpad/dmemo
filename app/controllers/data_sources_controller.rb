@@ -4,9 +4,12 @@ class DataSourcesController < ApplicationController
   end
 
   def new
+    @data_source = DataSource.new
   end
 
   def create
+    data_source = DataSource.create!(data_source_params)
+    redirect_to edit_data_source_path(data_source)
   end
 
   def edit

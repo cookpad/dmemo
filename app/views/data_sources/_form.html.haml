@@ -1,0 +1,31 @@
+= form_for @data_source, html: { class: "form-horizontal" } do |f|
+  .box-body
+    .form-group
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :name, class: "form-control", placeholder: "localhost"
+    .form-group
+      = f.label :description, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
+    .form-group
+      = f.label :adapter, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :adapter, class: "form-control", placeholder: "postgresql"
+    .form-group
+      = f.label :host, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :host, class: "form-control", placeholder: "localhost"
+    .form-group
+      = f.label :port, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :port, class: "form-control", placeholder: "5432"
+    .form-group
+      = f.label :dbname, "Database Name", class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :dbname, class: "form-control", placeholder: "dmemo"
+    .form-group
+      = f.label :user, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :user, class: "form-control", placeholder: "root"
+    .form-group
+      = f.label :password, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :password, class: "form-control"
+    .form-group
+      = f.label :encoding, class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :encoding, class: "form-control"
+  .box-footer
+    = f.submit class: "btn btn-primary pull-right"

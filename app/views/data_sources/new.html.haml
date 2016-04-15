@@ -1,5 +1,5 @@
 - content_for :header do
-  %h1.page-header= @data_source.name
+  %h1.page-header New Data Source
 
   %ol.breadcrumb
     %li
@@ -9,7 +9,7 @@
     %li
       = link_to "Data Sources", data_sources_path
     %li.active
-      = @data_source.name
+      New Data Source
 
 .box
   = render "form"
