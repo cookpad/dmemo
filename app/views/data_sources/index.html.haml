@@ -19,6 +19,7 @@
         %th Port
         %th Database Name
         %th
+        %th
       - @data_sources.each do |data_source|
         %tr
           %td
@@ -35,3 +36,7 @@
             = link_to edit_data_source_path(data_source) do
               %i.fa.fa-edit
               Edit
+          %td
+            = link_to database_memos_path(data_source_id: data_source.id), method: :post do
+              %i.fa.fa-download
+              Import

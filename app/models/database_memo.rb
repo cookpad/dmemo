@@ -5,7 +5,7 @@ class DatabaseMemo < ActiveRecord::Base
   def self.import_data_source!(data_source_id)
     data_source = DataSource.find(data_source_id)
 
-    db_memo = find_or_create_by!(name: data_source.dbname)
+    db_memo = find_or_create_by!(name: data_source.name)
 
     data_source.source_table_classes.each do |table_class|
       table_memo = db_memo.table_memos.find_or_create_by!(name: table_class.table_name)
