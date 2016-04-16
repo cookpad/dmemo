@@ -25,7 +25,7 @@
       - @database_memo.table_memos.each do |table_memo|
         %tr
           %td
-            = link_to table_memo.name, [@database_memo, table_memo]
+            = link_to table_memo.name, database_memo_table_memo_path(@database_memo.name, table_memo.name)
           %td
             = table_memo.description.truncate(30)
           %td
