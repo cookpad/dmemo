@@ -16,8 +16,12 @@ class DataSource < ActiveRecord::Base
     }.compact
   end
 
+  def source_table_class_name_prefix
+    "#{name.classify}_"
+  end
+
   def source_table_class_name(table_name)
-    "#{name.classify}_#{table_name.classify}"
+    "#{source_table_class_name_prefix}#{table_name.classify}"
   end
 
   def source_base_class
@@ -42,6 +46,12 @@ class DataSource < ActiveRecord::Base
   def source_table_classes
     source_base_class.connection.tables.map do |table_name|
       source_table_class(table_name)
+    end
+  end
+
+  def reset_source_table_classes
+    DynamicTable.constants.select{|name| name.to_s.start_with?(source_table_class_name_prefix) }.each do |table_name|
+      DynamicTable.send(:remove_const, table_name)
     end
   end
 end
