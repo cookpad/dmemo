@@ -4,6 +4,6 @@ class TableMemosController < ApplicationController
   end
 
   def show
-    @table_memo = TableMemo.find_by!(name: params[:name])
+    @table_memo = TableMemo.find(params[:id])
   end
 end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :data_sources, except: %w(show)
 
-  resources :database_memos, param: :name, only: %w(index show create) do
-    resources :table_memos, param: :name, only: %w(index show)
+  resources :database_memos, only: %w(index show create) do
+    resources :table_memos, only: %w(index show)
   end
 end

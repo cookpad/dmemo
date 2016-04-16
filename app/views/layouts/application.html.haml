@@ -61,7 +61,7 @@
                 %i.fa.fa-angle-left.pull-right
               %ul.treeview-menu
                 - @database_memos.each do |database_memo|
-                  %li= link_to database_memo.name, database_memo_path(database_memo.name)
+                  %li= link_to database_memo.name, database_memo
 
       .content-wrapper
         %section.content-header
