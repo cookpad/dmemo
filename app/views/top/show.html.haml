@@ -17,6 +17,9 @@
           %tr
             %td
               = link_to database_memo.name, database_memo
+
+              - unless database_memo.linked?
+                %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked data sources." } }
             %td
               = database_memo.description.truncate(30)
             %td

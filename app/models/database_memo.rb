@@ -2,6 +2,8 @@ class DatabaseMemo < ActiveRecord::Base
 
   has_many :table_memos
 
+  has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name
+
   def self.import_data_source!(data_source_id)
     data_source = DataSource.find(data_source_id)
 
@@ -15,5 +17,9 @@ class DatabaseMemo < ActiveRecord::Base
         column_memo.update!(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
       end
     end
+  end
+
+  def linked?
+    data_source.present?
   end
 end
