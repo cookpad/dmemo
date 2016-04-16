@@ -3,6 +3,19 @@ class DataSource < ActiveRecord::Base
   module DynamicTable
   end
 
+  def connection_config
+    {
+        adapter: adapter,
+        host: host,
+        port: port,
+        database: dbname,
+        username: user,
+        password: password,
+        encoding: encoding,
+        pool: pool,
+    }.compact
+  end
+
   def source_table_class_name(table_name)
     "#{name.classify}_#{table_name.classify}"
   end
@@ -14,16 +27,7 @@ class DataSource < ActiveRecord::Base
     base_class = Class.new(ActiveRecord::Base)
     DynamicTable.const_set(base_class_name, base_class)
     base_class.abstract_class = true
-    base_class.establish_connection(
-      adapter: adapter,
-      host: host,
-      port: port,
-      username: user,
-      password: password,
-      database: dbname,
-      encoding: encoding,
-    )
-
+    base_class.establish_connection(connection_config)
     base_class
   end
 

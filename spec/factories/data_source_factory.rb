@@ -7,6 +7,8 @@ FactoryGirl.define do
     port 5432
     dbname "dmemo_test"
     user "dmemo"
-    password ""
+    password nil
+    encoding nil
+    pool 1
   end
 end
