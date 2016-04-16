@@ -3,8 +3,8 @@ class DataSource < ActiveRecord::Base
   module DynamicTable
   end
 
-  def source_table_class_name(name)
-    "#{dbname.classify}_#{name.classify}"
+  def source_table_class_name(table_name)
+    "#{name.classify}_#{table_name.classify}"
   end
 
   def source_base_class
@@ -13,6 +13,7 @@ class DataSource < ActiveRecord::Base
 
     base_class = Class.new(ActiveRecord::Base)
     DynamicTable.const_set(base_class_name, base_class)
+    base_class.abstract_class = true
     base_class.establish_connection(
       adapter: adapter,
       host: host,
