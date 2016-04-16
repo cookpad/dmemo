@@ -23,7 +23,6 @@
         %th Port
         %th Database Name
         %th
-        %th
       - @data_sources.each do |data_source|
         %tr
           %td
@@ -38,9 +37,12 @@
             = data_source.dbname
           %td
             = link_to edit_data_source_path(data_source) do
-              %i.fa.fa-edit
-              Edit
-          %td
+              %button.btn.btn-default
+                %i.fa.fa-edit
+            = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
+              %button.btn.btn-default
+                %i.fa.fa-trash
             = link_to database_memos_path(data_source_id: data_source.id), method: :post do
-              %i.fa.fa-download
-              Import
+              %button.btn.btn-default
+                %i.fa.fa-download
+                Import

@@ -23,6 +23,9 @@ class DataSourcesController < ApplicationController
   end
 
   def destroy
+    data_source = DataSource.find(params[:id])
+    data_source.destroy!
+    redirect_to data_sources_path
   end
 
   private
