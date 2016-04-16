@@ -1,5 +1,8 @@
 - content_for :header do
-  %h1.page-header= @database_memo.name
+  %h1.page-header
+    = @database_memo.name
+    - unless @database_memo.linked?
+      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source database." } }
 
   %ol.breadcrumb
     %li
@@ -26,6 +29,8 @@
         %tr
           %td
             = link_to table_memo.name, [@database_memo, table_memo]
+            - unless table_memo.linked?
+              %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source tables." } }
           %td
             = table_memo.description.truncate(30)
           %td
