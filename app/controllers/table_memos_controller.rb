@@ -5,5 +5,12 @@ class TableMemosController < ApplicationController
 
   def show
     @table_memo = TableMemo.find(params[:id])
+    source_table_class = @table_memo.source_table_class
+    if source_table_class
+      @source_column_classes = source_table_class.columns
+      column_names = @source_column_classes.map(&:name)
+      @source_table_data = source_table_class.limit(20).pluck(*column_names)
+      @source_table_count = source_table_class.count
+    end
   end
 end
