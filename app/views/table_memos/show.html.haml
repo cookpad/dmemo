@@ -21,7 +21,7 @@
               %th #{source_column_class.name} (#{source_column_class.sql_type})
           - @source_table_data.each do |row|
             %tr
-              - row.each do |value|
+              - Array.wrap(row).each do |value|
                 %td= value
       - else
         There is no linked source table.
