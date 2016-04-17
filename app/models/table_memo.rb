@@ -1,7 +1,7 @@
 class TableMemo < ActiveRecord::Base
   belongs_to :database_memo
 
-  has_many :column_memos
+  has_many :column_memos, dependent: :destroy
 
   def source_table_class
     database_memo.data_source.try(:source_table_class, name)

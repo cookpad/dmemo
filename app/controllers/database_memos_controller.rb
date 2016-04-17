@@ -13,4 +13,10 @@ class DatabaseMemosController < ApplicationController
     end
     redirect_to "/"
   end
+
+  def destroy
+    database_memo = DatabaseMemo.find(params[:id])
+    database_memo.destroy!
+    redirect_to root_path
+  end
 end

@@ -1,6 +1,6 @@
 class DatabaseMemo < ActiveRecord::Base
 
-  has_many :table_memos
+  has_many :table_memos, dependent: :destroy
 
   has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name
 

@@ -1,8 +1,18 @@
 - content_for :header do
   %h1.page-header
     = @database_memo.name
-    - unless @database_memo.linked?
-      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source database." } }
+
+  - unless @database_memo.linked?
+    .box.box-warning
+      .box-header
+        %h4
+          %i.fa.fa-warning
+          There is no linked source database.
+      .box-body
+        = link_to "Delete database", @database_memo,
+          method: :delete,
+          class: "btn btn-lg btn-danger",
+          data: { confirm: "Delete database #{@database_memo.name}?" }
 
   %ol.breadcrumb
     %li
