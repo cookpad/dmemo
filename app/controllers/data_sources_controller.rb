@@ -8,8 +8,8 @@ class DataSourcesController < ApplicationController
   end
 
   def create
-    data_source = DataSource.create!(data_source_params)
-    redirect_to edit_data_source_path(data_source)
+    DataSource.create!(data_source_params)
+    redirect_to data_sources_path
   end
 
   def edit
