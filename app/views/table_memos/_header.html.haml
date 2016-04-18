@@ -3,7 +3,7 @@
     = link_to table_memo.name, "#",
       id: "name",
       class: "editable-field",
-      data: { type: :text, pk: @table_memo.id, url: request.path, value: @table_memo.name }
+      data: { type: :text, pk: @table_memo.id, url: url_for(@table_memo), value: @table_memo.name }
 
   - unless table_memo.linked?
     .box.box-warning
@@ -12,7 +12,7 @@
           %i.fa.fa-warning
           There is no linked source table.
       .box-body
-        = link_to "Delete table", [table_memo.database_memo, table_memo],
+        = link_to "Delete table", table_memo,
           method: :delete,
           class: "btn btn-lg btn-danger",
           data: { confirm: "Delete table #{table_memo.name}?" }

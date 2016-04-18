@@ -5,7 +5,7 @@
     = link_to "#",
       id: "description",
       class: "editable-field",
-      data: { type: :textarea, pk: @table_memo.id, url: request.path, value: @table_memo.description } do
+      data: { type: :textarea, pk: @table_memo.id, url: url_for(@table_memo), value: @table_memo.description } do
       - if @table_memo.description.present?
         = @table_memo.description
       - else

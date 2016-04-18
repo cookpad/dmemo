@@ -42,7 +42,7 @@
       - @database_memo.table_memos.each do |table_memo|
         %tr
           %td
-            = link_to table_memo.name, [@database_memo, table_memo]
+            = link_to table_memo.name, table_memo
             - unless table_memo.linked?
               %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source tables." } }
           %td
