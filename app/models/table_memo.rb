@@ -4,9 +4,7 @@ class TableMemo < ActiveRecord::Base
   has_many :column_memos, dependent: :destroy
 
   def source_table_class
-    database_memo.data_source.try(:source_table_classes).try do |source_table_classes|
-      source_table_classes.find {|source_table_class| source_table_class.name == name }
-    end
+    database_memo.data_source.try(:source_table_class, name)
   end
 
   def source_column_class(column_name)
