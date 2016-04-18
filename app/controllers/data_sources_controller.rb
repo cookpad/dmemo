@@ -31,6 +31,9 @@ class DataSourcesController < ApplicationController
   private
 
   def data_source_params
-    params.require(:data_source).permit(:name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding)
+    params.
+      require(:data_source).
+      permit(:name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding).
+      reject {|k, v| v.blank? }
   end
 end

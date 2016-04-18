@@ -1,6 +1,6 @@
 create_table "data_sources", force: :cascade do |t|
   t.string   "name",        null: false
-  t.text     "description", null: false
+  t.text     "description", null: false, default: ""
   t.string   "adapter",     null: false
   t.string   "host",        null: false
   t.integer  "port"
