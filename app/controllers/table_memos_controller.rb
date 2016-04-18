@@ -13,6 +13,16 @@ class TableMemosController < ApplicationController
     end
   end
 
+  def update
+    @table_memo = TableMemo.find(params[:id])
+    case params[:name]
+      when "name"
+        @table_memo.update!(name: params[:value])
+      when "description"
+        @table_memo.update!(description: params[:value])
+    end
+  end
+
   def destroy
     table_memo = TableMemo.find(params[:id])
     table_memo.destroy!

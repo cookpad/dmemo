@@ -1,6 +1,9 @@
 - content_for :header do
   %h1.memo_title
-    = table_memo.name
+    = link_to table_memo.name, "#",
+      id: "name",
+      class: "editable-field",
+      data: { type: :text, pk: @table_memo.id, url: request.path, value: @table_memo.name }
 
   - unless table_memo.linked?
     .box.box-warning

@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :data_sources, except: %w(show)
 
   resources :database_memos, only: %w(index show create destroy) do
-    resources :table_memos, only: %w(index show destroy)
+    resources :table_memos, only: %w(index show destroy update)
   end
 end

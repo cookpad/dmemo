@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'faml'
 gem 'haml-rails'
 
+gem 'jbuilder'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'

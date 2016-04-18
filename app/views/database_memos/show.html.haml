@@ -22,8 +22,12 @@
     %li.active
       = @database_memo.name
 
-.memo_description
-  = @database_memo.description
+.memo_description.box.box-info.with-border
+  .box-body
+    - if @database_memo.description.present?
+      = @database_memo.description
+    - else
+      = t("no_description")
 
 .box
   .box-header.with-border

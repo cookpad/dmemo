@@ -1,7 +1,15 @@
 = render "table_memos/header", table_memo: @table_memo
 
-.memo_description
-  = @table_memo.description
+.memo_description.box.box-info.with-border
+  .box-body
+    = link_to "#",
+      id: "description",
+      class: "editable-field",
+      data: { type: :textarea, pk: @table_memo.id, url: request.path, value: @table_memo.description } do
+      - if @table_memo.description.present?
+        = @table_memo.description
+      - else
+        = t("no_description")
 
 .nav-tabs-custom
   %ul.nav.nav-tabs
