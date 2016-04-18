@@ -13,6 +13,12 @@ class TableMemosController < ApplicationController
     end
   end
 
+  def destroy
+    table_memo = TableMemo.find(params[:id])
+    table_memo.destroy!
+    redirect_to database_memo_path(table_memo.database_memo_id)
+  end
+
   private
 
   def fetch_source_table_data(source_table_class, source_column_classes)
