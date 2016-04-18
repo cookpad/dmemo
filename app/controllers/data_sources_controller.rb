@@ -19,7 +19,7 @@ class DataSourcesController < ApplicationController
   def update
     data_source = DataSource.find(params[:id])
     data_source.update!(data_source_params)
-    redirect_to edit_data_source_path(data_source)
+    redirect_to data_sources_path
   end
 
   def destroy

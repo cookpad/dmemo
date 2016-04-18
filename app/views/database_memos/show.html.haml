@@ -1,6 +1,9 @@
 - content_for :header do
   %h1.page-header
-    = @database_memo.name
+    = link_to @database_memo.name, "#",
+      id: "name",
+      class: "editable-field",
+      data: { type: :text, pk: @database_memo.id, url: url_for(@database_memo), value: @database_memo.name }
 
   - unless @database_memo.linked?
     .box.box-warning
@@ -24,10 +27,14 @@
 
 .memo_description.box.box-info.with-border
   .box-body
-    - if @database_memo.description.present?
-      = @database_memo.description
-    - else
-      = t("no_description")
+    = link_to "#",
+      id: "description",
+      class: "editable-field",
+      data: { type: :textarea, pk: @database_memo.id, url: url_for(@database_memo), value: @database_memo.description } do
+      - if @database_memo.description.present?
+        = @database_memo.description
+      - else
+        = t("no_description")
 
 .box
   .box-header.with-border

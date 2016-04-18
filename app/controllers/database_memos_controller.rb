@@ -14,6 +14,16 @@ class DatabaseMemosController < ApplicationController
     redirect_to "/"
   end
 
+  def update
+    @database_memo = DatabaseMemo.find(params[:id])
+    case params[:name]
+      when "name"
+        @database_memo.update!(name: params[:value])
+      when "description"
+        @database_memo.update!(description: params[:value])
+    end
+  end
+
   def destroy
     database_memo = DatabaseMemo.find(params[:id])
     database_memo.destroy!
