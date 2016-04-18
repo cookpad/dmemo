@@ -44,6 +44,7 @@ GEM
     bower-rails (0.10.0)
     builder (3.2.2)
     byebug (8.2.4)
+    callsite (0.0.11)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -102,6 +103,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    meta_request (0.3.4)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
     mime-types (3.0)
       mime-types-data (~> 3.2015)
@@ -127,6 +132,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.6.4)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.6)
@@ -216,6 +223,7 @@ DEPENDENCIES
   faml
   haml-rails
   jquery-rails
+  meta_request
   mysql2
   pg (~> 0.15)
   pry-byebug

@@ -27,6 +27,7 @@ group :development do
   gem 'ridgepole'
   gem 'capistrano-rails'
   gem 'bower-rails'
+  gem 'meta_request'
 end
 
 group :test do
