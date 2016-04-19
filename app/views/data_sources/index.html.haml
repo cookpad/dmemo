@@ -42,7 +42,3 @@
             = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
               %button.btn.btn-default
                 %i.fa.fa-trash
-            = link_to database_memos_path(data_source_id: data_source.id), method: :post do
-              %button.btn.btn-default
-                %i.fa.fa-download
-                Import

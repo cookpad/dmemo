@@ -7,13 +7,6 @@ class DatabaseMemosController < ApplicationController
     @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find(params[:id])
   end
 
-  def create
-    if params[:data_source_id]
-      DatabaseMemo.import_data_source!(params[:data_source_id])
-    end
-    redirect_to "/"
-  end
-
   def update
     @database_memo = DatabaseMemo.find(params[:id])
     case params[:name]
