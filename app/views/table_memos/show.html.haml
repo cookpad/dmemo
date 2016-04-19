@@ -64,14 +64,23 @@
           %th Sql Type
           %th Default Value
           %th Nullable
-        - @table_memo.column_memos.each do |column_memo|
+        - @table_memo.column_memos.order(:id).each do |column_memo|
           %tr
             %td
               = column_memo.name
               - unless column_memo.linked?
                 %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source columns." } }
             %td
-              = column_memo.description.truncate(30)
+              %span.column-description{ data: { column_memo_id: column_memo.id } }
+                - if column_memo.description.present?
+                  = column_memo.description
+                - else
+                  = t("no_description")
+              = link_to_editable column_memo,
+                target: ".column-description[data-column-memo-id=\"#{column_memo.id}\"]",
+                type: :text,
+                name: "description",
+                value: column_memo.description
             %td
               = column_memo.sql_type
             %td
