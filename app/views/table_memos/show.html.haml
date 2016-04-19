@@ -1,11 +1,34 @@
-= render "table_memos/header", table_memo: @table_memo
+- content_for :header do
+  %h1.memo_title
+    %span#name.editable-target= @table_memo.name
+    = link_to_editable @table_memo, target: "#name", type: :text, name: "name", value: @table_memo.name
+
+  - unless @table_memo.linked?
+    .box.box-warning
+      .box-header
+        %h4
+          %i.fa.fa-warning
+          There is no linked source table.
+      .box-body
+        = link_to "Delete table", @table_memo,
+          method: :delete,
+          class: "btn btn-lg btn-danger",
+          data: { confirm: "Delete table #{@table_memo.name}?" }
+
+  %ul.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to @table_memo.database_memo.name, @table_memo.database_memo
+    %li.active
+      = @table_memo.name
 
 .memo_description.box.box-info.with-border
   .box-body
-    = link_to "#",
-      id: "description",
-      class: "editable-field",
-      data: { type: :textarea, pk: @table_memo.id, url: url_for(@table_memo), value: @table_memo.description } do
+    = link_to_editable @table_memo, target: "#description", type: :textarea, name: "description", value: @table_memo.description, class: "pull-right"
+    #description.editable-target
       - if @table_memo.description.present?
         = @table_memo.description
       - else
