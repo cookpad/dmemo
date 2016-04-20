@@ -1,10 +1,9 @@
 - content_for :header do
   %h1.page-header
     %span#name.editable-target= @database_memo.name
-    = link_to_editable @database_memo, target: "#name", type: :text, name: "name", value: @database_memo.name
-    %a.shorten_url_link{ href: "#", data: { target: "#shorten_url", tooltip: "Show shorten url." } }
+    %a.shorten_url_link{ href: "#", data: { target: "#shorten_url", toggle: "tooltip", placement: "bottom", title: "Show shorten url." } }
       %i.fa.fa-link
-    = text_field_tag :shorten_url, shorten_url(@database_memo), class: "shorten_url input-sm hidden", size: 40
+    = text_field_tag :shorten_url, shorten_url(@database_memo), class: "shorten_url input-sm hidden", size: 80
 
   - unless @database_memo.linked?
     .box.box-warning
@@ -13,10 +12,10 @@
           %i.fa.fa-warning
           There is no linked source database.
       .box-body
-        = link_to "Delete database", @database_memo,
+        = link_to "Delete database information", @database_memo,
           method: :delete,
           class: "btn btn-lg btn-danger",
-          data: { confirm: "Delete database #{@database_memo.name}?" }
+          data: { confirm: "Delete database #{@database_memo.name} information?" }
 
   %ol.breadcrumb
     %li

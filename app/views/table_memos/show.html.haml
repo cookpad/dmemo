@@ -1,10 +1,9 @@
 - content_for :header do
   %h1.memo_title
     %span#name.editable-target= @table_memo.name
-    = link_to_editable @table_memo, target: "#name", type: :text, name: "name", value: @table_memo.name
-    %a.shorten_url_link{ href: "#", data: { target: "#shorten_url", tooltip: "Show shorten url." } }
+    %a.shorten_url_link{ href: "#", data: { target: "#shorten_url", toggle: "tooltip", placement: "bottom", title: "Show shorten url." } }
       %i.fa.fa-link
-    = text_field_tag :shorten_url, shorten_url(@table_memo.database_memo, @table_memo), class: "shorten_url input-sm hidden", size: 40
+    = text_field_tag :shorten_url, shorten_url(@table_memo.database_memo, @table_memo), class: "shorten_url input-sm hidden", size: 80
 
   - unless @table_memo.linked?
     .box.box-warning
@@ -13,10 +12,10 @@
           %i.fa.fa-warning
           There is no linked source table.
       .box-body
-        = link_to "Delete table", @table_memo,
+        = link_to "Delete table information", @table_memo,
           method: :delete,
           class: "btn btn-lg btn-danger",
-          data: { confirm: "Delete table #{@table_memo.name}?" }
+          data: { confirm: "Delete table #{@table_memo.name} information?" }
 
   %ul.breadcrumb
     %li
