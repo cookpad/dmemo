@@ -4,7 +4,11 @@ class TableMemosController < ApplicationController
   end
 
   def show
-    @table_memo = TableMemo.find(params[:id])
+    if params[:database_name] && params[:table_name]
+      @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: params[:database_name])).find_by!(name: params[:table_name])
+    else
+      @table_memo = TableMemo.find(params[:id])
+    end
     source_table_class = @table_memo.source_table_class
     if source_table_class
       @source_column_classes = source_table_class.columns
