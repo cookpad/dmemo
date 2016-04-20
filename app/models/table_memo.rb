@@ -14,4 +14,8 @@ class TableMemo < ActiveRecord::Base
   def linked?
     source_table_class
   end
+
+  def masked?
+    MaskedData.masked_table?(database_memo.name, name)
+  end
 end

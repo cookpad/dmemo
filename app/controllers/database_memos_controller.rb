@@ -21,8 +21,6 @@ class DatabaseMemosController < ApplicationController
   def update
     @database_memo = DatabaseMemo.find(params[:id])
     case params[:name]
-      when "name"
-        @database_memo.update!(name: params[:value])
       when "description"
         @database_memo.update!(description: params[:value])
     end

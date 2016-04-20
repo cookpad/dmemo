@@ -12,7 +12,6 @@ def ridgepole_exec(args)
 end
 
 namespace :ridgepole do
-
   desc "Export current schema"
   task :export do
     ridgepole_exec(%w(--export Schemafile --split))

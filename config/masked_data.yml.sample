@@ -1,0 +1,6 @@
+development:
+  tables:
+    - dmemo/data_sources
+production:
+  tables:
+    - dmemo/data_sources
