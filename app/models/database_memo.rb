@@ -15,7 +15,8 @@ class DatabaseMemo < ActiveRecord::Base
       table_class.columns.each do |column|
         adapter = table_class.connection.pool.connections.first
         column_memo = table_memo.column_memos.find_or_initialize_by(name: column.name)
-        column_memo.update!(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
+        column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
+        column_memo.save! if column_memo.changed?
       end
     end
   end
