@@ -8,4 +8,6 @@ Rails.application.routes.draw do
       resources :column_memos, only: %w(update destroy)
     end
   end
+
+  get "/s/:database_name" => "database_memos#show", as: "shorten_database"
 end

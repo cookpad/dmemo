@@ -4,7 +4,11 @@ class DatabaseMemosController < ApplicationController
   end
 
   def show
-    @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find(params[:id])
+    if params[:database_name]
+      @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find_by!(name: params[:database_name])
+    else
+      @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find(params[:id])
+    end
   end
 
   def create

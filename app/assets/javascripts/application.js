@@ -16,4 +16,5 @@
 //= require admin-lte/dist/js/app
 //= require x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
 //= require form-editable
+//= require shorten-url
 //= require_tree .

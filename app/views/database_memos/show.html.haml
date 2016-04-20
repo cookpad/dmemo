@@ -2,6 +2,9 @@
   %h1.page-header
     %span#name.editable-target= @database_memo.name
     = link_to_editable @database_memo, target: "#name", type: :text, name: "name", value: @database_memo.name
+    %a.shorten_url_link{ href: "#", data: { target: "#shorten_url", tooltip: "Show shorten url." } }
+      %i.fa.fa-link
+    = text_field_tag :shorten_url, shorten_url(@database_memo), class: "shorten_url input-sm hidden", size: 40
 
   - unless @database_memo.linked?
     .box.box-warning
