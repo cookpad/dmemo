@@ -54,7 +54,7 @@ class DataSource < ActiveRecord::Base
     end
   end
 
-  def reset_source_table_classes
+  def reset_source_table_classes!
     DynamicTable.constants.select{|name| name.to_s.start_with?(source_table_class_name_prefix) }.each do |table_name|
       DynamicTable.send(:remove_const, table_name)
     end

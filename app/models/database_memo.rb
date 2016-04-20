@@ -6,6 +6,7 @@ class DatabaseMemo < ActiveRecord::Base
 
   def self.import_data_source!(data_source_id)
     data_source = DataSource.find(data_source_id)
+    data_source.reset_source_table_classes!
 
     db_memo = find_or_create_by!(name: data_source.name)
 
