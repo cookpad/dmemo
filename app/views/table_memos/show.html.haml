@@ -30,7 +30,7 @@
 
 .memo_description.box.box-info.with-border
   .box-body
-    = link_to_editable @table_memo, target: "#description", type: :textarea, name: "description", value: @table_memo.description, class: "pull-right"
+    = link_to_editable @table_memo, target: "#description", type: :textarea, name: "description", value: @table_memo.description, class: "pull-left"
     #description.editable-target
       - if @table_memo.description.present?
         = @table_memo.description

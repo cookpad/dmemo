@@ -28,7 +28,7 @@
 
 .memo_description.box.box-info.with-border
   .box-body
-    = link_to_editable @database_memo, target: "#description", type: :textarea, name: "description", value: @database_memo.description, class: "pull-right"
+    = link_to_editable @database_memo, target: "#description", type: :textarea, name: "description", value: @database_memo.description, class: "pull-left"
     #description.editable-target
       - if @database_memo.description.present?
         = @database_memo.description
