@@ -21,3 +21,5 @@
 
 en:
   no_description: No description given.
+  masked_table: This table contains masked data.
+  no_linked_table: There is no linked source table.
