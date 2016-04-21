@@ -6,9 +6,13 @@ class DatabaseMemosController < ApplicationController
 
   def show
     if params[:database_name]
-      @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find_by!(name: params[:database_name])
+      @database_memo = DatabaseMemo.includes(:table_memos).find_by!(name: params[:database_name])
     else
-      @database_memo = DatabaseMemo.includes(table_memos: :column_memos).find(params[:id])
+      @database_memo = DatabaseMemo.includes(:table_memos).find(params[:id])
+    end
+    @column_memo_names = ColumnMemo.where(table_memo_id: @database_memo.table_memos.map(&:id)).pluck(:table_memo_id, :name).each_with_object({}) do |row, hash|
+      id, name = row
+      (hash[id] ||= []) << name
     end
   end
 

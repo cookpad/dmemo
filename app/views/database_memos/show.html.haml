@@ -53,4 +53,4 @@
           %td
             = table_memo.description.truncate(30)
           %td
-            = table_memo.column_memos.map(&:name).join(", ").truncate(300)
+            = Array.wrap(@column_memo_names[table_memo.id]).join(", ").truncate(100)

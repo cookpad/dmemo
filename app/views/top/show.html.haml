@@ -22,4 +22,4 @@
             %td
               = database_memo.description.truncate(30)
             %td
-              = database_memo.table_memos.map(&:name).join(", ").truncate(300)
+              = database_memo.table_memos.map(&:name).join(", ").truncate(100)
