@@ -30,6 +30,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'bower-rails'
   gem 'meta_request'
+  gem 'quiet_assets'
 end
 
 group :test do
