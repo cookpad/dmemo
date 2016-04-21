@@ -1,5 +1,6 @@
 class DatabaseMemosController < ApplicationController
   def index
+    @database_memos = DatabaseMemo.all.includes(:data_source, :table_memos)
     redirect_to root_path
   end
 
