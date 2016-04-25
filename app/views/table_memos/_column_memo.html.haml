@@ -1,0 +1,24 @@
+%tr
+  %td
+    = column_memo.name
+    - unless column_memo.linked?
+      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source columns." } }
+  %td
+    = link_to_editable column_memo,
+              target: ".column-description[data-column-memo-id=\"#{column_memo.id}\"]",
+              result: "description_html",
+              type: :textarea,
+              name: "description",
+              value: column_memo.description,
+              class: "pull-right"
+    .column-description{ data: { column_memo_id: column_memo.id } }
+      - if column_memo.description.present?
+        = column_memo.description_html
+      - else
+        = t("no_description")
+  %td
+    = column_memo.sql_type
+  %td
+    = column_memo.default
+  %td
+    = column_memo.nullable

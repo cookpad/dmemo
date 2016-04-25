@@ -6,6 +6,6 @@ class ColumnMemo < ActiveRecord::Base
   end
 
   def linked?
-    source_column_class.present?
+    table_memo.linked? && source_column_class.present?
   end
 end

@@ -1,0 +1,3 @@
+module DatabaseMemoDecorator
+  include MarkdownDescriptionDecorator
+end

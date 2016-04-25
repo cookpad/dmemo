@@ -12,7 +12,7 @@ class TableMemo < ActiveRecord::Base
   end
 
   def linked?
-    source_table_class
+    database_memo.linked? && source_table_class
   end
 
   def masked?

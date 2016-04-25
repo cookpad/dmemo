@@ -6,7 +6,10 @@ $.fn.editable.defaults.display = false
 $(document).ready(->
   $(".editable-field").editable(
     success: (response, newValue)->
-      $($(this).data("target")).html(newValue)
+      $field = $(this)
+      target = $field.data("target")
+      result = $field.data("result")
+      $(target).html(response[result])
   )
 
   $(".shorten_url_link").on("click", ->

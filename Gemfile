@@ -18,6 +18,13 @@ gem 'haml-rails'
 
 gem 'jbuilder'
 
+gem 'html-pipeline'
+gem 'html-pipeline-rouge_filter'
+gem 'rinku'
+gem 'github-markdown'
+
+gem 'active_decorator'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'

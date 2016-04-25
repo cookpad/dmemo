@@ -1,0 +1,3 @@
+module ColumnMemoDecorator
+  include MarkdownDescriptionDecorator
+end
