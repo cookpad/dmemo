@@ -41,20 +41,32 @@
 .nav-tabs-custom
   %ul.nav.nav-tabs
     %li.active
-      %a{ href: "#tab_schema", data: { toggle: "tab" } } Schema
+      %a{ href: "#tab_data", data: { toggle: "tab" } } Data
     %li
-      - if @source_table_data.present?
-        %a{ href: "#tab_data", data: { toggle: "tab" } } Data
-      - elsif @table_memo.linked?
-        %a.disabled{ href: "#", data: { toggle: "tooltip", placement: "bottom", title: t("masked_table") } }
-          Data
-          %i.fa.fa-warning
-      - else
-        %a.disabled{ href: "#", data: { toggle: "tooltip", placement: "bottom", title: t("no_linked_table") } }
-          Data
-          %i.fa.fa-warning
+      %a{ href: "#tab_schema", data: { toggle: "tab" } } Schema
   .tab-content
-    #tab_schema.tab-pane.active
+    #tab_data.tab-pane.active
+      - if @table_memo.linked?
+        .pull-right.block
+          #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
+        %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+          %tr
+            - @source_column_classes.each do |source_column_class|
+              %th #{source_column_class.name} (#{source_column_class.sql_type})
+
+          - if @source_table_data.present?
+            - @source_table_data.each do |row|
+              %tr
+                - Array.wrap(row).each do |value|
+                  %td= value
+          - else
+            %tr
+              %td.text-center{ colspan: @source_column_classes.size }
+                = t("masked_table")
+      - else
+        .text-center= t("no_linked_table")
+
+    #tab_schema.tab-pane
       %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
         %tr
           %th Name
@@ -64,17 +76,3 @@
           %th Nullable
         - @table_memo.column_memos.order(:id).each do |column_memo|
           = render "column_memo", column_memo: column_memo
-    - if @source_table_data.present?
-      #tab_data.tab-pane
-        .pull-right.block
-          #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
-
-        %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-          %tr
-            - @source_column_classes.each do |source_column_class|
-              %th #{source_column_class.name} (#{source_column_class.sql_type})
-
-          - @source_table_data.each do |row|
-            %tr
-              - Array.wrap(row).each do |value|
-                %td= value
