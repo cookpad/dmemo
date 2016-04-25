@@ -45,7 +45,7 @@
     %li
       %a{ href: "#tab_schema", data: { toggle: "tab" } } Schema
   .tab-content
-    #tab_data.tab-pane.active
+    #tab_data.tab-pane.active.table-responsive
       - if @table_memo.linked?
         .pull-right.block
           #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
