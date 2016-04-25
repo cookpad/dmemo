@@ -9,10 +9,11 @@ class TableMemosController < ApplicationController
     else
       @table_memo = TableMemo.find(params[:id])
     end
+    return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
       @source_column_classes = source_table_class.columns
-      unless @table_memo.masked?
+      unless  @table_memo.masked?
         @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
       end
       @source_table_count = source_table_class.count

@@ -13,6 +13,8 @@ class TableMemo < ActiveRecord::Base
 
   def linked?
     database_memo.linked? && source_table_class
+  rescue Mysql2::Error
+    false
   end
 
   def masked?
