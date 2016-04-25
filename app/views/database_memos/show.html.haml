@@ -47,12 +47,4 @@
         %th Description
         %th Columns
       - @database_memo.table_memos.each do |table_memo|
-        %tr
-          %td
-            = link_to table_memo.name, table_memo
-            - unless table_memo.linked?
-              %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source tables." } }
-          %td
-            = table_memo.description.truncate(30)
-          %td
-            = Array.wrap(@column_memo_names[table_memo.id]).join(", ").truncate(100)
+        = render "table_memo", table_memo: table_memo

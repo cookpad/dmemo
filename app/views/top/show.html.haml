@@ -20,6 +20,7 @@
               - unless database_memo.linked?
                 %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source database." } }
             %td
-              = database_memo.description.truncate(30)
+              - if database_memo.description.present?
+                = database_memo.description_text.truncate(30)
             %td
               = database_memo.table_memos.map(&:name).join(", ").truncate(100)
