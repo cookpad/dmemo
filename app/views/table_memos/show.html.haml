@@ -49,7 +49,7 @@
       - if @table_memo.linked?
         .pull-right.block
           #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
-        %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
           %tr
             - @source_column_classes.each do |source_column_class|
               %th #{source_column_class.name} (#{source_column_class.sql_type})
