@@ -6,7 +6,5 @@
   %td
     - if table_memo.description.present?
       = table_memo.description_text.truncate(30)
-    - else
-      = t("no_description")
   %td
     = Array.wrap(@column_memo_names[table_memo.id]).join(", ").truncate(100)
