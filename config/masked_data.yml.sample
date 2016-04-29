@@ -1,6 +1,12 @@
 development:
   tables:
     - dmemo/data_sources
+  columns:
+    - password
+    - email
 production:
   tables:
     - dmemo/data_sources
+  columns:
+    - password
+    - email

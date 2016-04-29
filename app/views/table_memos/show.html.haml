@@ -57,8 +57,15 @@
           - if @source_table_data.present?
             - @source_table_data.each do |row|
               %tr
-                - Array.wrap(row).each do |value|
-                  %td= value
+                - database_name = @table_memo.database_memo.name
+                - table_name = @table_memo.name
+                - Array.wrap(row).each_with_index do |value, i|
+                  - source_column_class = @source_column_classes[i]
+                  %td
+                    - if MaskedData.masked_column?(database_name, table_name, source_column_class.name)
+                      = t("masked_text")
+                    - else
+                      = value
           - else
             %tr
               %td.text-center{ colspan: @source_column_classes.size }
