@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'denv'
 
 gem 'rails', '4.2.6'
 
@@ -24,6 +25,8 @@ gem 'rinku'
 gem 'github-markdown'
 
 gem 'active_decorator'
+
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'byebug'
