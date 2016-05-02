@@ -1,4 +1,7 @@
 class DataSourcesController < ApplicationController
+
+  DUMMY_PASSWORD = "__DUMMY__"
+
   def index
     @data_sources = DataSource.all
   end
@@ -14,6 +17,7 @@ class DataSourcesController < ApplicationController
 
   def edit
     @data_source = DataSource.find(params[:id])
+    @data_source.password = DUMMY_PASSWORD
   end
 
   def update
@@ -31,9 +35,10 @@ class DataSourcesController < ApplicationController
   private
 
   def data_source_params
-    params.
+    permitted_params = params.
       require(:data_source).
-      permit(:name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding).
-      reject {|k, v| v.blank? }
+      permit(:name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding)
+    permitted_params.reject!{|k, v| k == "password" && v == DUMMY_PASSWORD }
+    permitted_params
   end
 end

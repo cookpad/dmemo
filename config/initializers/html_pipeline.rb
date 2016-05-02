@@ -6,9 +6,13 @@ Rails.application.config.markdown_to_html_pipeline = HTML::Pipeline.new [
   HTML::Pipeline::AutolinkFilter,
 ]
 
-class InnerTextFilter < HTML::Pipeline::Filter
-  def call
-    doc.text
+module HTML
+  class Pipeline
+    class InnerTextFilter < HTML::Pipeline::Filter
+      def call
+        doc.text
+      end
+    end
   end
 end
 

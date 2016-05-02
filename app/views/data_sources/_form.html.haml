@@ -23,7 +23,7 @@
       .col-sm-10= f.text_field :user, class: "form-control", placeholder: "root"
     .form-group
       = f.label :password, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :password, class: "form-control"
+      .col-sm-10= f.password_field :password, class: "form-control", value: @data_source.password
     .form-group
       = f.label :encoding, class: "col-sm-2 control-label"
       .col-sm-10= f.text_field :encoding, class: "form-control"

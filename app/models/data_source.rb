@@ -3,16 +3,28 @@ class DataSource < ActiveRecord::Base
   module DynamicTable
   end
 
+  def connection_config_password
+    password.present? ? password : nil
+  end
+
+  def connection_config_encoding
+    encoding.present? ? encoding : nil
+  end
+
+  def connection_config_pool
+    pool.present? ? pool : nil
+  end
+
   def connection_config
     {
-        adapter: adapter,
-        host: host,
-        port: port,
-        database: dbname,
-        username: user,
-        password: password,
-        encoding: encoding,
-        pool: pool,
+      adapter: adapter,
+      host: host,
+      port: port,
+      database: dbname,
+      username: user,
+      password: connection_config_password,
+      encoding: connection_config_encoding,
+      pool: connection_config_pool,
     }.compact
   end
 
