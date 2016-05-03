@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get "auth/google_oauth2/callback", to: "sessions#create"
+  get "logout", to: "sessions#destroy"
+
   get "/s/:database_name" => "database_memos#show", as: "shorten_database"
   get "/s/:database_name/:table_name" => "table_memos#show", as: "shorten_table"
 end
