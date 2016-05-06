@@ -28,6 +28,8 @@ gem 'active_decorator'
 
 gem 'omniauth-google-oauth2'
 
+gem 'puma'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
