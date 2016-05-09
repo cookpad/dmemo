@@ -1,9 +1,9 @@
 !!!
 %html
   %head
-    %meta{ content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
-    %meta{ content: "IE=edge", "http-equiv" => "X-UA-Compatible" }
-    %meta{ content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", name: "viewport"}
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }/
+    %meta{ content: "IE=edge", "http-equiv" => "X-UA-Compatible" }/
+    %meta{ content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", name: "viewport"}/
     %title Database Memos
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
@@ -38,7 +38,7 @@
           .user-panel
             - if @current_user
               .pull-left.image
-                %img.img-circle{ src: @current_user.image_url }
+                %img.img-circle{ src: @current_user.image_url }/
               .pull-left.info
                 %p= @current_user.name
 
