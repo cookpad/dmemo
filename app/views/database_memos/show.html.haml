@@ -46,5 +46,4 @@
         %th Name
         %th Description
         %th Columns
-      - @database_memo.table_memos.each do |table_memo|
-        = render "table_memo", table_memo: table_memo
+      = render partial: "table_memo", collection: @database_memo.table_memos

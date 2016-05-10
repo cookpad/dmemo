@@ -81,5 +81,4 @@
           %th Sql Type
           %th Default Value
           %th Nullable
-        - @table_memo.column_memos.order(:id).each do |column_memo|
-          = render "column_memo", column_memo: column_memo
+        = render partial: "column_memo", collection: @table_memo.column_memos.order(:id)
