@@ -1,10 +1,6 @@
 class MaskedData
   def self.data
-    if Rails.env.development?
-      YAML.load(File.read("#{Rails.root}/config/masked_data.yml"))[Rails.env]
-    else
-      @@data ||= YAML.load(File.read("#{Rails.root}/config/masked_data.yml"))[Rails.env]
-    end
+    @@data ||= YAML.load(File.read("#{Rails.root}/config/masked_data.yml"))[Rails.env]
   end
 
   def self.masked_database_names

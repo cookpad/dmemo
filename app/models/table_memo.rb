@@ -12,7 +12,7 @@ class TableMemo < ActiveRecord::Base
   end
 
   def linked?
-    database_memo.linked? && source_table_class
+    database_memo.linked? && source_table_class.present?
   rescue Mysql2::Error
     false
   end

@@ -7,5 +7,7 @@ class ColumnMemo < ActiveRecord::Base
 
   def linked?
     table_memo.linked? && source_column_class.present?
+  rescue Mysql2::Error
+    false
   end
 end
