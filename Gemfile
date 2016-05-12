@@ -43,6 +43,7 @@ group :development do
   gem 'bower-rails'
   gem 'meta_request'
   gem 'quiet_assets'
+  gem 'ruby-prof'
 end
 
 group :test do
