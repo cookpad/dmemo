@@ -14,7 +14,7 @@
  *= require admin-lte/bootstrap/css/bootstrap.css
  *= require admin-lte/dist/css/AdminLTE.css
  *= require admin-lte/dist/css/skins/skin-blue.css
- *= require font-awesome/scss/font-awesome
+ *= require font-awesome-custom
  *= require x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
  *= require pygments/css/friendly.css
 //= require dmemo

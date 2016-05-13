@@ -30,6 +30,8 @@ gem 'omniauth-google-oauth2'
 
 gem 'puma'
 
+gem "non-stupid-digest-assets"
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'

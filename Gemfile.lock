@@ -139,6 +139,8 @@ GEM
     net-ssh (3.0.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    non-stupid-digest-assets (1.0.8)
+      sprockets (>= 2.0)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -274,6 +276,7 @@ DEPENDENCIES
   jquery-rails
   meta_request
   mysql2
+  non-stupid-digest-assets
   omniauth-google-oauth2
   pg (~> 0.15)
   pry-byebug
