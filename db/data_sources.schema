@@ -1,14 +1,14 @@
 create_table "data_sources", force: :cascade do |t|
-  t.string   "name",        null: false
-  t.text     "description", null: false, default: ""
-  t.string   "adapter",     null: false
-  t.string   "host",        null: false
+  t.string   "name",                     null: false
+  t.text     "description", default: "", null: false
+  t.string   "adapter",                  null: false
+  t.string   "host",                     null: false
   t.integer  "port"
-  t.string   "dbname",      null: false
-  t.string   "user",        null: false
+  t.string   "dbname",                   null: false
+  t.string   "user",                     null: false
   t.string   "password"
   t.string   "encoding"
   t.integer  "pool"
-  t.datetime "created_at",  null: false
-  t.datetime "updated_at",  null: false
+  t.datetime "created_at",               null: false
+  t.datetime "updated_at",               null: false
 end

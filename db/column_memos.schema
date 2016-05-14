@@ -3,8 +3,10 @@ create_table "column_memos", force: :cascade do |t|
   t.string   "name",                          null: false
   t.text     "description",   default: "",    null: false
   t.string   "sql_type",      default: "",    null: false
-  t.string   "default" ,      default: "",    null: false
-  t.boolean  "nullable" ,     default: false, null: false
+  t.string   "default",       default: "",    null: false
+  t.boolean  "nullable",      default: false, null: false
   t.datetime "created_at",                    null: false
   t.datetime "updated_at",                    null: false
 end
+
+add_index "column_memos", ["table_memo_id", "name"], name: "uniq_column_name", unique: true, using: :btree

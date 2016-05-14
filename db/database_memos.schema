@@ -4,3 +4,5 @@ create_table "database_memos", force: :cascade do |t|
   t.datetime "created_at",               null: false
   t.datetime "updated_at",               null: false
 end
+
+add_index "database_memos", ["name"], name: "uniq_database_name", unique: true, using: :btree
