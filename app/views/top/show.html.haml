@@ -16,7 +16,7 @@
         - @database_memos.each do |database_memo|
           %tr
             %td
-              = link_to database_memo.name, database_memo
+              = link_to database_memo.name, database_memo_path(database_memo.name)
               - unless database_memo.linked?
                 %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source database." } }
             %td

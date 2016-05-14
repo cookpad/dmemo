@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_database_memo_names
-    @database_memo_names = DatabaseMemo.all.pluck(:id, :name)
+    @database_memo_names = DatabaseMemo.all.pluck(:name)
   end
 end

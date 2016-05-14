@@ -11,9 +11,4 @@ $(document).ready(->
       result = $field.data("result")
       $(target).html(response[result])
   )
-
-  $(".shorten_url_link").on("click", ->
-    target = $(this).data("target")
-    $(target).toggleClass("hidden")
-  )
 )

@@ -1,5 +1,7 @@
 class DatabaseMemo < ActiveRecord::Base
 
+  scope :id_or_name, ->(id, name) { where("database_memos.id = ? OR database_memos.name = ?", id.to_i, name) }
+
   has_many :table_memos, dependent: :destroy
 
   has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name

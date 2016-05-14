@@ -60,10 +60,9 @@
                 %span Databases
                 %i.fa.fa-angle-left.pull-right
               %ul.treeview-menu
-                - @database_memo_names.each do |row|
-                  - id, name = row
+                - @database_memo_names.each do |name|
                   %li
-                    = link_to name,database_memo_path(id)
+                    = link_to name, database_memo_path(name)
 
       .content-wrapper
         %section.content-header

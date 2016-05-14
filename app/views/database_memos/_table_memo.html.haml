@@ -1,6 +1,6 @@
 %tr
   %td
-    = link_to table_memo.name, table_memo
+    = link_to table_memo.name, database_memo_table_path(@database_memo.name, table_memo.name)
     - unless table_memo.linked?
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source tables." } }
   %td

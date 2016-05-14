@@ -1,14 +1,12 @@
 class TableMemosController < ApplicationController
+  before_action :redirect_named_path, only: :show
+
   def index
     redirect_to database_memo_path(params[:database_memo_id])
   end
 
   def show
-    if params[:database_name] && params[:table_name]
-      @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: params[:database_name])).find_by!(name: params[:table_name])
-    else
-      @table_memo = TableMemo.find(params[:id])
-    end
+    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: params[:database_memo_id])).where(name: params[:name]).take!
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
@@ -41,5 +39,13 @@ class TableMemosController < ApplicationController
       column_names = source_column_classes.map(&:name)
       source_table_class.limit(20).pluck(*column_names)
     end
+  end
+
+  private
+
+  def redirect_named_path
+    return unless params[:id] =~ /\A\d+\z/
+    table_memo = TableMemo.find(params[:id])
+    redirect_to database_memo_table_path(table_memo.database_memo.name, table_memo.name)
   end
 end

@@ -1,4 +1,7 @@
 class TableMemo < ActiveRecord::Base
+
+  scope :id_or_name, ->(id, name) { where("table_memos.id = ? OR table_memos.name = ?", id.to_i, name) }
+
   belongs_to :database_memo
 
   has_many :column_memos, dependent: :destroy
