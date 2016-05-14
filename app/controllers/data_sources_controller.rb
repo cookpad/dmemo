@@ -1,4 +1,5 @@
 class DataSourcesController < ApplicationController
+  permits :name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding
 
   DUMMY_PASSWORD = "__DUMMY__"
 
@@ -10,35 +11,32 @@ class DataSourcesController < ApplicationController
     @data_source = DataSource.new
   end
 
-  def create
-    DataSource.create!(data_source_params)
+  def create(data_source)
+    DataSource.create!(data_source_params(data_source))
     redirect_to data_sources_path
   end
 
-  def edit
-    @data_source = DataSource.find(params[:id])
+  def edit(id)
+    @data_source = DataSource.find(id)
     @data_source.password = DUMMY_PASSWORD
   end
 
-  def update
-    data_source = DataSource.find(params[:id])
-    data_source.update!(data_source_params)
+  def update(id, data_source)
+    @data_source = DataSource.find(id)
+    @data_source.update!(data_source_params(data_source))
     redirect_to data_sources_path
   end
 
-  def destroy
-    data_source = DataSource.find(params[:id])
+  def destroy(id)
+    data_source = DataSource.find(id)
     data_source.destroy!
     redirect_to data_sources_path
   end
 
   private
 
-  def data_source_params
-    permitted_params = params.
-      require(:data_source).
-      permit(:name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding)
-    permitted_params.reject!{|k, v| k == "password" && v == DUMMY_PASSWORD }
-    permitted_params
+  def data_source_params(data_source)
+    data_source.reject!{|k, v| k == "password" && v == DUMMY_PASSWORD }
+    data_source
   end
 end

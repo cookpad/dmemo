@@ -1,14 +1,14 @@
 class ColumnMemosController < ApplicationController
-  def update
-    @column_memo = ColumnMemo.find(params[:id])
-    case params[:name]
+  def update(id, name, value)
+    @column_memo = ColumnMemo.find(id)
+    case name
       when "description"
-        @column_memo.update!(description: params[:value])
+        @column_memo.update!(description: value)
     end
   end
 
-  def destroy
-    column_memo = ColumnMemo.find(params[:id])
+  def destroy(id)
+    column_memo = ColumnMemo.find(id)
     column_memo.destroy!
     redirect_to table_memo_path(column_memo.table_memo_id)
   end

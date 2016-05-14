@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    action_args (2.0.0)
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
       actionview (= 4.2.6)
@@ -268,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  action_args
   active_decorator
   activerecord4-redshift-adapter (~> 0.2.0)
   bower-rails

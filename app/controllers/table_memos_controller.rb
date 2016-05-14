@@ -1,12 +1,8 @@
 class TableMemosController < ApplicationController
   before_action :redirect_named_path, only: :show
 
-  def index
-    redirect_to database_memo_path(params[:database_memo_id])
-  end
-
-  def show
-    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: params[:database_memo_id])).where(name: params[:name]).take!
+  def show(database_memo_id, name)
+    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: database_memo_id)).where(name: name).take!
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
@@ -18,16 +14,16 @@ class TableMemosController < ApplicationController
     end
   end
 
-  def update
-    @table_memo = TableMemo.find(params[:id])
-    case params[:name]
+  def update(id, name, value)
+    @table_memo = TableMemo.find(id)
+    case name
       when "description"
-        @table_memo.update!(description: params[:value])
+        @table_memo.update!(description: value)
     end
   end
 
-  def destroy
-    table_memo = TableMemo.find(params[:id])
+  def destroy(id)
+    table_memo = TableMemo.find(id)
     table_memo.destroy!
     redirect_to database_memo_path(table_memo.database_memo_id)
   end
@@ -43,9 +39,9 @@ class TableMemosController < ApplicationController
 
   private
 
-  def redirect_named_path
-    return unless params[:id] =~ /\A\d+\z/
-    table_memo = TableMemo.find(params[:id])
+  def redirect_named_path(id = nil)
+    return unless id =~ /\A\d+\z/
+    table_memo = TableMemo.find(id)
     redirect_to database_memo_table_path(table_memo.database_memo.name, table_memo.name)
   end
 end

@@ -6,39 +6,37 @@ class DatabaseMemosController < ApplicationController
     redirect_to root_path
   end
 
-  def show
-    @database_memo = DatabaseMemo.id_or_name(params[:id], params[:id]).includes(:table_memos).take!
+  def show(id)
+    @database_memo = DatabaseMemo.where(name: id).includes(:table_memos).take!
     @column_memo_names = ColumnMemo.where(table_memo_id: @database_memo.table_memos.map(&:id)).pluck(:table_memo_id, :name).each_with_object({}) do |row, hash|
       id, name = row
       (hash[id] ||= []) << name
     end
   end
 
-  def create
-    if params[:data_source_id]
-      DatabaseMemo.import_data_source!(params[:data_source_id])
-    end
+  def create(data_source_id)
+    DatabaseMemo.import_data_source!(data_source_id)
     redirect_to "/"
   end
 
-  def update
-    @database_memo = DatabaseMemo.find(params[:id])
-    case params[:name]
+  def update(id, name, value)
+    @database_memo = DatabaseMemo.find(id)
+    case name
       when "description"
-        @database_memo.update!(description: params[:value])
+        @database_memo.update!(description: value)
     end
   end
 
-  def destroy
-    database_memo = DatabaseMemo.find(params[:id])
+  def destroy(id)
+    database_memo = DatabaseMemo.find(id)
     database_memo.destroy!
     redirect_to root_path
   end
 
   private
 
-  def redirect_named_path
-    return unless params[:id] =~ /\A\d+\z/
-    redirect_to database_memo_path(DatabaseMemo.where(id: params[:id]).pluck(:name).first)
+  def redirect_named_path(id = nil)
+    return unless id =~ /\A\d+\z/
+    redirect_to database_memo_path(DatabaseMemo.where(id: id).pluck(:name).first)
   end
 end
