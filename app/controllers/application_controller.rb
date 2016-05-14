@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_action :require_login
-  before_action :set_database_memo_names
 
   private
 
@@ -15,9 +14,5 @@ class ApplicationController < ActionController::Base
   def require_login
     return if current_user
     redirect_to "/auth/google_oauth2"
-  end
-
-  def set_database_memo_names
-    @database_memo_names = DatabaseMemo.all.pluck(:name)
   end
 end
