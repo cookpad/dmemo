@@ -23,7 +23,13 @@ class DataSourcesController < ApplicationController
 
   def update(id, data_source)
     @data_source = DataSource.find(id)
-    @data_source.update!(data_source_params(data_source))
+    @data_source.assign_attributes(data_source_params(data_source))
+    @data_source.save! if @data_source.changed?
+    DatabaseMemo.import_data_source!(@data_source.id)
+    flash[:updated] = t("data_source_updated", name: @data_source.name)
+    redirect_to data_sources_path
+  rescue ActiveRecord::ActiveRecordError => e
+    flash[:error] = e.message
     redirect_to data_sources_path
   end
 

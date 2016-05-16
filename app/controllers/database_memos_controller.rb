@@ -14,11 +14,6 @@ class DatabaseMemosController < ApplicationController
     end
   end
 
-  def create(data_source_id)
-    DatabaseMemo.import_data_source!(data_source_id)
-    redirect_to "/"
-  end
-
   def update(id, name, value)
     @database_memo = DatabaseMemo.find(id)
     case name

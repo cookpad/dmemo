@@ -26,3 +26,4 @@ en:
   unlinked_column: unlinked column
   masked_table: This table contains masked data.
   masked_text: ••••••••
+  data_source_updated: "'%{name}' updated."

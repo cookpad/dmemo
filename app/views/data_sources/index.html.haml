@@ -9,6 +9,16 @@
     %li.active
       Data Sources
 
+- if flash[:error]
+  .box.box-danger
+    .box-body
+      = flash[:error]
+
+- if flash[:updated]
+  .box.box-info
+    .box-body
+      = flash[:updated]
+
 .box
   .box-header.with-border
     = link_to new_data_source_path, class: "btn btn-default pull-right" do
@@ -42,6 +52,7 @@
             = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
               %button.btn.btn-default
                 %i.fa.fa-trash
-            = link_to database_memos_path(data_source_id: data_source.id), method: :post do
-              %button.btn.btn-default
+            = form_for data_source, html: { class: "inline" } do |f|
+              = f.hidden_field :name
+              = f.button class: "btn btn-default" do
                 %i.fa.fa-refresh
