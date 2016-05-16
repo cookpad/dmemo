@@ -18,7 +18,7 @@
             %td
               = link_to database_memo.name, database_memo_path(database_memo.name)
               - unless database_memo.linked?
-                %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source database." } }
+                %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_database") } }
             %td
               - if database_memo.description.present?
                 = database_memo.description_text.truncate(30)

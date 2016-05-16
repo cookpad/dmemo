@@ -21,6 +21,8 @@
 
 en:
   no_description: No description given.
-  no_linked_table: There is no linked source table.
+  unlinked_database: unlinked database
+  unlinked_table: unlinked table
+  unlinked_column: unlinked column
   masked_table: This table contains masked data.
   masked_text: ••••••••

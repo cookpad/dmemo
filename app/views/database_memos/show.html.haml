@@ -6,8 +6,7 @@
     .box.box-warning
       .box-header
         %h4
-          %i.fa.fa-warning
-          There is no linked source database.
+          %i.fa.fa-warning= t("unlinked_database")
       .box-body
         = link_to "Delete database information", @database_memo,
           method: :delete,

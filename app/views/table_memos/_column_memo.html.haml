@@ -2,7 +2,7 @@
   %td
     = column_memo.name
     - unless column_memo.linked?
-      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: "There is no linked source columns." } }
+      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
   %td
     = link_to_editable column_memo,
               target: ".column-description[data-column-memo-id=\"#{column_memo.id}\"]",

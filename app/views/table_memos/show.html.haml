@@ -6,8 +6,7 @@
     .box.box-warning
       .box-header
         %h4
-          %i.fa.fa-warning
-          There is no linked source table.
+          %i.fa.fa-warning= t("unlinked_table")
       .box-body
         = link_to "Delete table information", @table_memo,
           method: :delete,
@@ -68,7 +67,7 @@
               %td.text-center{ colspan: @source_column_classes.size }
                 = t("masked_table")
       - else
-        .text-center= t("no_linked_table")
+        .text-center= t("unlinked_table")
 
     #tab_schema.tab-pane
       %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
