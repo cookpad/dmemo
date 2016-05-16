@@ -60,10 +60,9 @@
                 %span Databases
                 %i.fa.fa-angle-left.pull-right
               %ul.treeview-menu
-                - cache "sidebar_database_menu", expires_in: 5.minutes do
-                  - DatabaseMemo.all.pluck(:name).each do |name|
-                    %li
-                      = link_to name, database_memo_path(name)
+                - @sidebar_databases.map(&:name).each do |name|
+                  %li
+                    = link_to name, database_memo_path(name)
 
       .content-wrapper
         %section.content-header
