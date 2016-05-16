@@ -21,9 +21,9 @@
 
 en:
   no_description: No description given.
-  unlinked_database: unlinked database
-  unlinked_table: unlinked table
-  unlinked_column: unlinked column
+  unlinked_database: Unlinked database
+  unlinked_table: Unlinked table
+  unlinked_column: Unlinked column
   masked_table: This table contains masked data.
   masked_text: ••••••••
   data_source_updated: "'%{name}' updated."

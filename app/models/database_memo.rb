@@ -24,6 +24,6 @@ class DatabaseMemo < ActiveRecord::Base
   end
 
   def linked?
-    data_source.present?
+    data_source.present? && data_source.source_base_class.try(:connection) rescue nil
   end
 end
