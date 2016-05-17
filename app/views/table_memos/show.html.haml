@@ -49,8 +49,11 @@
           %tr
             - @source_column_classes.each do |source_column_class|
               %th #{source_column_class.name} (#{source_column_class.sql_type})
-
-          - if @source_table_data.present?
+          - if @source_table_data.nil?
+            %tr
+              %td.text-center{ colspan: @source_column_classes.size }
+                = t("masked_table")
+          - else
             - @source_table_data.each do |row|
               %tr
                 - database_name = @table_memo.database_memo.name
@@ -62,10 +65,6 @@
                       = t("masked_text")
                     - else
                       = value
-          - else
-            %tr
-              %td.text-center{ colspan: @source_column_classes.size }
-                = t("masked_table")
       - else
         .text-center= t("unlinked_table")
 
