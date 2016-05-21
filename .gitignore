@@ -15,3 +15,4 @@
 /config/masked_data.yml
 .env
 public/assets/
+.env.docker
