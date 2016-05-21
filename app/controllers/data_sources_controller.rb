@@ -23,6 +23,7 @@ class DataSourcesController < ApplicationController
 
   def update(id, data_source)
     @data_source = DataSource.find(id)
+    @data_source.reset_source_table_classes!
     @data_source.assign_attributes(data_source_params(data_source))
     @data_source.save! if @data_source.changed?
     DatabaseMemo.import_data_source!(@data_source.id)
