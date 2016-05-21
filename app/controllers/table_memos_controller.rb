@@ -31,7 +31,7 @@ class TableMemosController < ApplicationController
   private
 
   def fetch_source_table_data(source_table_class, source_column_classes)
-    cache("source_table_data_#{source_table_class.name.underscore}", expire: 1.day) do
+    cache("source_table_data_#{source_table_class.cache_key}", expire: 1.day) do
       column_names = source_column_classes.map(&:name)
       source_table_class.limit(20).pluck(*column_names)
     end

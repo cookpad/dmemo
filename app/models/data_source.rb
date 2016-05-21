@@ -1,6 +1,15 @@
 class DataSource < ActiveRecord::Base
 
   module DynamicTable
+    class AbstractTable < ActiveRecord::Base
+      self.abstract_class = true
+
+      class_attribute :defined_at
+
+      def self.cache_key
+        "#{name.underscore}-#{defined_at.strftime("%Y%m%d%H%M%S")}"
+      end
+    end
   end
 
   def connection_config_password
@@ -40,8 +49,9 @@ class DataSource < ActiveRecord::Base
     base_class_name = source_table_class_name("Base")
     return DynamicTable.const_get(base_class_name) if DynamicTable.const_defined?(base_class_name)
 
-    base_class = Class.new(ActiveRecord::Base)
+    base_class = Class.new(DynamicTable::AbstractTable)
     DynamicTable.const_set(base_class_name, base_class)
+    base_class.defined_at = Time.now
     base_class.abstract_class = true
     base_class.establish_connection(connection_config)
     base_class
@@ -58,6 +68,8 @@ class DataSource < ActiveRecord::Base
     table_class = Class.new(source_base_class)
     table_class.table_name = table_name
     DynamicTable.const_set(table_class_name, table_class)
+    table_class.defined_at = Time.now
+    table_class
   end
 
   def source_table_classes
