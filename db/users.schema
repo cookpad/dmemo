@@ -1,0 +1,11 @@
+create_table "users", force: :cascade do |t|
+  t.string   "provider",   limit: 20,  null: false
+  t.string   "uid",        limit: 40,  null: false
+  t.string   "name",       limit: 40,  null: false
+  t.string   "email",      limit: 40,  null: false
+  t.string   "image_url",  limit: 200, null: false
+  t.datetime "created_at",             null: false
+  t.datetime "updated_at",             null: false
+end
+
+add_index "users", ["provider", "uid"], name: "uniq_provider_uid", unique: true, using: :btree

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.from_session(session[:user]) if session[:user]
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def require_login

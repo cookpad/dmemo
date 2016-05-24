@@ -3,16 +3,23 @@ class SessionsController < ApplicationController
 
   def create
     auth = env["omniauth.auth"]
-    session[:user] = {
-      uid: auth[:uid],
-      info: auth[:info],
+    user = User.find_or_initialize_by(
       provider: auth[:provider],
-    }
+      uid: auth[:uid],
+    )
+    user.assign_attributes(
+      name: auth[:info][:name],
+      email: auth[:info][:email],
+      image_url: auth[:info][:image],
+    )
+    user.save! if user.changed?
+
+    session[:user_id] = user.id
     redirect_to root_path
   end
 
   def destroy
-    session[:user] = nil
+    session[:user_id] = nil
     redirect_to root_path
   end
 end
