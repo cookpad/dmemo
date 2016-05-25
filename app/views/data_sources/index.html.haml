@@ -20,10 +20,11 @@
       = flash[:updated]
 
 .box
-  .box-header.with-border
-    = link_to new_data_source_path, class: "btn btn-default pull-right" do
-      %i.fa.fa-plus
-      New Data Source
+  - if current_user.admin?
+    .box-header.with-border
+      = link_to new_data_source_path, class: "btn btn-default pull-right" do
+        %i.fa.fa-plus
+        New Data Source
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %tr
@@ -32,7 +33,8 @@
         %th Host
         %th Port
         %th Database Name
-        %th
+        - if current_user.admin?
+          %th
       - @data_sources.each do |data_source|
         %tr
           %td
@@ -45,14 +47,15 @@
             = data_source.port
           %td
             = data_source.dbname
-          %td
-            = link_to edit_data_source_path(data_source) do
-              %button.btn.btn-default
-                %i.fa.fa-edit
-            = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
-              %button.btn.btn-default
-                %i.fa.fa-trash
-            = form_for data_source, html: { class: "inline" } do |f|
-              = f.hidden_field :name
-              = f.button class: "btn btn-default" do
-                %i.fa.fa-refresh
+          - if current_user.admin?
+            %td
+              = link_to edit_data_source_path(data_source) do
+                %button.btn.btn-default
+                  %i.fa.fa-edit
+              = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
+                %button.btn.btn-default
+                  %i.fa.fa-trash
+              = form_for data_source, html: { class: "inline" } do |f|
+                = f.hidden_field :name
+                = f.button class: "btn btn-default" do
+                  %i.fa.fa-refresh

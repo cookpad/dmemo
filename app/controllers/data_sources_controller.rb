@@ -1,6 +1,8 @@
 class DataSourcesController < ApplicationController
   permits :name, :description, :adapter, :host, :port, :dbname, :user, :password, :encoding
 
+  before_action :require_admin_login, only: %w(new create edit update destroy)
+
   DUMMY_PASSWORD = "__DUMMY__"
 
   def index

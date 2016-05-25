@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     redirect_to "/auth/google_oauth2"
   end
 
+  def require_admin_login
+    redirect_to root_path unless current_user.admin?
+  end
+
   def set_sidebar_databases
     @sidebar_databases = DatabaseMemo.all.select(:name)
   end
