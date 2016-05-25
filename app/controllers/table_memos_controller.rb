@@ -1,8 +1,10 @@
 class TableMemosController < ApplicationController
+  permits :description
+
   before_action :redirect_named_path, only: :show
 
-  def show(database_memo_id, name)
-    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: database_memo_id)).where(name: name).take!
+  def show(database_name, name)
+    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
@@ -14,12 +16,14 @@ class TableMemosController < ApplicationController
     end
   end
 
-  def update(id, name, value)
+  def edit(id)
     @table_memo = TableMemo.find(id)
-    case name
-      when "description"
-        @table_memo.update!(description: value)
-    end
+  end
+
+  def update(id, table_memo)
+    @table_memo = TableMemo.find(id)
+    @table_memo.update!(table_memo)
+    redirect_to database_memo_table_path(@table_memo.database_memo.name, @table_memo.name)
   end
 
   def destroy(id)
