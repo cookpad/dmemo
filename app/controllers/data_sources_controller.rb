@@ -30,6 +30,7 @@ class DataSourcesController < ApplicationController
     flash[:updated] = t("data_source_updated", name: @data_source.name)
     redirect_to data_sources_path
   rescue ActiveRecord::ActiveRecordError => e
+  rescue Mysql2::Error => e
     flash[:error] = e.message
     redirect_to data_sources_path
   end
