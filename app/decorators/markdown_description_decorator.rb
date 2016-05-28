@@ -1,9 +1,13 @@
 module MarkdownDescriptionDecorator
+  def description_markdown
+    @description_markdown ||= Markdown.new(description)
+  end
+
   def description_html
-    @description_html ||= Rails.application.config.markdown_to_html_pipeline.call(description)[:output].html_safe
+    @description_html ||= description_markdown.html.html_safe
   end
 
   def description_text
-    @description_text ||= Rails.application.config.markdown_to_text_pipeline.call(description)[:output].html_safe
+    @description_text ||= description_markdown.text.html_safe
   end
 end

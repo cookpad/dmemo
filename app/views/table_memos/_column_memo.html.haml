@@ -14,8 +14,6 @@
     .column-description{ data: { column_memo_id: column_memo.id } }
       - if column_memo.description.present?
         = column_memo.description_html
-      - else
-        = t("no_description")
   %td
     = column_memo.sql_type
   %td

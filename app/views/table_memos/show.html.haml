@@ -1,6 +1,8 @@
 - content_for :header do
-  %h1.memo_title
-    %span#name.editable-target= @table_memo.name
+  %h1.page-header
+    = @table_memo.name
+    = link_to edit_table_memo_path(@table_memo) do
+      %i.fa.fa-edit
 
   - unless @table_memo.linked?
     .box.box-warning
@@ -23,12 +25,9 @@
     %li.active
       = @table_memo.name
 
-.memo_description.box.box-info.with-border
-  .box-header.with-border
-    %h2.box-title Description
-    = link_to_editable @table_memo, target: "#description", result: "description_html", type: :textarea, name: "description", value: @table_memo.description
+.box.box-info.with-border
   .box-body
-    #description.editable-target.markdown-block
+    .markdown-block
       - if @table_memo.description.present?
         = @table_memo.description_html
       - else
