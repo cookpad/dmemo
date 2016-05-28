@@ -29,6 +29,9 @@
                 = link_to data_sources_path do
                   %i.fa.fa-database
               %li
+                = link_to current_user do
+                  %i.fa.fa-user
+              %li
                 %a{ href: logout_path }
                   %i.fa.fa-sign-out
                   Sign-out
