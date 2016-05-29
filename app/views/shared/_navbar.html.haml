@@ -1,0 +1,13 @@
+%nav.navbar.navbar-static-top{ role: "navigation" }
+  .navbar-custom-menu
+    %ul.nav.navbar-nav
+      %li
+        = link_to data_sources_path do
+          %i.fa.fa-database
+      %li
+        = link_to edit_user_path(current_user) do
+          %i.fa.fa-user
+      %li
+        %a{ href: logout_path }
+          %i.fa.fa-sign-out
+          Sign-out

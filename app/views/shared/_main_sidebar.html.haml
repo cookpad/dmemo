@@ -1,0 +1,28 @@
+%aside.main-sidebar
+  %section.sidebar
+    .user-panel
+      .pull-left.image
+        %img.img-rounded{ src: current_user.image_url }/
+      .pull-left.info
+        %p= current_user.name
+
+    %form.sidebar-form{:action => "#", :method => "get"}
+      .input-group
+        %input.form-control{:name => "q", :placeholder => "Search...", :type => "text"}/
+        %span.input-group-btn
+          %button#search-btn.btn.btn-flat{:name => "search", :type => "submit"}
+            %i.fa.fa-search
+    %ul.sidebar-menu
+      %li
+        = link_to root_path do
+          %i.fa.fa-home
+          Home
+      %li.treeview.active
+        %a
+          %i.fa.fa-link
+          %span Databases
+          %i.fa.fa-angle-left.pull-right
+        %ul.treeview-menu
+          - @sidebar_databases.map(&:name).each do |name|
+            %li
+              = link_to name, database_memo_path(name)

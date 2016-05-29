@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "top#show"
 
   resources :data_sources, except: %w(show)
-  resources :users, except: %w(destroy)
+  resources :users, except: %w(show destroy)
 
   resources :databases, controller: :database_memos, as: :database_memos do
     resources :tables, controller: :table_memos, as: :table_memos, except: %w(index), shallow: true do

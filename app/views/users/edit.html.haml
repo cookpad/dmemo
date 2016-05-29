@@ -1,0 +1,15 @@
+- content_for :header do
+  %h1.page-header= @user.name
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to "Users", users_path
+    %li.active
+      = @user.name
+
+.box
+  = render "form"

@@ -1,0 +1,30 @@
+- content_for :header do
+  %h1.page-header Users
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li.active
+      Users
+
+.box
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Email
+        %th Admin
+        %th
+      - @users.each do |user|
+        %tr
+          %td= user.name
+          %td= user.email
+          %td
+            - if user.admin?
+              %i.fa.fa-check
+          %td
+            - if current_user.editable_user?(user.id)
+              = link_to edit_user_path(user) do
+                %i.fa.fa-edit

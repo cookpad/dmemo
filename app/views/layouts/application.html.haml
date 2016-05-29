@@ -19,53 +19,9 @@
             %i.fa.fa-home
             %b> Database
             MEMO
-        %nav.navbar.navbar-static-top{ role: "navigation" }
-          %a.sidebar-toggle{"data-toggle" => "offcanvas", href: "#", role: "button"}
-            %span.sr-only Toggle navigation
+        = render "/shared/navbar"
 
-          .navbar-custom-menu
-            %ul.nav.navbar-nav
-              %li
-                = link_to data_sources_path do
-                  %i.fa.fa-database
-              %li
-                = link_to current_user do
-                  %i.fa.fa-user
-              %li
-                %a{ href: logout_path }
-                  %i.fa.fa-sign-out
-                  Sign-out
-
-      %aside.main-sidebar
-        %section.sidebar
-          .user-panel
-            - if @current_user
-              .pull-left.image
-                %img.img-circle{ src: @current_user.image_url }/
-              .pull-left.info
-                %p= @current_user.name
-
-          %form.sidebar-form{:action => "#", :method => "get"}
-            .input-group
-              %input.form-control{:name => "q", :placeholder => "Search...", :type => "text"}/
-              %span.input-group-btn
-                %button#search-btn.btn.btn-flat{:name => "search", :type => "submit"}
-                  %i.fa.fa-search
-
-          %ul.sidebar-menu
-            %li
-              = link_to root_path do
-                %i.fa.fa-home
-                Home
-            %li.treeview.active
-              %a
-                %i.fa.fa-link
-                %span Databases
-                %i.fa.fa-angle-left.pull-right
-              %ul.treeview-menu
-                - @sidebar_databases.map(&:name).each do |name|
-                  %li
-                    = link_to name, database_memo_path(name)
+      = render "/shared/main_sidebar"
 
       .content-wrapper
         %section.content-header
