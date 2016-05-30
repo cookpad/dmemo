@@ -34,6 +34,8 @@ gem 'non-stupid-digest-assets'
 
 gem 'action_args'
 
+gem 'diffy'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'

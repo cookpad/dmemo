@@ -73,6 +73,7 @@ GEM
     concurrent-ruby (1.0.2)
     denv (0.2.5)
     diff-lcs (1.2.5)
+    diffy (3.1.0)
     erubis (2.7.0)
     escape_utils (1.2.1)
     execjs (2.6.0)
@@ -277,6 +278,7 @@ DEPENDENCIES
   capistrano-rails
   coffee-rails (~> 4.1.0)
   denv
+  diffy
   factory_girl_rails
   faml
   github-markdown
@@ -303,4 +305,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.3

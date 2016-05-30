@@ -3,6 +3,7 @@ class DatabaseMemo < ActiveRecord::Base
   scope :id_or_name, ->(id, name) { where("database_memos.id = ? OR database_memos.name = ?", id.to_i, name) }
 
   has_many :table_memos, dependent: :destroy
+  has_many :database_memo_logs, -> { order(:revision) }
 
   has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name
 
@@ -25,5 +26,15 @@ class DatabaseMemo < ActiveRecord::Base
 
   def linked?
     data_source.present? && data_source.source_base_class.try(:connection) rescue nil
+  end
+
+  def build_database_memo_log
+    last_log = database_memo_logs.last
+    current_revision = last_log.try(:revision).to_i
+    database_memo_logs.build(
+      revision: current_revision + 1,
+      description: self.description,
+      description_diff: Diffy::Diff.new(last_log.try(:description).to_s, self.description).to_s,
+    )
   end
 end

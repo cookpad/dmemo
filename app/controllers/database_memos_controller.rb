@@ -26,7 +26,11 @@ class DatabaseMemosController < ApplicationController
 
   def update(id, database_memo)
     @database_memo = DatabaseMemo.find(id)
-    @database_memo.update!(database_memo)
+    @database_memo.assign_attributes(database_memo)
+    if @database_memo.changed?
+      @database_memo.build_database_memo_log
+      @database_memo.save!
+    end
     redirect_to database_memo_path(@database_memo.name)
   end
 
