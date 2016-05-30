@@ -17,10 +17,14 @@
         = link_to root_path do
           %i.fa.fa-home
           Home
+      %li
+        = link_to users_path do
+          %i.fa.fa-user
+          User
       %li.treeview.active
         %a
-          %i.fa.fa-link
-          %span Databases
+          %i.fa.fa-database
+          %span Database
           %i.fa.fa-angle-left.pull-right
         %ul.treeview-menu
           - @sidebar_databases.map(&:name).each do |name|
