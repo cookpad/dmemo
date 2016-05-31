@@ -37,46 +37,45 @@
     = link_to table_memo_logs_path(@table_memo.id) do
       %i.fa.fa-clock-o
 
-.nav-tabs-custom
-  %ul.nav.nav-tabs
-    %li.active
-      %a{ href: "#tab_data", data: { toggle: "tab" } } Data
-    %li
-      %a{ href: "#tab_schema", data: { toggle: "tab" } } Schema
-  .tab-content
-    #tab_data.tab-pane.active.table-responsive
-      - if @table_memo.linked?
-        .pull-right.block
-          #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
-        %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
-          %tr
-            - @source_column_classes.each do |source_column_class|
-              %th #{source_column_class.name} (#{source_column_class.sql_type})
-          - if @source_table_data.nil?
-            %tr
-              %td.text-center{ colspan: @source_column_classes.size }
-                = t("masked_table")
-          - else
-            - @source_table_data.each do |row|
-              %tr
-                - database_name = @table_memo.database_memo.name
-                - table_name = @table_memo.name
-                - Array.wrap(row).each_with_index do |value, i|
-                  - source_column_class = @source_column_classes[i]
-                  %td
-                    - if MaskedData.masked_column?(database_name, table_name, source_column_class.name)
-                      = t("masked_text")
-                    - else
-                      = value
-      - else
-        .text-center= t("unlinked_table")
+.box
+  .box-header
+    %h3.box-title Schema
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+        %th Sql Type
+        %th Default Value
+        %th Nullable
+      = render partial: "column_memo", collection: @table_memo.column_memos.order(:id)
 
-    #tab_schema.tab-pane
-      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+.box
+  .box-header
+    %h3.box-title Data
+  .box-body
+    - if @table_memo.linked?
+      %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
         %tr
-          %th Name
-          %th Description
-          %th Sql Type
-          %th Default Value
-          %th Nullable
-        = render partial: "column_memo", collection: @table_memo.column_memos.order(:id)
+          - @source_column_classes.each do |source_column_class|
+            %th #{source_column_class.name} (#{source_column_class.sql_type})
+        - if @source_table_data.nil?
+          %tr
+            %td.text-center{ colspan: @source_column_classes.size }
+              = t("masked_table")
+        - else
+          - @source_table_data.each do |row|
+            %tr
+              - database_name = @table_memo.database_memo.name
+              - table_name = @table_memo.name
+              - Array.wrap(row).each_with_index do |value, i|
+                - source_column_class = @source_column_classes[i]
+                %td
+                  - if MaskedData.masked_column?(database_name, table_name, source_column_class.name)
+                    = t("masked_text")
+                  - else
+                    = value
+      .pull-right.block
+        #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
+    - else
+      .text-center= t("unlinked_table")
