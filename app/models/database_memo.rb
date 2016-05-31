@@ -29,7 +29,7 @@ class DatabaseMemo < ActiveRecord::Base
     data_source.present? && data_source.source_base_class.try(:connection) rescue nil
   end
 
-  def build_database_memo_log(user_id)
+  def build_log(user_id)
     last_log = database_memo_logs.last
     current_revision = last_log.try(:revision).to_i
     database_memo_logs.build(

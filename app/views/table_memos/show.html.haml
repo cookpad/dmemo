@@ -25,13 +25,17 @@
     %li.active
       = @table_memo.name
 
-.box.box-info.with-border
+.memo-block.box.box-info.with-border
   .box-body
     .markdown-block
       - if @table_memo.description.present?
         = @table_memo.description_html
       - else
         = t("no_description")
+  .box-footer
+    = l(@table_memo.updated_at)
+    = link_to table_memo_logs_path(@table_memo.id) do
+      %i.fa.fa-clock-o
 
 .nav-tabs-custom
   %ul.nav.nav-tabs

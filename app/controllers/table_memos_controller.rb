@@ -22,7 +22,11 @@ class TableMemosController < ApplicationController
 
   def update(id, table_memo)
     @table_memo = TableMemo.find(id)
-    @table_memo.update!(table_memo)
+    @table_memo.assign_attributes(table_memo)
+    if @table_memo.changed?
+      @table_memo.build_log(current_user.id)
+      @table_memo.save!
+    end
     redirect_to database_memo_table_path(@table_memo.database_memo.name, @table_memo.name)
   end
 

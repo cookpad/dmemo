@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :databases, controller: :database_memos, as: :database_memos do
     resources :tables, controller: :table_memos, as: :table_memos, except: %w(index), shallow: true do
       resources :columns, controller: :column_memos, as: :column_memos, only: %w(update destroy)
+
+      resources :logs, controller: :table_memo_logs, as: :logs, only: "index"
     end
 
     resources :logs, controller: :database_memo_logs, as: :logs, only: "index"
