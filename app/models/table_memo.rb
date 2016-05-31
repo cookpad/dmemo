@@ -1,12 +1,13 @@
 class TableMemo < ActiveRecord::Base
   include TextDiff
+  include DescriptionLogger
 
   scope :id_or_name, ->(id, name) { where("table_memos.id = ? OR table_memos.name = ?", id.to_i, name) }
 
   belongs_to :database_memo
 
   has_many :column_memos, dependent: :destroy
-  has_many :table_memo_logs, -> { order(:id) }
+  has_many :logs, -> { order(:id) }, class_name: "TableMemoLog"
 
   def source_table_class
     database_memo.data_source.try(:source_table_class, name)
@@ -24,16 +25,5 @@ class TableMemo < ActiveRecord::Base
 
   def masked?
     MaskedData.masked_table?(database_memo.name, name)
-  end
-
-  def build_log(user_id)
-    last_log = table_memo_logs.last
-    current_revision = last_log.try(:revision).to_i
-    table_memo_logs.build(
-      revision: current_revision + 1,
-      user_id: user_id,
-      description: self.description,
-      description_diff: diff(last_log.try(:description), self.description),
-    )
   end
 end

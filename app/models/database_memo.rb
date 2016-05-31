@@ -1,10 +1,11 @@
 class DatabaseMemo < ActiveRecord::Base
   include TextDiff
+  include DescriptionLogger
 
   scope :id_or_name, ->(id, name) { where("database_memos.id = ? OR database_memos.name = ?", id.to_i, name) }
 
   has_many :table_memos, dependent: :destroy
-  has_many :database_memo_logs, -> { order(:id) }
+  has_many :logs, -> { order(:id) }, class_name: "DatabaseMemoLog"
 
   has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name
 
@@ -27,16 +28,5 @@ class DatabaseMemo < ActiveRecord::Base
 
   def linked?
     data_source.present? && data_source.source_base_class.try(:connection) rescue nil
-  end
-
-  def build_log(user_id)
-    last_log = database_memo_logs.last
-    current_revision = last_log.try(:revision).to_i
-    database_memo_logs.build(
-      revision: current_revision + 1,
-      user_id: user_id,
-      description: self.description,
-      description_diff: diff(last_log.try(:description), self.description),
-    )
   end
 end
