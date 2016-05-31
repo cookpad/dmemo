@@ -1,5 +1,10 @@
 class ColumnMemo < ActiveRecord::Base
+  include TextDiff
+  include DescriptionLogger
+
   belongs_to :table_memo
+
+  has_many :logs, -> { order(:id) }, class_name: "ColumnMemoLog"
 
   def source_column_class
     table_memo.source_column_class(name)

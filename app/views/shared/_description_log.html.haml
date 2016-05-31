@@ -1,0 +1,6 @@
+.memo-block.box
+  .box-body
+    = render_diff(description_log.description_diff)
+  .box-footer
+    %img.img-rounded{ src: current_user.image_url }/
+    = l(description_log.created_at)

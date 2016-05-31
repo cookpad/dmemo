@@ -3,7 +3,11 @@ class ColumnMemosController < ApplicationController
     @column_memo = ColumnMemo.find(id)
     case name
       when "description"
-        @column_memo.update!(description: value)
+        @column_memo.assign_attributes(description: value)
+    end
+    if @column_memo.changed?
+      @column_memo.build_log(current_user.id)
+      @column_memo.save!
     end
   end
 

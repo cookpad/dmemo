@@ -15,10 +15,4 @@
     %li.active
       logs
 
-- @table_memo_logs.each do |log|
-  .memo-block.box
-    .box-body
-      = render_diff(log.description_diff)
-    .box-footer
-      %img.img-rounded{ src: current_user.image_url }/
-      = l(log.created_at)
+= render partial: "shared/description_log", collection: @table_memo_logs
