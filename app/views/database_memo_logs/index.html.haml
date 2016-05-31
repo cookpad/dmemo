@@ -1,0 +1,22 @@
+- content_for :header do
+  %h1.page-header
+    = @database_memo.name
+    logs
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to @database_memo.name, database_memo_path(@database_memo.name)
+    %li.active
+      logs
+
+- @database_memo_logs.each do |log|
+  .memo-block.box
+    .box-body
+      = render_diff(log.description_diff)
+    .box-footer
+      %img.img-rounded{ src: current_user.image_url }/
+      = l(log.created_at)

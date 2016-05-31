@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :tables, controller: :table_memos, as: :table_memos, except: %w(index), shallow: true do
       resources :columns, controller: :column_memos, as: :column_memos, only: %w(update destroy)
     end
+
+    resources :logs, controller: :database_memo_logs, as: :logs, only: "index"
   end
 
   get "/databases/:database_name/:name" => "table_memos#show", as: "database_memo_table"

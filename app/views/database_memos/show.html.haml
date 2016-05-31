@@ -23,13 +23,17 @@
     %li.active
       = @database_memo.name
 
-.box.box-info.with-border
+.memo-block.box.box-info.with-border
   .box-body
     .markdown-block
       - if @database_memo.description.present?
         = @database_memo.description_html
       - else
         = t("no_description")
+  .box-footer
+    = l(@database_memo.updated_at)
+    = link_to database_memo_logs_path(@database_memo.id) do
+      %i.fa.fa-clock-o
 
 .box
   .box-header.with-border

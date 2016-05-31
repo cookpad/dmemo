@@ -1,6 +1,7 @@
 create_table "database_memo_logs", force: :cascade do |t|
   t.integer  "database_memo_id",              null: false
   t.integer  "revision",                      null: false
+  t.integer  "user_id",                       null: false
   t.text     "description",      default: "", null: false
   t.text     "description_diff", default: "", null: false
   t.datetime "created_at",                    null: false

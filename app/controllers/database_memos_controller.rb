@@ -28,7 +28,7 @@ class DatabaseMemosController < ApplicationController
     @database_memo = DatabaseMemo.find(id)
     @database_memo.assign_attributes(database_memo)
     if @database_memo.changed?
-      @database_memo.build_database_memo_log
+      @database_memo.build_database_memo_log(current_user.id)
       @database_memo.save!
     end
     redirect_to database_memo_path(@database_memo.name)

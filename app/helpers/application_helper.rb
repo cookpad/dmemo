@@ -6,4 +6,12 @@ module ApplicationHelper
       content_tag :i, "", class: "fa fa-edit"
     end
   end
+
+  def render_diff(diff)
+    Markdown.new(<<-DIFF).html
+```diff
+#{diff}
+```
+    DIFF
+  end
 end
