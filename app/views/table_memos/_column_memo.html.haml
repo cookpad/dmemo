@@ -4,8 +4,9 @@
     - unless column_memo.linked?
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
   %td
-    = link_to column_memo_logs_path(column_memo.id), class: "pull-right" do
-      %i.fa.fa-clock-o
+    - if column_memo.logs.present?
+      = link_to column_memo_logs_path(column_memo.id), class: "pull-right" do
+        %i.fa.fa-clock-o
     = link_to_editable column_memo,
               target: ".column-description[data-column-memo-id=\"#{column_memo.id}\"]",
               result: "description_html",
