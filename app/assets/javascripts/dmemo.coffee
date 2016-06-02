@@ -1,31 +1,26 @@
-$.fn.editable.defaults.mode = "popup"
-$.fn.editable.defaults.placement = "bottom"
-$.fn.editable.defaults.ajaxOptions = { type: "PATCH", dataType: "json" }
-$.fn.editable.defaults.display = false
+timeoutId = undefined
+markdownEditor = ->
+  if timeoutId
+    clearTimeout(timeoutId)
+    timeoutId = undefined
+  $editor = $(this)
+  timeoutId = setTimeout(=>
+    $.ajax("/markdown_preview",
+      type: "POST",
+      data:
+        md: $editor.val(),
+      success: (data)->
+        $($editor.data("target")).html(data.html)
+    )
+  , 300)
 
 $(document).ready(->
-  $(".editable-field").editable(
-    success: (response, newValue)->
-      $field = $(this)
-      target = $field.data("target")
-      result = $field.data("result")
-      $(target).html(response[result])
+  $(".markdown-editor").on('keyup', markdownEditor)
+  $(document).bind('cbox_complete', ->
+    $("#colorbox .markdown-editor").on('keyup', markdownEditor)
   )
 
-  timeoutId = undefined
-  $(".markdown-editor").on('keyup', ->
-    if timeoutId
-      clearTimeout(timeoutId)
-      timeoutId = undefined
-    $editor = $(this)
-    timeoutId = setTimeout(=>
-      $.ajax("/markdown_preview",
-        type: "POST",
-        data:
-          md: $editor.val(),
-        success: (data)->
-          $($editor.data("target")).html(data.html)
-      )
-    , 300)
-  )
+  $("a.colorbox").colorbox(closeButton: false, width: "600px", maxWidth: "1200px")
 )
+
+

@@ -3,7 +3,7 @@
   "dependencies": {
     "admin-lte": "2.3.3",
     "font-awesome": "4.5.0",
-    "x-editable": "1.5.1",
-    "pygments": "2.1.3"
+    "pygments": "2.1.3",
+    "jquery-colorbox": "1.6.4"
   }
 }

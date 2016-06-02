@@ -16,7 +16,7 @@
  *= require admin-lte/dist/css/AdminLTE.css
  *= require admin-lte/dist/css/skins/skin-blue.css
  *= require font-awesome-custom
- *= require x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
+//= require jquery-colorbox/example4/colorbox.css
  *= require pygments/css/friendly.css
  *= require_self
  */

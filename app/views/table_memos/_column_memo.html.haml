@@ -5,16 +5,11 @@
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
   %td
     - if column_memo.logs.present?
-      = link_to column_memo_logs_path(column_memo.id), class: "pull-right" do
+      = link_to column_memo_logs_path(column_memo.id), class: "pull-right colorbox" do
         %i.fa.fa-clock-o
-    = link_to_editable column_memo,
-              target: ".column-description[data-column-memo-id=\"#{column_memo.id}\"]",
-              result: "description_html",
-              type: :textarea,
-              name: "description",
-              value: column_memo.description,
-              class: "pull-right"
-    .column-description{ data: { column_memo_id: column_memo.id } }
+    = link_to edit_column_memo_path(column_memo), class: "pull-right colorbox" do
+      %i.fa.fa-edit
+    .column-description
       - if column_memo.description.present?
         = column_memo.description_html
   %td

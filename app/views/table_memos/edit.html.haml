@@ -3,15 +3,4 @@
     %span= @table_memo.name
 
 .box.box-info.with-border
-  = form_for @table_memo do |f|
-    .box-body
-      .row
-        .col-sm-6.form-group
-          = f.label :description
-          = f.text_area :description, rows: 20, class: "form-control markdown-editor", data: { target: ".description-preview" }
-        .col-sm-6.form-group
-          %label Preview
-          .markdown-block.description-preview
-            = @table_memo.description_html
-    .box-footer
-      = f.button "Update", class: "btn btn-primary"
+  = render "shared/description_editor", memo: @table_memo
