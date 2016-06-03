@@ -72,7 +72,7 @@
               - Array.wrap(row).each_with_index do |value, i|
                 - source_column_class = @source_column_classes[i]
                 %td
-                  - if MaskedData.masked_column?(database_name, table_name, source_column_class.name)
+                  - if MaskedDatum.masked_column?(database_name, table_name, source_column_class.name)
                     = t("masked_text")
                   - else
                     = value
