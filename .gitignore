@@ -12,7 +12,6 @@
 !/log/.keep
 /tmp
 /vendor/assets/bower_components
-/config/masked_data.yml
 .env
 public/assets/
 .env.docker

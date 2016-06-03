@@ -24,6 +24,6 @@ class TableMemo < ActiveRecord::Base
   end
 
   def masked?
-    MaskedData.masked_table?(database_memo.name, name)
+    MaskedDatum.masked_table?(database_memo.name, name)
   end
 end
