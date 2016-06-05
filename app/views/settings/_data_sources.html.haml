@@ -1,30 +1,11 @@
-- content_for :header do
-  %h1.page-header Data Sources
-
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa.fa-home
-        Home
-    %li.active
-      Data Sources
-
-- if flash[:error]
-  .box.box-danger
-    .box-body
-      = flash[:error]
-
-- if flash[:updated]
-  .box.box-info
-    .box-body
-      = flash[:updated]
-
 .box
-  - if current_user.admin?
-    .box-header.with-border
-      = link_to new_data_source_path, class: "btn btn-default pull-right" do
+  .box-header.with-border
+    %h2.box-title Data Sources
+
+    - if current_user.admin?
+      = link_to new_data_source_path, class: "btn btn-default btn-sm pull-right" do
         %i.fa.fa-plus
-        New Data Source
+        Add Data Source
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %tr
@@ -33,8 +14,7 @@
         %th Host
         %th Port
         %th Database Name
-        - if current_user.admin?
-          %th
+        %th
       - @data_sources.each do |data_source|
         %tr
           %td
@@ -47,8 +27,8 @@
             = data_source.port
           %td
             = data_source.dbname
-          - if current_user.admin?
-            %td
+          %td
+            - if current_user.admin?
               = link_to edit_data_source_path(data_source) do
                 %button.btn.btn-default
                   %i.fa.fa-edit

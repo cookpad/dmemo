@@ -6,6 +6,8 @@ class ColumnMemo < ActiveRecord::Base
 
   has_many :logs, -> { order(:id) }, class_name: "ColumnMemoLog"
 
+  validates :name, presence: true
+
   def source_column_class
     table_memo.source_column_class(name)
   end

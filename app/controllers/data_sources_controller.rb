@@ -6,7 +6,11 @@ class DataSourcesController < ApplicationController
   DUMMY_PASSWORD = "__DUMMY__"
 
   def index
-    @data_sources = DataSource.all
+    redirect_to setting_path
+  end
+
+  def show
+    redirect_to setting_path
   end
 
   def new
@@ -16,6 +20,9 @@ class DataSourcesController < ApplicationController
   def create(data_source)
     @data_source = DataSource.create!(data_source_params(data_source))
     import_data_source_and_redirect!(@data_source)
+  rescue ActiveRecord::ActiveRecordError => e
+    flash[:error] = e.message
+    redirect_to new_data_source_path
   end
 
   def edit(id)
@@ -29,6 +36,9 @@ class DataSourcesController < ApplicationController
     @data_source.assign_attributes(data_source_params(data_source))
     @data_source.save! if @data_source.changed?
     import_data_source_and_redirect!(@data_source)
+  rescue  ActiveRecord::ActiveRecordError => e
+    flash[:error] = e.message
+    redirect_to edit_data_source_path(id)
   end
 
   def destroy(id)
@@ -46,7 +56,7 @@ class DataSourcesController < ApplicationController
 
   def import_data_source_and_redirect!(data_source)
     DatabaseMemo.import_data_source!(data_source.id)
-    flash[:updated] = t("data_source_updated", name: data_source.name)
+    flash[:info] = t("data_source_updated", name: data_source.name)
     redirect_to data_sources_path
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error => e
     flash[:error] = e.message

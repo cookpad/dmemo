@@ -1,5 +1,7 @@
 class DataSource < ActiveRecord::Base
 
+  validates :name, :adapter, :host, :dbname, :user, presence: true
+
   module DynamicTable
     class AbstractTable < ActiveRecord::Base
       self.abstract_class = true

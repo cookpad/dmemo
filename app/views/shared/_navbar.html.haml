@@ -2,11 +2,13 @@
   .navbar-custom-menu
     %ul.nav.navbar-nav
       %li
-        = link_to data_sources_path do
+        = link_to setting_path do
           %i.fa.fa-gear
+          Setting
       %li
         = link_to edit_user_path(current_user) do
           %i.fa.fa-user
+          = current_user.name
       %li
         %a{ href: logout_path }
           %i.fa.fa-sign-out

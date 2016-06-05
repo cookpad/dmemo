@@ -9,6 +9,8 @@ class DatabaseMemo < ActiveRecord::Base
 
   has_one :data_source, class_name: "DataSource", foreign_key: :name, primary_key: :name
 
+  validates :name, presence: true
+
   def self.import_data_source!(data_source_id)
     data_source = DataSource.find(data_source_id)
     data_source.reset_source_table_classes!

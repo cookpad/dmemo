@@ -9,6 +9,8 @@ class TableMemo < ActiveRecord::Base
   has_many :column_memos, dependent: :destroy
   has_many :logs, -> { order(:id) }, class_name: "TableMemoLog"
 
+  validates :name, presence: true
+
   def source_table_class
     database_memo.data_source.try(:source_table_class, name)
   end
