@@ -11,6 +11,10 @@ class DataSource < ActiveRecord::Base
       def self.cache_key
         "#{name.underscore}-#{defined_at.strftime("%Y%m%d%H%M%S")}"
       end
+
+      def self.inherited(child)
+        child.defined_at = Time.now
+      end
     end
   end
 
@@ -53,7 +57,6 @@ class DataSource < ActiveRecord::Base
 
     base_class = Class.new(DynamicTable::AbstractTable)
     DynamicTable.const_set(base_class_name, base_class)
-    base_class.defined_at = Time.now
     base_class.abstract_class = true
     base_class.establish_connection(connection_config)
     base_class
@@ -70,7 +73,6 @@ class DataSource < ActiveRecord::Base
     table_class = Class.new(source_base_class)
     table_class.table_name = table_name
     DynamicTable.const_set(table_class_name, table_class)
-    table_class.defined_at = Time.now
     table_class
   end
 
