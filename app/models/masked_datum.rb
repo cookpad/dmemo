@@ -19,7 +19,7 @@ class MaskedDatum < ActiveRecord::Base
   def self.masked_column?(database_name, table_name, column_name)
     return true if masked_database?(database_name)
     return true if masked_table?(database_name, table_name)
-    data.include?("#{database_name}/#{table_name}/#{column_name}") || data.include?("#{database_name}/*/#{column_name}")
+    data.include?("#{database_name}/#{table_name}/#{column_name}") || data.include?("#{database_name}/*/#{column_name}") || data.include?("*/*/#{column_name}")
   end
 
   def pack
