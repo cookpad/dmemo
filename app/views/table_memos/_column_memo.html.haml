@@ -4,7 +4,7 @@
     - unless column_memo.linked?
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
   %td
-    - if column_memo.logs.present?
+    - if column_memo.logs.exists?
       = link_to column_memo_logs_path(column_memo.id), class: "pull-right colorbox" do
         %i.fa.fa-clock-o
     = link_to edit_column_memo_path(column_memo), class: "pull-right colorbox" do

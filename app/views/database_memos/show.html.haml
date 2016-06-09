@@ -32,7 +32,7 @@
         = t("no_description")
   .box-footer
     = l(@database_memo.updated_at)
-    - if @database_memo.logs.present?
+    - if @database_memo.logs.exists?
       = link_to database_memo_logs_path(@database_memo.id) do
         %i.fa.fa-clock-o
 

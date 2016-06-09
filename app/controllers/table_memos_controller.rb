@@ -4,7 +4,7 @@ class TableMemosController < ApplicationController
   before_action :redirect_named_path, only: :show
 
   def show(database_name, name)
-    @table_memo = TableMemo.joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
+    @table_memo = TableMemo.includes(column_memos: :logs).joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
