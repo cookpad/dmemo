@@ -10,8 +10,3 @@ development:
 test:
   <<: *default
   database: dmemo_test
-
-production:
-  <<: *default
-  database: dmemo_development
-

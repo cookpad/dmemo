@@ -12,3 +12,5 @@ RUN mv /tmp/vendor /app
 ADD . /app
 RUN bundle exec rake bower:install['--allow-root']
 RUN bundle exec rake assets:precompile RAILS_ENV=production
+
+CMD ["./bin/rails", "server", "-e", "production"]
