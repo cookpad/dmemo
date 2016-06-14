@@ -1,5 +1,5 @@
 {
-  "name": "dsl-generated dependencies",
+  "name": "dependencies",
   "dependencies": {
     "admin-lte": "2.3.3",
     "font-awesome": "4.5.0",

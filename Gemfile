@@ -46,7 +46,6 @@ end
 group :development do
   gem 'ridgepole'
   gem 'capistrano-rails'
-  gem 'bower-rails'
   gem 'meta_request'
   gem 'quiet_assets'
   gem 'ruby-prof'
