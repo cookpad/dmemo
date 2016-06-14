@@ -8,7 +8,7 @@ Rails.application.load_tasks
 def ridgepole_exec(args)
   env = ENV["RAILS_ENV"] || "development"
   cd "db"
-  sh "bundle", "exec", "ridgepole", "-c", "config.yml", "-E", env, *args
+  sh "bundle", "exec", "ridgepole", "-c", "../config/database.yml", "-E", env, *args
 end
 
 namespace :ridgepole do
