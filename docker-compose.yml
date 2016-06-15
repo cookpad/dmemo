@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    image: hogelog/dmemo
+    env_file: .env.docker
+    volumes:
+      - ./log/docker:/app/log
+    ports:
+      - "3000:3000"
