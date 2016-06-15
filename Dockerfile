@@ -8,6 +8,7 @@ ADD Gemfile.lock /tmp/Gemfile.lock
 RUN cd /tmp && bundle install -j5 --deployment --without test
 
 ADD vendor/assets/bower.json /tmp/vendor/assets/bower.json
+ADD vendor/assets/.bowerrc /tmp/vendor/assets/.bowerrc
 RUN cd /tmp/vendor/assets && bower install -p --allow-root
 
 WORKDIR /app
