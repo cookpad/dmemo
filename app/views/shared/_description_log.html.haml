@@ -1,6 +1,8 @@
-.memo-block.box
-  .box-body
-    = render_diff(description_log.description_diff)
-  .box-footer
-    %img.img-rounded{ src: current_user.image_url }/
-    = l(description_log.created_at)
+%li
+  .timeline-item.memo-block
+    %span.time= l(description_log.created_at)
+    %h3.timeline-header
+      %img.img-rounded{ src: description_log.user.image_url }/
+      = description_log.user.name
+    .timeline-body
+      = render_diff(description_log.description_diff)

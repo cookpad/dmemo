@@ -13,4 +13,5 @@
     %li.active
       logs
 
-= render partial: "shared/description_log", collection: @database_memo_logs
+%ul.timeline
+  = render partial: "shared/description_log", collection: @database_memo_logs
