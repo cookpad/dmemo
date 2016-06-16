@@ -28,4 +28,8 @@ class TableMemo < ActiveRecord::Base
   def masked?
     MaskedDatum.masked_table?(database_memo.name, name)
   end
+
+  def full_name
+    "#{database_memo.name}/#{name}"
+  end
 end

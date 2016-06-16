@@ -17,4 +17,8 @@ class ColumnMemo < ActiveRecord::Base
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error
     false
   end
+
+  def full_name
+    "#{table_memo.database_memo.name}/#{table_memo.name}/#{name}"
+  end
 end

@@ -14,4 +14,8 @@ module ApplicationHelper
 ```
     DIFF
   end
+
+  def markdown_html(markdown)
+    Markdown.new(markdown).html
+  end
 end

@@ -1,0 +1,24 @@
+- content_for :header do
+  %h1.page-header "#{@search_result.keyword}" search result
+
+- unless @search_result.results.present?
+  .box
+    .box-body
+      No results found.
+- else
+  - @search_result.results.each do |result|
+    .box
+      .box-header.with-border
+        %h3.box-title
+          - case result
+          - when DatabaseMemo
+            %small.label.bg-green Database
+            = link_to result.name, url_for(result)
+          - when TableMemo
+            %small.label.bg-green Table
+            = link_to result.full_name, url_for(result)
+          - when ColumnMemo
+            %small.label.bg-green Column
+            = link_to result.full_name, url_for(result)
+      .box-body
+        = markdown_html(result.description).html_safe

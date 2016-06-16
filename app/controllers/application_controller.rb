@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
   before_action :set_sidebar_databases
+  before_action :set_search_result
 
   private
 
@@ -23,5 +24,9 @@ class ApplicationController < ActionController::Base
 
   def set_sidebar_databases
     @sidebar_databases = DatabaseMemo.all.select(:name)
+  end
+
+  def set_search_result
+    @search_result = SearchResult.new
   end
 end

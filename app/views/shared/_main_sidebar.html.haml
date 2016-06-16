@@ -6,12 +6,13 @@
       .pull-left.info
         %p= current_user.name
 
-    %form.sidebar-form{:action => "#", :method => "get"}
+    = form_for @search_result, method: :get, html: { class: "sidebar-form" } do |f|
       .input-group
-        %input.form-control{:name => "q", :placeholder => "Search...", :type => "text"}/
+        = f.text_field :keyword, placeholder: "Search...", class: "form-control"
         %span.input-group-btn
-          %button#search-btn.btn.btn-flat{:name => "search", :type => "submit"}
+          %button#search-btn.btn.btn-flat{name: "search", type: "submit"}
             %i.fa.fa-search
+
     %ul.sidebar-menu
       %li
         = link_to root_path do
