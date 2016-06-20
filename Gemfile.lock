@@ -207,6 +207,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_stdout_logging (0.0.5)
     railties (4.2.6)
       actionpack (= 4.2.6)
       activesupport (= 4.2.6)
@@ -295,6 +296,7 @@ DEPENDENCIES
   puma
   quiet_assets
   rails (= 4.2.6)
+  rails_stdout_logging
   ridgepole
   rinku
   rspec-rails
