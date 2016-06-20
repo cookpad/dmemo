@@ -40,7 +40,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_class_name_prefix
-    "#{name.classify}_"
+    "#{name.underscore.classify}_"
   end
 
   def source_table_class_name(table_name)

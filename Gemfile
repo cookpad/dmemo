@@ -36,6 +36,8 @@ gem 'action_args'
 
 gem 'diffy'
 
+gem 'rails_stdout_logging'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
