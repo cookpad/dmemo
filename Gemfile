@@ -28,6 +28,8 @@ gem 'active_decorator'
 
 gem 'omniauth-google-oauth2'
 
+gem 'revision_plate', require: 'revision_plate/rails'
+
 gem 'puma'
 
 gem 'non-stupid-digest-assets'
