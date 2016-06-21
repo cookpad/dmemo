@@ -20,3 +20,12 @@ $ docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/docker_db_apply.
 $ docker-compose up
 ```
 
+## Config
+### Create Admin User
+- Login dmemo by google account
+- Activate user as admin
+```
+$ ./bin/rake admin:activate RAILS_ENV=production EMAIL=konbu.komuro@gmail.com
+ or
+$ docker run --env-file .env.docker hogelog/dmemo ./bin/docker_admin_activate.sh konbu.komuro@gmail.com
+```
