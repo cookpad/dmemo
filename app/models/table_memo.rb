@@ -9,6 +9,8 @@ class TableMemo < ActiveRecord::Base
   has_many :column_memos, dependent: :destroy
   has_many :logs, -> { order(:id) }, class_name: "TableMemoLog"
 
+  has_many :favorite_tables
+
   validates :name, presence: true
 
   def source_table_class
@@ -27,6 +29,10 @@ class TableMemo < ActiveRecord::Base
 
   def masked?
     MaskedDatum.masked_table?(database_memo.name, name)
+  end
+
+  def favorited_by?(user)
+    FavoriteTable.where(user_id: user.id, table_memo_id: id).exists?
   end
 
   def full_name

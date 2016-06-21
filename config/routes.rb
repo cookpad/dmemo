@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       end
 
       resources :logs, controller: :table_memo_logs, as: :logs, only: "index"
+
+      resource :favorite_table, only: %w(create destroy)
     end
 
     resources :logs, controller: :database_memo_logs, as: :logs, only: "index"
