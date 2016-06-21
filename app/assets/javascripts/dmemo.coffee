@@ -21,6 +21,16 @@ $(document).ready(->
   )
 
   $("a.colorbox").colorbox(closeButton: false, width: "600px", maxWidth: "1200px")
+
+  $(".unfavorite-table-link").on("ajax:success", (data)->
+    console.log(data)
+    $(".favorite-table-block").addClass("unfavorited")
+    $(".favorite-table-block").removeClass("favorited")
+  )
+
+  $(".favorite-table-link").on("ajax:success", (data)->
+    console.log(data)
+    $(".favorite-table-block").addClass("favorited")
+    $(".favorite-table-block").removeClass("unfavorited")
+  )
 )
-
-

@@ -24,3 +24,12 @@ a.editable-click, a.editable-click:hover {
   cursor: pointer !important;
   border-bottom: none !important;
 }
+
+.favorite-table-block {
+  &.favorited .favorite-table-link {
+    display: none;
+  }
+  &.unfavorited .unfavorite-table-link {
+    display: none;
+  }
+}

@@ -24,3 +24,14 @@
                 = database_memo.description_text.truncate(30)
             %td
               = database_memo.table_memos.map(&:name).join(", ").truncate(100)
+
+.box
+  .box-header.with-border
+    %h2.box-title Favorite tables
+
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+      = render partial: "table_memo", collection: @favorite_tables.map(&:table_memo)
