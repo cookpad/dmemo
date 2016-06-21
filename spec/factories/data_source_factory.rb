@@ -6,7 +6,7 @@ FactoryGirl.define do
     host "localhost"
     port 5432
     dbname "dmemo_test"
-    user "dmemo"
+    user "postgres"
     password nil
     encoding nil
     pool 1
