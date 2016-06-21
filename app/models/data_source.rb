@@ -40,7 +40,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_class_name_prefix
-    "#{name.underscore.classify}_"
+    "#{name.gsub(/[^\w_-]/, '').underscore.classify}_"
   end
 
   def source_table_class_name(table_name)
