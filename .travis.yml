@@ -1,5 +1,3 @@
-sudo: required
-
 language: ruby
 
 cache: bundler
@@ -7,16 +5,6 @@ cache: bundler
 rvm:
   - 2.3.0
 
-services:
-  - docker
-
 before_script:
   - ./bin/rake db:create RAILS_ENV=test
   - ./bin/rake ridgepole:apply RAILS_ENV=test
-
-after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker pull hogelog/dmemo;
-    ./bin/rake docker:build && ./bin/rake docker:push ;
-    fi
