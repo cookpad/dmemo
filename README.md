@@ -20,7 +20,7 @@ $ docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/docker_db_apply.
 $ docker-compose up
 ```
 
-## Config
+## Configure
 ### Create Admin User
 - Login dmemo by google account
 - Activate user as admin
