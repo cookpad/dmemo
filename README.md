@@ -1,10 +1,11 @@
-# Dmemo
+# Dmemo ![travis-ci](https://travis-ci.org/hogelog/dmemo.svg)
 Database description management tool.
 
 
 ## Setup
 ```
 $ bundle install
+$ ./bin/rake db:create
 $ ./bin/rake ridgepole:apply
 $ ./bin/rails s
 ```
