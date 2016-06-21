@@ -5,12 +5,16 @@ Database description management tool.
 ## Setup
 ```
 $ bundle install
+$ ./bin/rake bower:install
 $ ./bin/rake db:create
 $ ./bin/rake ridgepole:apply
 $ ./bin/rails s
 ```
 
 ### Docker
+
+Docker images published on Docker Hub.
+https://hub.docker.com/r/hogelog/dmemo/
 
 ```
 $ cp .env.sample .env.docker
@@ -25,7 +29,7 @@ $ docker-compose up
 - Login dmemo by google account
 - Activate user as admin
 ```
-$ ./bin/rake admin:activate RAILS_ENV=production EMAIL=konbu.komuro@gmail.com
+$ ./bin/rake admin:activate EMAIL=konbu.komuro@gmail.com
  or
 $ docker run --env-file .env.docker hogelog/dmemo ./bin/docker_admin_activate.sh konbu.komuro@gmail.com
 ```
