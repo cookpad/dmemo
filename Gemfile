@@ -38,7 +38,7 @@ gem 'action_args'
 
 gem 'diffy'
 
-gem 'rails_stdout_logging'
+gem 'rails_stdout_logging', require: false
 
 group :development, :test do
   gem 'byebug'
