@@ -16,9 +16,10 @@ class DatabaseMemo < ActiveRecord::Base
     data_source.reset_source_table_classes!
 
     db_memo = find_or_create_by!(name: data_source.name)
+    table_memos = db_memo.table_memos.includes(:column_memos).to_a
 
     data_source.source_table_classes.each do |table_class|
-      table_memo = db_memo.table_memos.find_or_create_by!(name: table_class.table_name)
+      table_memo = table_memos.find {|memo| memo.name == table_class.table_name } || db_memo.table_memos.build(name: table_class.table_name )
       column_memos = table_memo.column_memos.to_a
       table_class.columns.each do |column|
         adapter = table_class.connection.pool.connections.first
