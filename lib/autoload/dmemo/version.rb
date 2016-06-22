@@ -1,3 +1,3 @@
 module Dmemo
-  VERSION = "0.1.5-rc"
+  VERSION = "0.1.5"
 end
