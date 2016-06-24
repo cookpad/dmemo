@@ -63,7 +63,7 @@ class DataSource < ActiveRecord::Base
     source_base_class.connection.tables
   end
 
-  def source_table_class(table_name, table_names)
+  def source_table_class(table_name, table_names=source_table_names)
     table_class_name = source_table_class_name(table_name)
     return DynamicTable.const_get(table_class_name) if DynamicTable.const_defined?(table_class_name)
     return nil unless table_names.include?(table_name)
