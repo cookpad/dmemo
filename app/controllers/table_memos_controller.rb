@@ -12,7 +12,7 @@ class TableMemosController < ApplicationController
       unless @table_memo.masked?
         @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
       end
-      @source_table_count = source_table_class.count
+      @source_table_count = fetch_source_table_count(source_table_class)
     end
   end
 
@@ -37,6 +37,12 @@ class TableMemosController < ApplicationController
   end
 
   private
+
+  def fetch_source_table_count(source_table_class)
+    cache("source_table_count_#{source_table_class.cache_key}", expire: 1.day) do
+      source_table_class.count
+    end
+  end
 
   def fetch_source_table_data(source_table_class, source_column_classes)
     cache("source_table_data_#{source_table_class.cache_key}", expire: 1.day) do
