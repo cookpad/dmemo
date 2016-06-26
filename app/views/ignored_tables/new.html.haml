@@ -1,0 +1,17 @@
+- content_for :header do
+  %h1.page-header New Ignored Table
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to setting_path do
+        %i.fa.fa-gear
+        Setting
+    %li.active
+      New Ignored Table
+
+.box
+  = render "form"

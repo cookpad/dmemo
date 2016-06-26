@@ -2,6 +2,8 @@ class DataSource < ActiveRecord::Base
 
   validates :name, :adapter, :host, :dbname, :user, presence: true
 
+  has_many :ignored_tables
+
   module DynamicTable
     class AbstractTable < ActiveRecord::Base
       self.abstract_class = true
@@ -60,10 +62,12 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_names
-    source_base_class.connection.tables
+    table_names = source_base_class.connection.tables
+    table_names.reject {|table_name| ignored_table_patterns.match(table_name) }
   end
 
   def source_table_class(table_name, table_names=source_table_names)
+    return if ignored_table_patterns.match(table_name)
     table_class_name = source_table_class_name(table_name)
     return DynamicTable.const_get(table_class_name) if DynamicTable.const_defined?(table_class_name)
     return nil unless table_names.include?(table_name)
@@ -85,5 +89,9 @@ class DataSource < ActiveRecord::Base
     DynamicTable.constants.select{|name| name.to_s.start_with?(source_table_class_name_prefix) }.each do |table_name|
       DynamicTable.send(:remove_const, table_name)
     end
+  end
+
+  def ignored_table_patterns
+    @ignored_table_patterns ||= Regexp.union(ignored_tables.pluck(:pattern).map {|pattern| Regexp.new(pattern, true) })
   end
 end

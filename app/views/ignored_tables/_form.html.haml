@@ -1,0 +1,10 @@
+= form_for @ignored_table, html: { class: "form-horizontal" } do |f|
+  .box-body
+    .form-group
+      = f.label :data_source_id, class: "col-sm-2 control-label"
+      .col-sm-10= f.select :data_source_id, @database_name_options, {}, class: "form-control"
+    .form-group
+      = f.label :pattern, "Pattern (regexp)", class: "col-sm-2 control-label"
+      .col-sm-10= f.text_field :pattern, class: "form-control", placeholder: ".+_(?:old|wk|l)"
+  .box-footer
+    = f.submit class: "btn btn-primary pull-right"
