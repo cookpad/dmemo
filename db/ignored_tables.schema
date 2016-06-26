@@ -1,0 +1,5 @@
+create_table "ignored_tables", force: :cascade do |t|
+  t.integer  "data_source_id", null: false
+  t.string   "pattern",        null: false
+  t.datetime "created_at",     null: false
+end

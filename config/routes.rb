@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resource :setting, only: %w(show)
   resources :data_sources
   resources :masked_data, except: %w(edit update)
+  resources :ignored_tables, except: %w(edit update)
 
   resources :users, except: %w(show destroy)
 
