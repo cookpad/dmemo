@@ -40,6 +40,8 @@ gem 'diffy'
 
 gem 'rails_stdout_logging', require: false
 
+gem 'request_store'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
