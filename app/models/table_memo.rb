@@ -22,7 +22,7 @@ class TableMemo < ActiveRecord::Base
   end
 
   def linked?
-    database_memo.linked? && source_table_class.present?
+    RequestStore["table_memo_linked_#{id}"] ||= database_memo.linked? && source_table_class.present?
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error
     false
   end

@@ -4,6 +4,7 @@
 - Ignored tables feature
 - Optimize data source synch
 - Cache data source table count
+- Introduce request store cache
 
 ## 0.1.5
 - Favorite table feature

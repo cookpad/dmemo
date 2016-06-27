@@ -62,8 +62,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_names
-    table_names = source_base_class.connection.tables
-    table_names.reject {|table_name| ignored_table_patterns.match(table_name) }
+    RequestStore.store["data_source_source_table_names_#{id}"] ||= source_base_class.connection.tables.reject {|table_name| ignored_table_patterns.match(table_name) }
   end
 
   def source_table_class(table_name, table_names=source_table_names)
