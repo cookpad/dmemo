@@ -2,7 +2,7 @@
 
 ## 0.2.0-rc
 - Ignored tables feature
-- Optimize data source synch
+- Optimize data source sync
 - Cache data source table count
 - Introduce request store cache
 
