@@ -46,4 +46,4 @@
         %th Name
         %th Description
         %th Columns
-      = render partial: "table_memo", collection: @database_memo.table_memos
+      = render partial: "table_memo", collection: @database_memo.table_memos.sort_by(&:name)
