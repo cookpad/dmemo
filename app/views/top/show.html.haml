@@ -23,7 +23,7 @@
               - if database_memo.description.present?
                 = database_memo.description_text.truncate(30)
             %td
-              = database_memo.table_memos.map(&:name).join(", ").truncate(100)
+              = database_memo.schema_memos.map(&:table_memos).flatten.map(&:name).join(", ").truncate(100)
 
 .box
   .box-header.with-border

@@ -1,0 +1,51 @@
+- content_for :header do
+  %h1.page-header
+    = @schema_memo.name
+    = link_to edit_schema_memo_path(@schema_memo) do
+      %i.fa.fa-edit
+
+  - unless @schema_memo.linked?
+    .box.box-warning
+      .box-header
+        %h4
+          %i.fa.fa-warning= t("unlinked_schema")
+      .box-body
+        = link_to "Delete schema information", @schema_memo,
+          method: :delete,
+          class: "btn btn-lg btn-danger",
+          data: { confirm: "Delete database #{@schema_memo.name} information?" }
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to @schema_memo.database_memo.name, database_memo_path(@schema_memo.database_memo.name)
+    %li.active
+      = @schema_memo.name
+
+.memo-block.box.box-info.with-border
+  .box-body
+    .markdown-block
+      - if @schema_memo.description.present?
+        = @schema_memo.description_html
+      - else
+        = t("no_description")
+  .box-footer
+    = l(@schema_memo.updated_at)
+    - if @schema_memo.logs.exists?
+      = link_to schema_memo_logs_path(@schema_memo.id) do
+        %i.fa.fa-clock-o
+
+.box
+  .box-header.with-border
+    %h2.box-title Tables
+
+  .box-body
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %tr
+        %th Name
+        %th Description
+        %th Columns
+      = render partial: "table_memo", collection: @schema_memo.table_memos.sort_by(&:name)

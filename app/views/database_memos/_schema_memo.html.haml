@@ -1,0 +1,10 @@
+%tr
+  %td
+    = link_to schema_memo.name, database_schema_path(@database_memo.name, schema_memo.name)
+    - unless schema_memo.linked?
+      %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_table") } }
+  %td
+    - if schema_memo.description.present?
+      = schema_memo.description_text.truncate(30)
+  %td
+    = schema_memo.table_memos.map(&:name).join(", ").truncate(100)

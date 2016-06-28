@@ -1,9 +1,9 @@
 create_table "table_memos", force: :cascade do |t|
-  t.integer  "database_memo_id",              null: false
-  t.string   "name",                          null: false
-  t.text     "description",      default: "", null: false
-  t.datetime "created_at",                    null: false
-  t.datetime "updated_at",                    null: false
+  t.integer  "schema_memo_id",              null: false
+  t.string   "name",                        null: false
+  t.text     "description",    default: "", null: false
+  t.datetime "created_at",                  null: false
+  t.datetime "updated_at",                  null: false
 end
 
-add_index "table_memos", ["database_memo_id", "name"], name: "uniq_table_name", unique: true, using: :btree
+add_index "table_memos", ["schema_memo_id", "name"], name: "uniq_table_name", unique: true, using: :btree

@@ -1,0 +1,19 @@
+- content_for :header do
+  %h1.page-header
+    = @schema_memo.name
+    logs
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to @schema_memo.database_memo.name, database_memo_path(@schema_memo.database_memo.name)
+    %li
+      = link_to @schema_memo.name, database_schema_path(@schema_memo.database_memo.name, @schema_memo.name)
+    %li.active
+      logs
+
+%ul.timeline
+  = render partial: "shared/description_log", collection: @schema_memo_logs

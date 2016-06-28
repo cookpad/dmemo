@@ -1,0 +1,6 @@
+- content_for :header do
+  %h1.page-header
+    %span= @schema_memo.name
+
+.box.box-info.with-border
+  = render "shared/description_editor", memo: @schema_memo

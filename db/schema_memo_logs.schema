@@ -1,0 +1,10 @@
+create_table "schema_memo_logs", force: :cascade do |t|
+  t.integer  "schema_memo_id",                null: false
+  t.integer  "revision",                      null: false
+  t.integer  "user_id",                       null: false
+  t.text     "description",      default: "", null: false
+  t.text     "description_diff", default: "", null: false
+  t.datetime "created_at",                    null: false
+end
+
+add_index "schema_memo_logs", ["schema_memo_id", "revision"], name: "schema_memo_id_revision", using: :btree

@@ -4,17 +4,20 @@ class TableMemo < ActiveRecord::Base
 
   scope :id_or_name, ->(id, name) { where("table_memos.id = ? OR table_memos.name = ?", id.to_i, name) }
 
-  belongs_to :database_memo
+  belongs_to :schema_memo
 
   has_many :column_memos, dependent: :destroy
-  has_many :logs, -> { order(:id) }, class_name: "TableMemoLog"
+  has_many :logs, -> { order(:id) }, class_name: "TableMemoLog", dependent: :destroy
 
-  has_many :favorite_tables
+  has_many :favorite_tables, dependent: :destroy
 
   validates :name, presence: true
 
+  delegate :database_memo, to: :schema_memo
+  delegate :data_source, to: :schema_memo
+
   def source_table_class
-    database_memo.data_source.try(:source_table_class, name)
+    database_memo.data_source.try(:source_table_class, schema_memo.name, name)
   end
 
   def source_column_class(column_name)

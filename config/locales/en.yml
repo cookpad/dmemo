@@ -22,6 +22,7 @@
 en:
   no_description: No description given.
   unlinked_database: Unlinked database
+  unlinked_schema: Unlinked schema
   unlinked_table: Unlinked table
   unlinked_column: Unlinked column
   masked_table: This table contains masked data.

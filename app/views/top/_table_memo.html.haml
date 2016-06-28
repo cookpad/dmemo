@@ -1,6 +1,6 @@
 %tr
   %td
-    = link_to table_memo.name, database_memo_table_path(table_memo.database_memo.name, table_memo.name)
+    = link_to table_memo.name, database_schema_table_path(table_memo.database_memo.name, table_memo.schema_memo.name, table_memo.name)
     - unless table_memo.linked?
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_table") } }
   %td
