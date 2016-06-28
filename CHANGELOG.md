@@ -5,6 +5,7 @@
 - Optimize data source sync
 - Cache data source table count
 - Introduce request store cache
+- Introduce schema_memos
 
 ## 0.1.5
 - Favorite table feature
