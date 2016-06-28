@@ -3,8 +3,13 @@ class TableMemosController < ApplicationController
 
   before_action :redirect_named_path, only: :show
 
-  def show(database_name, name)
-    @table_memo = TableMemo.includes(column_memos: :logs).joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
+  def show(database_name, schema_name, name)
+    @table_memo = TableMemo.
+      includes(column_memos: :logs).
+      joins(:schema_memo).
+      merge(SchemaMemo.where(name: schema_name).joins(:database_memo).merge(DatabaseMemo.where(name: database_name))).
+      where(name: name).
+      take!
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
@@ -27,13 +32,13 @@ class TableMemosController < ApplicationController
       @table_memo.build_log(current_user.id)
       @table_memo.save!
     end
-    redirect_to database_memo_table_path(@table_memo.database_memo.name, @table_memo.name)
+    redirect_to database_schema_table_path(@table_memo.database_memo.name, @table_memo.schema_memo.name, @table_memo.name)
   end
 
   def destroy(id)
     table_memo = TableMemo.find(id)
     table_memo.destroy!
-    redirect_to database_memo_path(table_memo.database_memo_id)
+    redirect_to database_memo_path(table_memo.database_memo.name)
   end
 
   private

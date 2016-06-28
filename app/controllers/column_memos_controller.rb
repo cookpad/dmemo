@@ -13,7 +13,7 @@ class ColumnMemosController < ApplicationController
       @column_memo.build_log(current_user.id)
       @column_memo.save!
     end
-    redirect_to database_memo_table_path(@column_memo.table_memo.database_memo.name, @column_memo.table_memo.name)
+    redirect_to database_schema_table_path(@column_memo.database_memo.name, @column_memo.schema_memo.name, @column_memo.table_memo.name)
   end
 
   def destroy(id)

@@ -36,14 +36,27 @@
       = link_to database_memo_logs_path(@database_memo.id) do
         %i.fa.fa-clock-o
 
-.box
-  .box-header.with-border
-    %h2.box-title Tables
+- if @database_memo.single_schema?
+  .box
+    .box-header.with-border
+      %h2.box-title Tables
 
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th Name
-        %th Description
-        %th Columns
-      = render partial: "table_memo", collection: @database_memo.table_memos.sort_by(&:name)
+    .box-body
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %tr
+          %th Name
+          %th Description
+          %th Columns
+        = render partial: "table_memo", collection: @database_memo.schema_memos.map(&:table_memos).flatten.sort_by(&:name)
+- else
+  .box
+    .box-header.with-border
+      %h2.box-title Schemas
+
+    .box-body
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %tr
+          %th Name
+          %th Description
+          %th Tables
+        = render partial: "schema_memo", collection: @database_memo.schema_memos.sort_by(&:name)

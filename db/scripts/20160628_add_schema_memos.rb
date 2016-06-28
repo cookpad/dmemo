@@ -22,8 +22,10 @@ con.transaction do
   con.add_column "table_memos", "schema_memo_id", :integer, after: :id
 
   DatabaseMemo.find_each do |database_memo|
+    tables = database_memo.data_source.source_tables
     TableMemo.where(database_memo_id: database_memo.id).find_each do |table_memo|
-      table_class = database_memo.data_source.source_table_class(table_memo.name)
+      schema_name, _ = tables.find {|_, table| table == table_memo.name }
+      table_class = database_memo.data_source.source_table_class(schema_name, table_memo.name)
 
       # delete unlinked table memo
       unless table_class

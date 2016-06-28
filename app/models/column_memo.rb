@@ -8,6 +8,9 @@ class ColumnMemo < ActiveRecord::Base
 
   validates :name, presence: true
 
+  delegate :schema_memo, to: :table_memo
+  delegate :database_memo, to: :schema_memo
+
   def source_column_class
     table_memo.source_column_class(name)
   end

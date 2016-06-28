@@ -11,20 +11,25 @@ Rails.application.routes.draw do
   resource :search, controller: :search_results, as: :search_results, only: %w(show)
 
   resources :databases, controller: :database_memos, as: :database_memos do
-    resources :tables, controller: :table_memos, as: :table_memos, shallow: true, except: %w(index) do
-      resources :columns, controller: :column_memos, as: :column_memos, shallow: true, only: %w(edit update destroy) do
-        resources :logs, controller: :column_memo_logs, as: :logs, only: "index"
+    resources :schemas, controller: :schema_memos, as: :schema_memos, shallow: true, except: %w(index) do
+      resources :tables, controller: :table_memos, as: :table_memos, shallow: true, except: %w(index) do
+        resources :columns, controller: :column_memos, as: :column_memos, shallow: true, only: %w(edit update destroy) do
+          resources :logs, controller: :column_memo_logs, as: :logs, only: "index"
+        end
+
+        resources :logs, controller: :table_memo_logs, as: :logs, only: "index"
+
+        resource :favorite_table, only: %w(create destroy)
       end
 
-      resources :logs, controller: :table_memo_logs, as: :logs, only: "index"
-
-      resource :favorite_table, only: %w(create destroy)
+      resources :logs, controller: :schema_memo_logs, as: :logs, only: "index"
     end
 
     resources :logs, controller: :database_memo_logs, as: :logs, only: "index"
   end
 
-  get "/databases/:database_name/:name" => "table_memos#show", as: "database_memo_table"
+  get "/databases/:database_name/:name" => "schema_memos#show", as: "database_schema"
+  get "/databases/:database_name/:schema_name/:name" => "table_memos#show", as: "database_schema_table"
 
   resource :markdown_preview, only: %w(create)
 
