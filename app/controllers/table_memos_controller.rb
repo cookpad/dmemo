@@ -61,6 +61,6 @@ class TableMemosController < ApplicationController
   def redirect_named_path(id = nil)
     return unless id =~ /\A\d+\z/
     table_memo = TableMemo.find(id)
-    redirect_to database_memo_table_path(table_memo.database_memo.name, table_memo.name)
+    redirect_to database_schema_table_path(table_memo.database_memo.name, table_memo.schema_memo.name, table_memo.name)
   end
 end
