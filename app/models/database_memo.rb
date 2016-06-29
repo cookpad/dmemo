@@ -17,31 +17,46 @@ class DatabaseMemo < ActiveRecord::Base
 
     db_memo = find_or_create_by!(name: data_source.name)
     schema_memos = db_memo.schema_memos.includes(table_memos: :column_memos).to_a
+    schema_memos.each {|memo| memo.linked = false }
 
-    data_source.source_table_classes.group_by(&:schema_name).each do |schema_name, table_classes|
+    all_table_memos = schema_memos.map(&:table_memos).map(&:to_a).flatten
+    all_table_memos.each {|memo| memo.linked = false }
+
+    source_table_classes = data_source.source_table_classes
+
+    source_table_classes.group_by(&:schema_name).each do |schema_name, table_classes|
       schema_memo = schema_memos.find {|memo| memo.name == schema_name } || db_memo.schema_memos.create!(name: schema_name )
-      table_memos = schema_memo.table_memos.to_a
+      schema_memo.linked = true
+      table_memos = all_table_memos.select {|memo| memo.schema_memo_id == schema_memo.id }
 
       table_classes.each do |table_class|
         table_name = table_class.table_name
         table_memo = table_memos.find {|memo| memo.name == table_name } || schema_memo.table_memos.create!(name: table_name )
+        table_memo.linked = true
         column_memos = table_memo.column_memos.to_a
 
         table_class.access do
           adapter = table_class.connection.pool.connections.first
+          columns = table_class.columns
 
-          table_class.columns.each do |column|
+          column_names = columns.map(&:name)
+          column_memos.reject {|memo| column_names.include?(memo.name) }.each {|memo| memo.update!(linked: false) }
+
+          columns.each do |column|
             column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
+            column_memo.linked = true
             column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
             column_memo.save! if column_memo.changed?
           end
         end
       end
     end
+    schema_memos.each {|memo| memo.save! if memo.changed? }
+    all_table_memos.each {|memo| memo.save! if memo.changed? }
   end
 
   def linked?
-    data_source.present? && data_source.source_base_class.try(:connection) rescue nil
+    data_source.present?
   end
 
   def single_schema?
