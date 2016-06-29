@@ -25,6 +25,7 @@ en:
   unlinked_schema: Unlinked schema
   unlinked_table: Unlinked table
   unlinked_column: Unlinked column
+  delete_unlinked_column: Delete unlinked column?
   masked_table: This table contains masked data.
   masked_text: ••••••••
   data_source_updated: "'%{name}' updated."
