@@ -16,10 +16,11 @@ class DataSource < ActiveRecord::Base
         "#{name.underscore}-#{defined_at.strftime("%Y%m%d%H%M%S")}"
       end
 
-      def self.with_search_path
+      def self.access
         return yield if schema_name == "_"
         original_search_path = connection.schema_search_path
         begin
+          connection.schema_cache.clear_table_cache!(table_name)
           connection.schema_search_path = schema_name
           yield
         ensure
@@ -107,11 +108,13 @@ class DataSource < ActiveRecord::Base
     table_class_name = source_table_class_name(schema_name, table_name)
     return DynamicTable.const_get(table_class_name) if DynamicTable.const_defined?(table_class_name)
     table_class = Class.new(source_base_class)
-    table_class.table_name = table_name
     table_class.schema_name = schema_name
-    DynamicTable.const_set(table_class_name, table_class)
-    table_class.defined_at = Time.now
-    table_class
+    table_class.table_name = table_name
+    table_class.access do
+      DynamicTable.const_set(table_class_name, table_class)
+      table_class.defined_at = Time.now
+      table_class
+    end
   end
 
   def source_table_classes

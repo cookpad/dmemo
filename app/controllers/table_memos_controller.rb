@@ -13,11 +13,13 @@ class TableMemosController < ApplicationController
     return unless @table_memo.linked?
     source_table_class = @table_memo.source_table_class
     if source_table_class
-      @source_column_classes = source_table_class.columns
-      unless @table_memo.masked?
-        @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
+      source_table_class.access do
+        @source_column_classes = source_table_class.columns
+        unless @table_memo.masked?
+          @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
+        end
+        @source_table_count = fetch_source_table_count(source_table_class)
       end
-      @source_table_count = fetch_source_table_count(source_table_class)
     end
   end
 
@@ -43,16 +45,16 @@ class TableMemosController < ApplicationController
 
   private
 
-  def fetch_source_table_count(source_table_class)
-    cache("source_table_count_#{source_table_class.cache_key}", expire: 1.day) do
-      source_table_class.count
+  def fetch_source_table_count(table_class)
+    cache("source_table_count_#{table_class.cache_key}", expire: 1.day) do
+      table_class.count
     end
   end
 
-  def fetch_source_table_data(source_table_class, source_column_classes)
-    cache("source_table_data_#{source_table_class.cache_key}", expire: 1.day) do
+  def fetch_source_table_data(table_class, source_column_classes)
+    cache("source_table_data_#{table_class.cache_key}", expire: 1.day) do
       column_names = source_column_classes.map(&:name)
-      source_table_class.limit(20).pluck(*column_names)
+      table_class.limit(20).pluck(*column_names)
     end
   end
 

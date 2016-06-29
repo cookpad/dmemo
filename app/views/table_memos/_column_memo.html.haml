@@ -3,6 +3,8 @@
     = column_memo.name
     - unless column_memo.linked?
       %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
+      = link_to column_memo, method: :delete, data: { confirm: "Delete column #{column_memo.name}?" } do
+        %i.fa.fa-trash
   %td
     - if column_memo.logs.present?
       = link_to column_memo_logs_path(column_memo.id), class: "pull-right colorbox" do
