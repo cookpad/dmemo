@@ -58,7 +58,7 @@
         %th Sql Type
         %th Default Value
         %th Nullable
-      = render partial: "column_memo", collection: @table_memo.column_memos
+      = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:id)
 
 .box
   .box-header
