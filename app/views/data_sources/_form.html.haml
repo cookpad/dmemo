@@ -8,7 +8,7 @@
       .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
     .form-group
       = f.label :adapter, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :adapter, class: "form-control", placeholder: "postgresql"
+      .col-sm-10= f.select :adapter, %w(redshift postgresql mysql2), {}, class: "form-control"
     .form-group
       = f.label :host, class: "col-sm-2 control-label"
       .col-sm-10= f.text_field :host, class: "form-control", placeholder: "localhost"
