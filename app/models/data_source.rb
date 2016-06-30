@@ -6,6 +6,8 @@ class DataSource < ActiveRecord::Base
 
   has_many :ignored_tables
 
+  has_one :data_source, class_name: "DatabaseMemo", foreign_key: :name, primary_key: :name, dependent: :destroy
+
   module DynamicTable
     class AbstractTable < ActiveRecord::Base
       self.abstract_class = true
