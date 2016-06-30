@@ -10,4 +10,5 @@ class SchemaMemo < ActiveRecord::Base
   validates :name, presence: true
 
   delegate :data_source, to: :database_memo
+  delegate :single_schema?, to: :database_memo
 end

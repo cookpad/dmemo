@@ -5,6 +5,7 @@ class SchemaMemosController < ApplicationController
 
   def show(database_name, name)
     @schema_memo = SchemaMemo.includes(table_memos: [:logs, :column_memos]).joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
+    redirect_to database_memo_path(@schema_memo.database_memo.name) if @schema_memo.single_schema?
   end
 
   def edit(id)
