@@ -10,10 +10,4 @@ class SchemaMemo < ActiveRecord::Base
   validates :name, presence: true
 
   delegate :data_source, to: :database_memo
-
-  def linked?
-    RequestStore["schema_memo_linked_#{id}"] ||= database_memo.linked? && data_source.present?
-  rescue ActiveRecord::ActiveRecordError, Mysql2::Error
-    false
-  end
 end

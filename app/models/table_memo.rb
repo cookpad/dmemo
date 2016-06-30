@@ -24,12 +24,6 @@ class TableMemo < ActiveRecord::Base
     source_table_class.try {|table_class| table_class.columns.find {|column_class| column_class.name == column_name } }
   end
 
-  def linked?
-    RequestStore["table_memo_linked_#{id}"] ||= database_memo.linked? && source_table_class.present?
-  rescue ActiveRecord::ActiveRecordError, Mysql2::Error
-    false
-  end
-
   def masked?
     MaskedDatum.masked_table?(database_memo.name, name)
   end

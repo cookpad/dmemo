@@ -20,6 +20,9 @@ class TableMemosController < ApplicationController
         end
         @source_table_count = fetch_source_table_count(source_table_class)
       end
+    else
+      @table_memo.update!(linked: false)
+      flash[:error] = "#{@table_memo.schema_memo.name}.#{@table_memo.name} table not found"
     end
   end
 
