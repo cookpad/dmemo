@@ -6,6 +6,7 @@ create_table "column_memos", force: :cascade do |t|
   t.string   "default",       default: "",    null: false
   t.boolean  "nullable",      default: false, null: false
   t.boolean  "linked",        default: true,  null: false
+  t.integer  "position",      default: 0,     null: false
   t.datetime "created_at",                    null: false
   t.datetime "updated_at",                    null: false
 end

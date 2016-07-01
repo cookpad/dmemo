@@ -20,6 +20,6 @@ class ColumnMemo < ActiveRecord::Base
   end
 
   def display_order
-    [linked? ? 0 : 1, id]
+    [linked? ? 0 : 1, position]
   end
 end
