@@ -62,4 +62,8 @@ class DatabaseMemo < ActiveRecord::Base
   def single_schema?
     schema_memos.count == 1
   end
+
+  def display_order
+    [linked? ? 0 : 1, name]
+  end
 end

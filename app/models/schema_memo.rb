@@ -11,4 +11,8 @@ class SchemaMemo < ActiveRecord::Base
 
   delegate :data_source, to: :database_memo
   delegate :single_schema?, to: :database_memo
+
+  def display_order
+    [linked? ? 0 : 1, name]
+  end
 end
