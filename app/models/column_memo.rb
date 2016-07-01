@@ -18,4 +18,8 @@ class ColumnMemo < ActiveRecord::Base
   def full_name
     "#{table_memo.database_memo.name}/#{table_memo.name}/#{name}"
   end
+
+  def display_order
+    [linked? ? 0 : 1, position]
+  end
 end

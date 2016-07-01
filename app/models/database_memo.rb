@@ -42,10 +42,10 @@ class DatabaseMemo < ActiveRecord::Base
           column_names = columns.map(&:name)
           column_memos.reject {|memo| column_names.include?(memo.name) }.each {|memo| memo.update!(linked: false) }
 
-          columns.each do |column|
+          columns.each_with_index do |column, position|
             column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
             column_memo.linked = true
-            column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null)
+            column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null, position: position)
             column_memo.save! if column_memo.changed?
           end
         end
@@ -61,5 +61,9 @@ class DatabaseMemo < ActiveRecord::Base
 
   def single_schema?
     schema_memos.count == 1
+  end
+
+  def display_order
+    [linked? ? 0 : 1, name]
   end
 end

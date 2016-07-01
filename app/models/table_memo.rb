@@ -35,4 +35,8 @@ class TableMemo < ActiveRecord::Base
   def full_name
     "#{database_memo.name}/#{name}"
   end
+
+  def display_order
+    [linked? ? 0 : 1, name]
+  end
 end
