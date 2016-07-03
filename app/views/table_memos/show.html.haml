@@ -60,11 +60,17 @@
         %th Nullable
       = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
 
-.box
-  .box-header
-    %h3.box-title Data
-  .box-body
-    - if @table_memo.linked?
+- if @connection_error
+  .box.box-danger
+    .box-header
+      %h3.box-title Data
+    .box-body
+      .text-center= @connection_error
+- elsif @table_memo.linked?
+  .box
+    .box-header
+      %h3.box-title Data
+    .box-body
       %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
         %tr
           - @source_column_classes.each do |source_column_class|
@@ -87,5 +93,3 @@
                     = value
       .pull-right.block
         #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
-    - else
-      .text-center= t("unlinked_table")

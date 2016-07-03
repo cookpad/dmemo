@@ -53,6 +53,8 @@ class DatabaseMemo < ActiveRecord::Base
     end
     schema_memos.each {|memo| memo.save! if memo.changed? }
     all_table_memos.each {|memo| memo.save! if memo.changed? }
+  rescue Mysql2::Error, PG::Error => e
+    raise DataSource::ConnectionBad.new(e)
   end
 
   def linked?

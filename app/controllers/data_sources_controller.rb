@@ -36,9 +36,9 @@ class DataSourcesController < ApplicationController
     @data_source.assign_attributes(data_source_params(data_source))
     @data_source.save! if @data_source.changed?
     import_data_source_and_redirect!(@data_source)
-  rescue  ActiveRecord::ActiveRecordError => e
+  rescue  ActiveRecord::ActiveRecordError, DataSource::ConnectionBad => e
     flash[:error] = e.message
-    redirect_to edit_data_source_path(id)
+    redirect_to :back
   end
 
   def destroy(id)
@@ -58,7 +58,7 @@ class DataSourcesController < ApplicationController
     DatabaseMemo.import_data_source!(data_source.id)
     flash[:info] = t("data_source_updated", name: data_source.name)
     redirect_to data_sources_path
-  rescue ActiveRecord::ActiveRecordError, Mysql2::Error => e
+  rescue ActiveRecord::ActiveRecordError, DataSource::ConnectionBad => e
     flash[:error] = e.message
     redirect_to data_sources_path
   end
