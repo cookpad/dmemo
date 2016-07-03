@@ -11,18 +11,22 @@ class TableMemosController < ApplicationController
       where(name: name).
       take!
     return unless @table_memo.linked?
-    source_table_class = @table_memo.source_table_class
-    if source_table_class
-      source_table_class.access do
-        @source_column_classes = source_table_class.columns
-        unless @table_memo.masked?
-          @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
+    begin
+      source_table_class = @table_memo.source_table_class
+      if source_table_class
+        source_table_class.access do
+          @source_column_classes = source_table_class.columns
+          unless @table_memo.masked?
+            @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
+          end
+          @source_table_count = fetch_source_table_count(source_table_class)
         end
-        @source_table_count = fetch_source_table_count(source_table_class)
+      else
+        @table_memo.update!(linked: false)
+        flash[:error] = "#{@table_memo.schema_memo.name}.#{@table_memo.name} table not found"
       end
-    else
-      @table_memo.update!(linked: false)
-      flash[:error] = "#{@table_memo.schema_memo.name}.#{@table_memo.name} table not found"
+    rescue DataSource::ConnectionBad => e
+      @connection_error = e.message
     end
   end
 

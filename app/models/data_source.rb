@@ -32,6 +32,9 @@ class DataSource < ActiveRecord::Base
     end
   end
 
+  class ConnectionBad < IOError
+  end
+
   def connection_config_password
     password.present? ? password : nil
   end
@@ -93,6 +96,8 @@ class DataSource < ActiveRecord::Base
         source_base_class.connection.tables.map {|table_name| ["_", table_name] }
     end
     tables.reject {|_, table_name| ignored_table_patterns.match(table_name) }
+  rescue Mysql2::Error, PG::Error => e
+    raise ConnectionBad.new(e)
   end
 
   def cached_source_tables
@@ -117,6 +122,8 @@ class DataSource < ActiveRecord::Base
       table_class.defined_at = Time.now
       table_class
     end
+  rescue Mysql2::Error, PG::Error => e
+    raise ConnectionBad.new(e)
   end
 
   def source_table_classes
