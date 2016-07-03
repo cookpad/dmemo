@@ -102,15 +102,24 @@ class DataSource < ActiveRecord::Base
     raise ConnectionBad.new(e)
   end
 
+  def cache_key_source_tables
+    "data_source_source_tables_#{id}"
+  end
+
   def cached_source_tables
-    RequestStore.store["data_source_source_tables_#{id}"] ||= source_tables
+    key = cache_key_source_tables
+    cache = Rails.cache.read(key)
+    return cache if cache
+    value = source_tables
+    Rails.cache.write(key, value)
+    value
   end
 
   def source_schema_names
     cached_source_tables.map {|table| table[0] }.uniq.sort
   end
 
-  def source_table_class(schema_name, table_name, tables=source_tables)
+  def source_table_class(schema_name, table_name, tables=cached_source_tables)
     return if ignored_table_patterns.match(table_name)
     schema_name, _ = tables.find {|schema, table| schema == schema_name && table == table_name }
     return nil unless schema_name
@@ -129,13 +138,14 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_classes
-    tables = source_tables
+    tables = cached_source_tables
     tables.map do |schema_name, table_name|
       source_table_class(schema_name, table_name, tables)
     end
   end
 
   def reset_source_table_classes!
+    Rails.cache.delete(cache_key_source_tables)
     DynamicTable.constants.select{|name| name.to_s.start_with?(source_table_class_name_prefix) }.each do |table_name|
       DynamicTable.send(:remove_const, table_name)
     end
