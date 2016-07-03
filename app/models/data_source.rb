@@ -19,14 +19,16 @@ class DataSource < ActiveRecord::Base
       end
 
       def self.access
-        return yield if schema_name == "_"
-        original_search_path = connection.schema_search_path
-        begin
-          connection.schema_cache.clear_table_cache!(table_name)
-          connection.schema_search_path = schema_name
-          yield
-        ensure
-          connection.schema_search_path = original_search_path
+        logger.tagged("#{self.name}") do
+          return yield if schema_name == "_"
+          original_search_path = connection.schema_search_path
+          begin
+            connection.schema_cache.clear_table_cache!(table_name)
+            connection.schema_search_path = schema_name
+            yield
+          ensure
+            connection.schema_search_path = original_search_path
+          end
         end
       end
     end
