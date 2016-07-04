@@ -8,6 +8,8 @@ class DataSource < ActiveRecord::Base
 
   has_one :data_source, class_name: "DatabaseMemo", foreign_key: :name, primary_key: :name, dependent: :destroy
 
+  class_attribute :source_tables
+
   module DynamicTable
     class AbstractTable < ActiveRecord::Base
       self.abstract_class = true
@@ -17,24 +19,14 @@ class DataSource < ActiveRecord::Base
       def self.cache_key
         "#{name.underscore}-#{defined_at.strftime("%Y%m%d%H%M%S")}"
       end
-
-      def self.access
-        logger.tagged("#{self.name}") do
-          return yield if schema_name == "_"
-          original_search_path = connection.schema_search_path
-          begin
-            connection.schema_cache.clear_table_cache!(table_name)
-            connection.schema_search_path = schema_name
-            yield
-          ensure
-            connection.schema_search_path = original_search_path
-          end
-        end
-      end
     end
   end
 
   class ConnectionBad < IOError
+  end
+
+  def self.source_tables
+    @source_tables ||= {}
   end
 
   def connection_config_password
@@ -119,36 +111,29 @@ class DataSource < ActiveRecord::Base
     cached_source_tables.map {|table| table[0] }.uniq.sort
   end
 
-  def source_table_class(schema_name, table_name, tables=cached_source_tables)
+  def data_source_table(schema_name, table_name, tables=cached_source_tables)
     return if ignored_table_patterns.match(table_name)
     schema_name, _ = tables.find {|schema, table| schema == schema_name && table == table_name }
     return nil unless schema_name
     table_class_name = source_table_class_name(schema_name, table_name)
-    return DynamicTable.const_get(table_class_name) if DynamicTable.const_defined?(table_class_name)
-    table_class = Class.new(source_base_class)
-    table_class.schema_name = schema_name
-    table_class.table_name = table_name
-    table_class.access do
-      DynamicTable.const_set(table_class_name, table_class)
-      table_class.defined_at = Time.now
-      table_class
-    end
+    self.class.source_tables[id] ||= {}
+    source_table = self.class.source_tables[id][table_class_name]
+    return source_table if source_table
+    self.class.source_tables[id][table_class_name] = DataSourceTable.new(source_base_class, schema_name, table_name)
   rescue Mysql2::Error, PG::Error => e
     raise ConnectionBad.new(e)
   end
 
-  def source_table_classes
+  def data_source_tables
     tables = cached_source_tables
     tables.map do |schema_name, table_name|
-      source_table_class(schema_name, table_name, tables)
+      data_source_table(schema_name, table_name, tables)
     end
   end
 
-  def reset_source_table_classes!
+  def reset_data_source_tables!
     Rails.cache.delete(cache_key_source_tables)
-    DynamicTable.constants.select{|name| name.to_s.start_with?(source_table_class_name_prefix) }.each do |table_name|
-      DynamicTable.send(:remove_const, table_name)
-    end
+    self.class.source_tables[id] = {}
   end
 
   def ignored_table_patterns

@@ -12,15 +12,13 @@ class TableMemosController < ApplicationController
       take!
     return unless @table_memo.linked?
     begin
-      source_table_class = @table_memo.source_table_class
-      if source_table_class
-        source_table_class.access do
-          @source_column_classes = source_table_class.columns
-          unless @table_memo.masked?
-            @source_table_data = fetch_source_table_data(source_table_class, @source_column_classes)
-          end
-          @source_table_count = fetch_source_table_count(source_table_class)
+      data_source_table = @table_memo.data_source_table
+      if data_source_table
+        @source_column_classes = data_source_table.columns
+        unless @table_memo.masked?
+          @source_table_data = fetch_source_table_data(data_source_table)
         end
+        @source_table_count = fetch_source_table_count(data_source_table)
       else
         @table_memo.update!(linked: false)
         flash[:error] = "#{@table_memo.schema_memo.name}.#{@table_memo.name} table not found"
@@ -52,16 +50,15 @@ class TableMemosController < ApplicationController
 
   private
 
-  def fetch_source_table_count(table_class)
-    cache("source_table_count_#{table_class.cache_key}", expire: 1.day) do
-      table_class.count
+  def fetch_source_table_count(data_source_table)
+    cache("source_table_count_#{data_source_table.cache_key}", expire: 1.day) do
+      data_source_table.fetch_count
     end
   end
 
-  def fetch_source_table_data(table_class, source_column_classes)
-    cache("source_table_data_#{table_class.cache_key}", expire: 1.day) do
-      column_names = source_column_classes.map(&:name)
-      table_class.limit(20).pluck(*column_names)
+  def fetch_source_table_data(data_source_table)
+    cache("source_table_data_#{data_source_table.cache_key}", expire: 1.day) do
+      data_source_table.fetch_rows
     end
   end
 

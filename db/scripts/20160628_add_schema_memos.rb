@@ -25,15 +25,15 @@ con.transaction do
     tables = database_memo.data_source.source_tables
     TableMemo.where(database_memo_id: database_memo.id).find_each do |table_memo|
       schema_name, _ = tables.find {|_, table| table == table_memo.name }
-      table_class = database_memo.data_source.source_table_class(schema_name, table_memo.name)
+      data_source_table = database_memo.data_source.data_source_table(schema_name, table_memo.name)
 
       # delete unlinked table memo
-      unless table_class
+      unless data_source_table
         table_memo.destroy!
         next
       end
 
-      schema_name = table_class.schema_name
+      schema_name = data_source_table.schema_name
       schema_memo = database_memo.schema_memos.find_by(name: schema_name) || database_memo.schema_memos.create!(name: schema_name)
       table_memo.update!(schema_memo_id: schema_memo.id)
     end
