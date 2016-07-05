@@ -25,11 +25,15 @@ class DataSourceTable
     rows.map {|row|
       columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
     }
+  rescue Mysql2::Error, PG::Error => e
+    raise DataSource::ConnectionBad.new(e)
   end
 
   def fetch_count
     connection.select_value(<<-SQL).to_i
       SELECT COUNT(*) FROM #{full_table_name};
     SQL
+  rescue Mysql2::Error, PG::Error => e
+    raise DataSource::ConnectionBad.new(e)
   end
 end

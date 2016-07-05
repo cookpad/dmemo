@@ -22,18 +22,30 @@ con.transaction do
   con.add_column "table_memos", "schema_memo_id", :integer, after: :id
 
   DatabaseMemo.find_each do |database_memo|
-    tables = database_memo.data_source.source_tables
+    connection = database_memo.data_source.source_base_class.connection
+    table_names = case connection
+      when ActiveRecord::ConnectionAdapters::PostgreSQLAdapter, ActiveRecord::ConnectionAdapters::RedshiftAdapter
+        connection.query(<<-SQL, 'SCHEMA')
+          SELECT schemaname, tablename
+          FROM (
+            SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
+            UNION
+            SELECT schemaname, viewname AS tablename FROM pg_views WHERE schemaname = ANY (current_schemas(false))
+          ) tables
+          ORDER BY schemaname, tablename;
+        SQL
+      else
+        connection.tables.map {|table_name| ["_", table_name] }
+    end
     TableMemo.where(database_memo_id: database_memo.id).find_each do |table_memo|
-      schema_name, _ = tables.find {|_, table| table == table_memo.name }
-      data_source_table = database_memo.data_source.data_source_table(schema_name, table_memo.name)
+      schema_name, _ = table_names.find {|_, table| table == table_memo.name }
 
       # delete unlinked table memo
-      unless data_source_table
+      unless connection.table_exists?(table_memo.name)
         table_memo.destroy!
         next
       end
 
-      schema_name = data_source_table.schema_name
       schema_memo = database_memo.schema_memos.find_by(name: schema_name) || database_memo.schema_memos.create!(name: schema_name)
       table_memo.update!(schema_memo_id: schema_memo.id)
     end
