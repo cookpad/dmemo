@@ -16,8 +16,8 @@ class TableMemo < ActiveRecord::Base
   delegate :database_memo, to: :schema_memo
   delegate :data_source, to: :schema_memo
 
-  def source_table_class
-    database_memo.data_source.try(:source_table_class, schema_memo.name, name)
+  def data_source_table
+    database_memo.data_source.try(:data_source_table, schema_memo.name, name)
   end
 
   def source_column_class(column_name)
