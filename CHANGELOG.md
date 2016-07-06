@@ -6,6 +6,7 @@
 - Cache data source access
 - Introduce schema_memos
 - Show all database access logs
+- Check the upgrade guide: https://github.com/hogelog/dmemo/issues/30
 
 ## 0.1.5
 - Favorite table feature
