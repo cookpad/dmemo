@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  permits :name
+  permits :name, :admin
 
   before_action :require_editable, only: %w(edit update)
 
@@ -12,8 +12,10 @@ class UsersController < ApplicationController
   end
 
   def update(id, user)
+    return head 401 if user.has_key?("admin") && !current_user.admin?
     @user = User.find(id)
     @user.update!(user)
+    flash[:info] = "User #{@user.name} updated"
     redirect_to edit_user_path(@user)
   end
 
