@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1
+- Logging data source access with tag https://github.com/hogelog/dmemo/pull/37
+- Small fixes
+
 ## 0.2.0
 - Ignored tables feature
 - Optimize data source sync
