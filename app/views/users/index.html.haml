@@ -19,7 +19,9 @@
         %th
       - @users.each do |user|
         %tr
-          %td= user.name
+          %td
+            = image_tag user.image_url, size: "40x40", class: "img-rounded"
+            = user.name
           %td= user.email
           %td
             - if user.admin?

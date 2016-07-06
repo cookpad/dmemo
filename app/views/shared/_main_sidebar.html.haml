@@ -2,7 +2,7 @@
   %section.sidebar
     .user-panel
       .pull-left.image
-        %img.img-rounded{ src: current_user.image_url }/
+        = image_tag current_user.image_url, class: "img-rounded"
       .pull-left.info
         %p= current_user.name
 
