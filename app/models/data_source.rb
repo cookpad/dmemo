@@ -63,19 +63,21 @@ class DataSource < ActiveRecord::Base
   end
 
   def source_table_names
-    table_names = case source_base_class.connection
-      when ActiveRecord::ConnectionAdapters::PostgreSQLAdapter, ActiveRecord::ConnectionAdapters::RedshiftAdapter
-        source_base_class.connection.query(<<-SQL, 'SCHEMA')
-          SELECT schemaname, tablename
-          FROM (
-            SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
-            UNION
-            SELECT schemaname, viewname AS tablename FROM pg_views WHERE schemaname = ANY (current_schemas(false))
-          ) tables
-          ORDER BY schemaname, tablename;
-        SQL
-      else
-        source_base_class.connection.tables.map {|table_name| ["_", table_name] }
+    table_names = access_logging do
+      case source_base_class.connection
+        when ActiveRecord::ConnectionAdapters::PostgreSQLAdapter, ActiveRecord::ConnectionAdapters::RedshiftAdapter
+          source_base_class.connection.query(<<-SQL, 'SCHEMA')
+            SELECT schemaname, tablename
+            FROM (
+              SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
+              UNION
+              SELECT schemaname, viewname AS tablename FROM pg_views WHERE schemaname = ANY (current_schemas(false))
+            ) tables
+            ORDER BY schemaname, tablename;
+          SQL
+        else
+          source_base_class.connection.tables.map {|table_name| ["_", table_name] }
+      end
     end
     table_names.reject {|_, table_name| ignored_table_patterns.match(table_name) }
   rescue Mysql2::Error, PG::Error => e
@@ -103,7 +105,7 @@ class DataSource < ActiveRecord::Base
     self.class.data_source_tables_cache[id] ||= {}
     source_table = self.class.data_source_tables_cache[id][full_table_name]
     return source_table if source_table
-    self.class.data_source_tables_cache[id][full_table_name] = DataSourceTable.new(source_base_class, schema_name, table_name)
+    self.class.data_source_tables_cache[id][full_table_name] = DataSourceTable.new(self, schema_name, table_name)
   rescue Mysql2::Error, PG::Error => e
     raise ConnectionBad.new(e)
   end
@@ -128,5 +130,9 @@ class DataSource < ActiveRecord::Base
 
   def disconnect_data_source!
     source_base_class.establish_connection.disconnect!
+  end
+
+  def access_logging
+    Rails.logger.tagged("DataSource #{name}") { yield }
   end
 end
