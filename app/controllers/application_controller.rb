@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_sidebar_databases
-    @sidebar_databases = DatabaseMemo.all.select(:name).sort_by(&:display_order)
+    @sidebar_databases = DatabaseMemo.all.select(:name).order(:name)
   end
 
   def set_search_result
