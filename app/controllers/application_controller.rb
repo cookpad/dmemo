@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_action :require_login
-  before_action :set_sidebar_databases
-  before_action :set_search_result
+  before_action :set_sidebar_databases, :set_search_result, only: %w(index show new edit)
 
   private
 

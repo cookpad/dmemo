@@ -1,6 +1,8 @@
 class ColumnMemosController < ApplicationController
   permits :description
 
+  skip_before_action :set_sidebar_databases, :set_search_result
+
   def edit(id)
     @column_memo = ColumnMemo.find(id)
     render layout: "colorbox"
