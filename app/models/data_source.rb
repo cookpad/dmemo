@@ -80,7 +80,7 @@ class DataSource < ActiveRecord::Base
       end
     end
     table_names.reject {|_, table_name| ignored_table_patterns.match(table_name) }
-  rescue Mysql2::Error, PG::Error => e
+  rescue ActiveRecordError, Mysql2::Error, PG::Error => e
     raise ConnectionBad.new(e)
   end
 
@@ -106,7 +106,7 @@ class DataSource < ActiveRecord::Base
     source_table = self.class.data_source_tables_cache[id][full_table_name]
     return source_table if source_table
     self.class.data_source_tables_cache[id][full_table_name] = DataSourceTable.new(self, schema_name, table_name)
-  rescue Mysql2::Error, PG::Error => e
+  rescue ActiveRecordError, Mysql2::Error, PG::Error => e
     raise ConnectionBad.new(e)
   end
 
