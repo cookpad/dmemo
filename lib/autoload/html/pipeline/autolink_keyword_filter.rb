@@ -15,7 +15,7 @@ module HTML
           next if html == content
           node.replace(html)
         end
-        doc
+        doc.to_html
       end
 
       def patterns

@@ -11,12 +11,12 @@ describe HTML::Pipeline::AutolinkKeywordFilter do
 
     context "with plain text" do
       let(:html) { "This is ruby." }
-      it { expect(filter.call.to_html).to eq('This is <a href="https://www.ruby-lang.org/">ruby</a>.') }
+      it { expect(filter.call).to eq('This is <a href="https://www.ruby-lang.org/">ruby</a>.') }
     end
 
     context "with anchored html" do
       let(:html) { '<a href="https://example.com/">This is ruby</a>.' }
-      it { expect(filter.call.to_html).to eq('<a href="https://example.com/">This is ruby</a>.') }
+      it { expect(filter.call).to eq('<a href="https://example.com/">This is ruby</a>.') }
     end
   end
 end
