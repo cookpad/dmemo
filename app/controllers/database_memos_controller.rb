@@ -3,6 +3,8 @@ class DatabaseMemosController < ApplicationController
 
   before_action :redirect_named_path, only: :show
 
+  after_action :record_access
+
   def index
     redirect_to root_path
   end
@@ -36,5 +38,9 @@ class DatabaseMemosController < ApplicationController
   def redirect_named_path(id = nil)
     return unless id =~ /\A\d+\z/
     redirect_to database_memo_path(DatabaseMemo.where(id: id).pluck(:name).first)
+  end
+
+  def record_access
+    flash[:database_memo_id] = @database_memo.id
   end
 end

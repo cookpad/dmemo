@@ -16,6 +16,9 @@ class TableMemo < ActiveRecord::Base
   delegate :database_memo, to: :schema_memo
   delegate :data_source, to: :schema_memo
 
+  after_save :clear_keyword_links
+  after_destroy :clear_keyword_links
+
   def data_source_table
     database_memo.data_source.try(:data_source_table, schema_memo.name, name)
   end
@@ -38,5 +41,11 @@ class TableMemo < ActiveRecord::Base
 
   def display_order
     [linked? ? 0 : 1, name]
+  end
+
+  private
+
+  def clear_keyword_links
+    Keyword.clear_links! if name_changed? || destroyed?
   end
 end

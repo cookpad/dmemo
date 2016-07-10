@@ -6,7 +6,11 @@ class Markdown
   end
 
   def html
-    @html ||= Rails.application.config.markdown_to_html_pipeline.call(@md)[:output].html_safe
+    @html ||= Rails.application.config.markdown_to_html_pipeline.call(@md, html_context)[:output].html_safe
+  end
+
+  def html_context
+    { autolink_keywords: Keyword.links }
   end
 
   def text
