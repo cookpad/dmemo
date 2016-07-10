@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.0-rc
+- Autolink table name in description
+
 ## 0.2.1
 - Logging data source access with tag https://github.com/hogelog/dmemo/pull/37
 - Small fixes
