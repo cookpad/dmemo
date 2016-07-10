@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   get "/databases/:database_name/:schema_name/:name" => "table_memos#show", as: "database_schema_table"
 
   resource :markdown_preview, only: %w(create)
+  resources :keywords do
+    resources :logs, controller: :keyword_logs, as: :logs, only: "index"
+  end
 
   get "auth/google_oauth2/callback", to: "sessions#create"
   get "logout", to: "sessions#destroy"

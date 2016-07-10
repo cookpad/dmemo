@@ -1,0 +1,25 @@
+- content_for :header do
+  %h1.page-header
+    = @keyword.name
+    = link_to edit_keyword_path(@keyword) do
+      %i.fa.fa-edit
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to "Keywords", keywords_path
+    %li.active
+      = @keyword.name
+
+.box.box-info.with-border
+  .box-body
+    .markdown-block
+      = @keyword.description_html
+  .box-footer
+    = l(@keyword.updated_at)
+    - if @keyword.logs.exists?
+      = link_to keyword_logs_path(@keyword.id) do
+        %i.fa.fa-clock-o
