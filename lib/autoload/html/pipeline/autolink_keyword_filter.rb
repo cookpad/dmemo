@@ -19,7 +19,7 @@ module HTML
       end
 
       def patterns
-        @patterns ||= Regexp.union(context[:autolink_keywords].keys)
+        @patterns ||= Regexp.union(context[:autolink_keywords].keys.sort_by {|k| -k.size })
       end
     end
   end
