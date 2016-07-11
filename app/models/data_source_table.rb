@@ -28,7 +28,7 @@ class DataSourceTable
         columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
       }
     end
-  rescue Mysql2::Error, PG::Error => e
+  rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
     raise DataSource::ConnectionBad.new(e)
   end
 
@@ -38,7 +38,7 @@ class DataSourceTable
         SELECT COUNT(*) FROM #{full_table_name};
       SQL
     end
-  rescue Mysql2::Error, PG::Error => e
+  rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
     raise DataSource::ConnectionBad.new(e)
   end
 end
