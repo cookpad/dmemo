@@ -1,4 +1,4 @@
-class Keyword
+class AutolinkKeyword
   def self.links
     urls = Rails.application.routes.url_helpers
     @links ||= DatabaseMemo.includes(schema_memos: :table_memos).each_with_object({}) {|database_memo, h|

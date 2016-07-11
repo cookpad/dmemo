@@ -10,7 +10,7 @@ class Markdown
   end
 
   def html_context
-    { autolink_keywords: Keyword.links }
+    { autolink_keywords: AutolinkKeyword.links }
   end
 
   def text

@@ -46,6 +46,6 @@ class TableMemo < ActiveRecord::Base
   private
 
   def clear_keyword_links
-    Keyword.clear_links! if name_changed? || destroyed?
+    AutolinkKeyword.clear_links! if name_changed? || destroyed?
   end
 end
