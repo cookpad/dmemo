@@ -1,9 +1,13 @@
 class Keyword
   def self.links
     urls = Rails.application.routes.url_helpers
-    @links ||= TableMemo.joins(:schema_memo).pluck(:id, :name, 'schema_memos.name').each_with_object({}) {|(id, name, schema_name), h|
-      h[name] = urls.keyword_path(name)
-      h["#{schema_name}.#{name}"] = urls.table_memo_path(id)
+    @links ||= DatabaseMemo.includes(schema_memos: :table_memos).each_with_object({}) {|database_memo, h|
+      database_memo.schema_memos.each do |schema_memo|
+        schema_memo.table_memos.each do |table_memo|
+          path = urls.database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name)
+          h["#{schema_memo.name}.#{table_memo.name}"] = h[table_memo.name] = path
+        end
+      end
     }
   end
 

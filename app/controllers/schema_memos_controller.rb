@@ -3,8 +3,6 @@ class SchemaMemosController < ApplicationController
 
   before_action :redirect_named_path, only: :show
 
-  after_action :record_access
-
   def show(database_name, name)
     @schema_memo = SchemaMemo.includes(table_memos: [:logs, :column_memos]).joins(:database_memo).merge(DatabaseMemo.where(name: database_name)).where(name: name).take!
     redirect_to database_memo_path(@schema_memo.database_memo.name) if @schema_memo.single_schema?
@@ -36,9 +34,5 @@ class SchemaMemosController < ApplicationController
     return unless id =~ /\A\d+\z/
     schema_memo = SchemaMemo.find(id)
     redirect_to database_schema_path(schema_memo.database_memo.name, schema_memo.name)
-  end
-
-  def record_access
-    flash[:schema_memo_id] = @schema_memo.id
   end
 end

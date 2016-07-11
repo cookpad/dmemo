@@ -3,8 +3,6 @@ class TableMemosController < ApplicationController
 
   before_action :redirect_named_path, only: :show
 
-  after_action :record_access
-
   def show(database_name, schema_name, name)
     @table_memo = TableMemo.
       includes(column_memos: :logs).
@@ -70,9 +68,5 @@ class TableMemosController < ApplicationController
     return unless id =~ /\A\d+\z/
     table_memo = TableMemo.find(id)
     redirect_to database_schema_table_path(table_memo.database_memo.name, table_memo.schema_memo.name, table_memo.name)
-  end
-
-  def record_access
-    flash[:schema_memo_id] = @table_memo.schema_memo_id
   end
 end
