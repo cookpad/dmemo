@@ -1,0 +1,8 @@
+create_table "keywords", force: :cascade do |t|
+  t.string   "name",                     null: false
+  t.text     "description", default: "", null: false
+  t.datetime "created_at",               null: false
+  t.datetime "updated_at",               null: false
+end
+
+add_index "keywords", ["name"], name: "uniq_keyword_name", unique: true, using: :btree

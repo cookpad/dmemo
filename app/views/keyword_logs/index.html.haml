@@ -1,0 +1,19 @@
+- content_for :header do
+  %h1.page-header
+    = @keyword.name
+    logs
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to "Keywords", keywords_path
+    %li
+      = link_to @keyword.name, keyword_path(@keyword.name)
+    %li.active
+      logs
+
+%ul.timeline
+  = render partial: "shared/description_log", collection: @keyword_logs

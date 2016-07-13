@@ -1,0 +1,17 @@
+= form_for @keyword, html: { class: "form" } do |f|
+  .box.box-info.with-border
+    .box-body
+      .row
+        .col-sm-6.form-group
+          = f.label :name, class: "col-sm-2 control-label"
+          = f.text_field :name, class: "form-control", placeholder: "keyword", tabindex: 1
+      .row
+        .col-sm-6.form-group
+          = f.label :description
+          = f.text_area :description, rows: 20, class: "form-control markdown-editor", data: { target: ".description-preview" }, tabindex: 2
+        .col-sm-6.form-group
+          %label Preview
+          .markdown-block.description-preview
+            = @keyword.description_html
+    .box-footer
+      = f.submit class: "btn btn-primary", tabindex: 3

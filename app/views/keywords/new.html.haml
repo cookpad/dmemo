@@ -1,0 +1,14 @@
+- content_for :header do
+  %h1.page-header New keyword
+
+  %ol.breadcrumb
+    %li
+      = link_to root_path do
+        %i.fa.fa-home
+        Home
+    %li
+      = link_to "Keywords", keywords_path
+    %li.active
+      New keyword
+
+= render "form"

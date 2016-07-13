@@ -6,12 +6,14 @@ describe AutolinkKeyword, type: :model do
     let(:schema_memo) { FactoryGirl.create(:schema_memo, database_memo: database_memo, name: "myapp") }
     before do
       FactoryGirl.create(:table_memo, schema_memo: schema_memo, name: "books")
+      FactoryGirl.create(:keyword, name: "difficult-word", description: "Difficult!")
     end
 
     it "returns links to table" do
       expect(AutolinkKeyword.links).to eq(
         "books" => "/databases/db/myapp/books",
         "myapp.books" => "/databases/db/myapp/books",
+        "difficult-word" => "/keywords/difficult-word",
       )
     end
 
@@ -20,6 +22,7 @@ describe AutolinkKeyword, type: :model do
         expect(AutolinkKeyword.links).to eq(
           "books" => "/databases/db/myapp/books",
           "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
         )
         memo = FactoryGirl.create(:table_memo, schema_memo: schema_memo, name: "blogs")
         expect(AutolinkKeyword.links).to eq(
@@ -27,6 +30,7 @@ describe AutolinkKeyword, type: :model do
           "myapp.books" => "/databases/db/myapp/books",
           "blogs" => "/databases/db/myapp/blogs",
           "myapp.blogs" => "/databases/db/myapp/blogs",
+          "difficult-word" => "/keywords/difficult-word",
         )
         memo.update!(name: "alphabets")
         expect(AutolinkKeyword.links).to eq(
@@ -34,11 +38,43 @@ describe AutolinkKeyword, type: :model do
           "myapp.books" => "/databases/db/myapp/books",
           "alphabets" => "/databases/db/myapp/alphabets",
           "myapp.alphabets" => "/databases/db/myapp/alphabets",
+          "difficult-word" => "/keywords/difficult-word",
         )
         memo.destroy!
         expect(AutolinkKeyword.links).to eq(
           "books" => "/databases/db/myapp/books",
           "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
+        )
+      end
+    end
+
+    context "after keyword created" do
+      it "clears links" do
+        expect(AutolinkKeyword.links).to eq(
+          "books" => "/databases/db/myapp/books",
+          "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
+        )
+        keyword = FactoryGirl.create(:keyword, name: "easy-word", description: "Easy!")
+        expect(AutolinkKeyword.links).to eq(
+          "books" => "/databases/db/myapp/books",
+          "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
+          "easy-word" => "/keywords/easy-word",
+        )
+        keyword.update!(name: "easy")
+        expect(AutolinkKeyword.links).to eq(
+          "books" => "/databases/db/myapp/books",
+          "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
+          "easy" => "/keywords/easy",
+        )
+        keyword.destroy!
+        expect(AutolinkKeyword.links).to eq(
+          "books" => "/databases/db/myapp/books",
+          "myapp.books" => "/databases/db/myapp/books",
+          "difficult-word" => "/keywords/difficult-word",
         )
       end
     end
