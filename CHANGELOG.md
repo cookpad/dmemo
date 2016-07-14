@@ -1,6 +1,7 @@
 # CHANGELOG
 
-## 0.3.0-rc
+## 0.3.0
+- Keywords feature
 - Autolink table name in description
 
 ## 0.2.1

@@ -1,3 +1,3 @@
 module Dmemo
-  VERSION = "0.3.0-rc"
+  VERSION = "0.3.0"
 end
