@@ -35,7 +35,7 @@ class DatabaseMemo < ActiveRecord::Base
         table_memo.linked = true
         column_memos = table_memo.column_memos.to_a
 
-        adapter = source_table.source_base_class.connection.pool.connections.first
+        adapter = source_table.connector.connection.pool.connections.first
         columns = source_table.columns
 
         column_names = columns.map(&:name)

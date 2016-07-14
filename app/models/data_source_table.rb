@@ -1,8 +1,8 @@
 class DataSourceTable
   attr_reader :data_source, :schema_name, :table_name, :full_table_name, :columns, :defined_at
 
-  delegate :source_base_class, to: :data_source
-  delegate :connection, to: :source_base_class
+  delegate :connector, to: :data_source
+  delegate :connection, to: :connector
 
   def initialize(data_source, schema_name, table_name)
     @data_source = data_source
