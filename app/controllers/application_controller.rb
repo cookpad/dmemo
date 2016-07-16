@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     return if current_user
-    redirect_to "/auth/google_oauth2"
+    redirect_to google_oauth2_path(state: url_for(params.merge(only_path: true)))
   end
 
   def require_admin_login

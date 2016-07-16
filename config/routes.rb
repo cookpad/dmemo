@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :logs, controller: :keyword_logs, as: :logs, only: "index"
   end
 
+  get 'auth/google_oauth2', as: :google_oauth2, to: lambda { |_env| [500, {}, 'Never called'] }
   get "auth/google_oauth2/callback", to: "sessions#create"
   get "logout", to: "sessions#destroy"
 end
