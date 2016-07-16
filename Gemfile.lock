@@ -198,6 +198,9 @@ GEM
       rack (~> 1.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.2.6)
       actionmailer (= 4.2.6)
       actionpack (= 4.2.6)
@@ -312,6 +315,7 @@ DEPENDENCIES
   pry-rails
   puma
   quiet_assets
+  rack_session_access
   rails (= 4.2.6)
   rails_stdout_logging
   request_store
