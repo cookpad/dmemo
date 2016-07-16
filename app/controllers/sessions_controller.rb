@@ -15,7 +15,11 @@ class SessionsController < ApplicationController
     user.save! if user.changed?
 
     session[:user_id] = user.id
-    redirect_to root_path
+    return_to = root_path
+    if ReturnToValidator.valid?(params[:state])
+      return_to = params[:state]
+    end
+    redirect_to return_to
   end
 
   def destroy
