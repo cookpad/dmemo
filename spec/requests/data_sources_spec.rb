@@ -29,7 +29,7 @@ describe :data_sources, type: :request do
         data_source_param[:port] = 5439
       end
 
-      skip "fails data_sources sync" do
+      it "fails data_sources sync" do
         post data_sources_path, data_source: data_source_param
         data_source = assigns(:data_source)
         expect(data_source).to be_present
