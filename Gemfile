@@ -60,4 +60,8 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'rack_session_access'
+  gem 'launchy'
+  gem 'database_rewinder'
 end
