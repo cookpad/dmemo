@@ -8,7 +8,7 @@ class DataSourceTable
     @data_source = data_source
     @schema_name = schema_name
     @table_name = table_name
-    @full_table_name = schema_name == "_" ? table_name : "#{schema_name}.#{table_name}"
+    @full_table_name = "#{schema_name}.#{table_name}"
     @columns = data_source.access_logging { connection.columns(full_table_name) }
     @defined_at = Time.now
   end
