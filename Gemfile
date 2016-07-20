@@ -64,4 +64,5 @@ group :test do
   gem 'rack_session_access'
   gem 'launchy'
   gem 'database_rewinder'
+  gem 'simplecov', require: false
 end
