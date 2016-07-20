@@ -10,9 +10,16 @@ class DataSource < ActiveRecord::Base
 
   after_save :disconnect_data_source!
 
-  module DynamicTable
-    class AbstractTable < ActiveRecord::Base
-      self.abstract_class = true
+  class Connector
+    attr_reader :connection_pool
+
+    delegate :connection, to: :connection_pool
+    delegate :disconnect!, to: :connection_pool
+
+    def initialize(connection_config)
+      resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new({})
+      spec = resolver.spec(connection_config)
+      @connection_pool = ActiveRecord::ConnectionAdapters::ConnectionPool.new(spec)
     end
   end
 
@@ -48,25 +55,15 @@ class DataSource < ActiveRecord::Base
     }.compact
   end
 
-  def source_base_class_name
-    "#{name.gsub(/[^\w_-]/, '').underscore.classify}_Base"
-  end
-
-  def source_base_class
-    base_class_name = source_base_class_name
-    return DynamicTable.const_get(base_class_name) if DynamicTable.const_defined?(base_class_name)
-
-    base_class = Class.new(DynamicTable::AbstractTable)
-    DynamicTable.const_set(base_class_name, base_class)
-    base_class.establish_connection(connection_config)
-    base_class
+  def connector
+    @connector ||= Connector.new(connection_config)
   end
 
   def source_table_names
     table_names = access_logging do
-      case source_base_class.connection
+      case connector.connection
         when ActiveRecord::ConnectionAdapters::PostgreSQLAdapter, ActiveRecord::ConnectionAdapters::RedshiftAdapter
-          source_base_class.connection.query(<<-SQL, 'SCHEMA')
+          connector.connection.query(<<-SQL, 'SCHEMA')
             SELECT schemaname, tablename
             FROM (
               SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
@@ -76,7 +73,7 @@ class DataSource < ActiveRecord::Base
             ORDER BY schemaname, tablename;
           SQL
         else
-          source_base_class.connection.tables.map {|table_name| ["_", table_name] }
+          connector.connection.tables.map {|table_name| [dbname, table_name] }
       end
     end
     table_names.reject {|_, table_name| ignored_table_patterns.match(table_name) }
@@ -120,8 +117,7 @@ class DataSource < ActiveRecord::Base
   def reset_data_source_tables!
     Rails.cache.delete(cache_key_source_table_names)
     self.class.data_source_tables_cache[id] = {}
-    base_class_name = source_base_class_name
-    DynamicTable.send(:remove_const, base_class_name) if DynamicTable.const_defined?(base_class_name)
+    @connector = nil
   end
 
   def ignored_table_patterns
@@ -129,7 +125,7 @@ class DataSource < ActiveRecord::Base
   end
 
   def disconnect_data_source!
-    source_base_class.establish_connection.disconnect!
+    connector.disconnect!
   end
 
   def access_logging

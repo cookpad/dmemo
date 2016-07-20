@@ -1,14 +1,14 @@
 class DataSourceTable
   attr_reader :data_source, :schema_name, :table_name, :full_table_name, :columns, :defined_at
 
-  delegate :source_base_class, to: :data_source
-  delegate :connection, to: :source_base_class
+  delegate :connector, to: :data_source
+  delegate :connection, to: :connector
 
   def initialize(data_source, schema_name, table_name)
     @data_source = data_source
     @schema_name = schema_name
     @table_name = table_name
-    @full_table_name = schema_name == "_" ? table_name : "#{schema_name}.#{table_name}"
+    @full_table_name = "#{schema_name}.#{table_name}"
     @columns = data_source.access_logging { connection.columns(full_table_name) }
     @defined_at = Time.now
   end
