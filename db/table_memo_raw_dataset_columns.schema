@@ -1,0 +1,7 @@
+create_table "table_memo_raw_dataset_columns", force: :cascade do |t|
+  t.integer  "table_memo_raw_dataset_id", null: false
+  t.string   "name",                      null: false
+  t.string   "sql_type",                  null: false
+  t.integer  "position",                  null: false
+  t.datetime "created_at",                null: false
+end
