@@ -76,7 +76,7 @@ class DataSource < ActiveRecord::Base
             ORDER BY schemaname, tablename;
           SQL
         else
-          source_base_class.connection.tables.map {|table_name| ["_", table_name] }
+          source_base_class.connection.tables.map {|table_name| [dbname, table_name] }
       end
     end
     table_names.reject {|_, table_name| ignored_table_patterns.match(table_name) }
