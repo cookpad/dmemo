@@ -16,7 +16,7 @@ class DatabaseMemo < ActiveRecord::Base
     data_source.reset_data_source_tables!
 
     db_memo = find_or_create_by!(name: data_source.name)
-    schema_memos = db_memo.schema_memos.includes(table_memos: [:column_memos, :raw_dataset]).to_a
+    schema_memos = db_memo.schema_memos.includes(table_memos: :column_memos).to_a
     schema_memos.each {|memo| memo.linked = false }
 
     all_table_memos = schema_memos.map(&:table_memos).map(&:to_a).flatten
@@ -30,7 +30,23 @@ class DatabaseMemo < ActiveRecord::Base
       table_memos = all_table_memos.select {|memo| memo.schema_memo_id == schema_memo.id }
 
       source_tables.each do |source_table|
-        import_table_memo!(schema_memo, table_memos, source_table)
+        table_name = source_table.table_name
+        table_memo = table_memos.find {|memo| memo.name == table_name } || schema_memo.table_memos.create!(name: table_name )
+        table_memo.linked = true
+        column_memos = table_memo.column_memos.to_a
+
+        adapter = source_table.source_base_class.connection.pool.connections.first
+        columns = source_table.columns
+
+        column_names = columns.map(&:name)
+        column_memos.reject {|memo| column_names.include?(memo.name) }.each {|memo| memo.update!(linked: false) }
+
+        columns.each_with_index do |column, position|
+          column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
+          column_memo.linked = true
+          column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null, position: position)
+          column_memo.save! if column_memo.changed?
+        end
       end
     end
     schema_memos.each {|memo| memo.save! if memo.changed? }
@@ -49,46 +65,5 @@ class DatabaseMemo < ActiveRecord::Base
 
   def display_order
     [linked? ? 0 : 1, name]
-  end
-
-  private
-
-  def self.import_table_memo!(schema_memo, table_memos, source_table)
-    table_name = source_table.table_name
-    table_memo = table_memos.find {|memo| memo.name == table_name } || schema_memo.table_memos.create!(name: table_name )
-    table_memo.linked = true
-    column_memos = table_memo.column_memos.to_a
-
-    columns = source_table.columns
-    adapter = source_table.source_base_class.connection.pool.connections.first
-
-    import_table_memo_raw_dataset!(table_memo, source_table, columns)
-
-    column_names = columns.map(&:name)
-    column_memos.reject {|memo| column_names.include?(memo.name) }.each {|memo| memo.update!(linked: false) }
-
-    columns.each_with_index do |column, position|
-      column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
-      column_memo.linked = true
-      column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null, position: position)
-      column_memo.save! if column_memo.changed?
-    end
-
-    table_memo.save! if table_memo.changed?
-  end
-
-  def self.import_table_memo_raw_dataset!(table_memo, source_table, columns)
-    table_count = source_table.fetch_count
-    if table_memo.raw_dataset
-      table_memo.raw_dataset.count = table_count
-    else
-      table_memo.create_raw_dataset!(count: table_count)
-    end
-    columns.each_with_index do |column, position|
-      table_memo.raw_dataset.columns.create!(name: column.name, sql_type: column.sql_type, position: position)
-    end
-    source_table.fetch_rows.each do |row|
-      table_memo.raw_dataset.rows.create!(row: row.map(&:to_s))
-    end
   end
 end

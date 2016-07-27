@@ -21,7 +21,6 @@
 
 en:
   no_description: No description given.
-  no_preview_dataset: No preview dataset.
   unlinked_database: Unlinked database
   unlinked_schema: Unlinked schema
   unlinked_table: Unlinked table

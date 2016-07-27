@@ -22,11 +22,6 @@ describe :data_sources, type: :request do
       expect(schema_memo.name).to eq("public")
 
       expect(schema_memo.table_memos.find_by!(name: "data_sources")).to be_present
-
-      dataset = schema_memo.table_memos.find_by!(name: "data_sources").raw_dataset
-      expect(dataset.count).to eq(1)
-      expect(dataset.columns.map(&:name)).to match_array(%w(id name description adapter host port dbname user password encoding pool created_at updated_at))
-      expect(dataset.rows.take.row[1..7]).to match_array(["dmemo", "", "postgresql", "localhost", "5432", "dmemo_test", "postgres"])
     end
 
     context "with invalid connection param" do
