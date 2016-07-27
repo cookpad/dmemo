@@ -10,21 +10,9 @@ class TableMemosController < ApplicationController
       merge(SchemaMemo.where(name: schema_name).joins(:database_memo).merge(DatabaseMemo.where(name: database_name))).
       where(name: name).
       take!
-    return unless @table_memo.linked?
-    begin
-      data_source_table = @table_memo.data_source_table
-      if data_source_table
-        @source_column_classes = data_source_table.columns
-        unless @table_memo.masked?
-          @source_table_data = fetch_source_table_data(data_source_table)
-        end
-        @source_table_count = fetch_source_table_count(data_source_table)
-      else
-        @table_memo.update!(linked: false)
-        flash[:error] = "#{@table_memo.schema_memo.name}.#{@table_memo.name} table not found"
-      end
-    rescue DataSource::ConnectionBad => e
-      @connection_error = e.message
+    if @raw_dataset = @table_memo.raw_dataset
+      @raw_dataset_columns = @table_memo.raw_dataset.columns.order(:position)
+      @raw_dataset_rows = @table_memo.raw_dataset.rows.pluck(:row)
     end
   end
 
@@ -46,20 +34,6 @@ class TableMemosController < ApplicationController
     table_memo = TableMemo.find(id)
     table_memo.destroy!
     redirect_to database_memo_path(table_memo.database_memo.name)
-  end
-
-  private
-
-  def fetch_source_table_count(data_source_table)
-    cache("source_table_count_#{data_source_table.cache_key}", expire: 1.day) do
-      data_source_table.fetch_count
-    end
-  end
-
-  def fetch_source_table_data(data_source_table)
-    cache("source_table_data_#{data_source_table.cache_key}", expire: 1.day) do
-      data_source_table.fetch_rows
-    end
   end
 
   private

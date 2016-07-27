@@ -60,36 +60,32 @@
         %th Nullable
       = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
 
-- if @connection_error
-  .box.box-danger
-    .box-header
-      %h3.box-title Data
-    .box-body
-      .text-center= @connection_error
-- elsif @table_memo.linked?
-  .box
-    .box-header
-      %h3.box-title Data
-    .box-body
+.box
+  .box-header
+    %h3.box-title Data
+  .box-body
+    - if @raw_dataset
       %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
         %tr
-          - @source_column_classes.each do |source_column_class|
-            %th #{source_column_class.name} (#{source_column_class.sql_type})
-        - if @source_table_data.nil?
+          - @raw_dataset_columns.each do |column|
+            %th #{column.name} (#{column.sql_type})
+        - if @table_memo.masked?
           %tr
-            %td.text-center{ colspan: @source_column_classes.size }
+            %td.text-center{ colspan: @raw_dataset_columns.size }
               = t("masked_table")
         - else
-          - @source_table_data.each do |row|
+          - database_name = @table_memo.database_memo.name
+          - table_name = @table_memo.name
+          - @raw_dataset_rows.each do |row|
             %tr
-              - database_name = @table_memo.database_memo.name
-              - table_name = @table_memo.name
               - Array.wrap(row).each_with_index do |value, i|
-                - source_column_class = @source_column_classes[i]
+                - column = @raw_dataset_columns[i]
                 %td
-                  - if MaskedDatum.masked_column?(database_name, table_name, source_column_class.name)
+                  - if MaskedDatum.masked_column?(database_name, table_name, column.name)
                     = t("masked_text")
                   - else
                     = value
       .pull-right.block
-        #{@source_table_data.try(:size).to_i} / #{@source_table_count} records
+        #{@raw_dataset_rows.try(:size).to_i} / #{@raw_dataset.count} records
+    - else
+      = t("no_preview_dataset")

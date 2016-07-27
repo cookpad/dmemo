@@ -6,6 +6,8 @@ class TableMemo < ActiveRecord::Base
 
   belongs_to :schema_memo
 
+  has_one :raw_dataset, class_name: "TableMemoRawDataset", dependent: :destroy
+
   has_many :column_memos, dependent: :destroy
   has_many :logs, -> { order(:id) }, class_name: "TableMemoLog", dependent: :destroy
 
@@ -18,14 +20,6 @@ class TableMemo < ActiveRecord::Base
 
   after_save :clear_keyword_links
   after_destroy :clear_keyword_links
-
-  def data_source_table
-    database_memo.data_source.try(:data_source_table, schema_memo.name, name)
-  end
-
-  def source_column_class(column_name)
-    source_table_class.try {|table_class| table_class.columns.find {|column_class| column_class.name == column_name } }
-  end
 
   def masked?
     MaskedDatum.masked_table?(database_memo.name, name)
