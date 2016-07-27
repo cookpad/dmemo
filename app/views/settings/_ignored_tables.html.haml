@@ -15,7 +15,7 @@
       - @ignored_tables.each do |ignored_table|
         %tr
           %td
-            = ignored_table.data_source.name
+            = ignored_table.data_source.try(:name)
           %td
             = ignored_table.pattern
           %td
