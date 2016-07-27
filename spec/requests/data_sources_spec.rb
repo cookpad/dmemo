@@ -64,6 +64,9 @@ describe :data_sources, type: :request do
       expect(schema_memo.name).to eq("public")
 
       expect(schema_memo.table_memos.find_by!(name: "data_sources")).to be_present
+
+      raw_dataset = TableMemoRawDataset.last
+      expect { put data_source_path(data_source.id), data_source: { update: 1 } }.not_to change { raw_dataset.reload; [raw_dataset.columns.count, raw_dataset.rows.count] }
     end
   end
 end
