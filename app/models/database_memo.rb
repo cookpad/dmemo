@@ -30,7 +30,11 @@ class DatabaseMemo < ActiveRecord::Base
       table_memos = all_table_memos.select {|memo| memo.schema_memo_id == schema_memo.id }
 
       source_tables.each do |source_table|
-        import_table_memo!(schema_memo, table_memos, source_table)
+        begin
+          import_table_memo!(schema_memo, table_memos, source_table)
+        rescue DataSource::ConnectionBad => e
+          Rails.logger.error e
+        end
       end
     end
     schema_memos.each {|memo| memo.save! if memo.changed? }
@@ -75,6 +79,8 @@ class DatabaseMemo < ActiveRecord::Base
     end
 
     table_memo.save! if table_memo.changed?
+  rescue Mysql2::Error, PG::Error => e
+    raise DataSource::ConnectionBad.new(e)
   end
 
   def self.import_table_memo_raw_dataset!(table_memo, source_table, columns)
