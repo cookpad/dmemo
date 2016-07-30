@@ -13,10 +13,6 @@ class DataSourceTable
     @defined_at = Time.now
   end
 
-  def cache_key
-    "#{schema_name.underscore}-#{table_name.underscore}-#{defined_at.strftime("%Y%m%d%H%M%S")}"
-  end
-
   def fetch_rows(limit=20)
     data_source.access_logging do
       adapter = connection.pool.connections.first
