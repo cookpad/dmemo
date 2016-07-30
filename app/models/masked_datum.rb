@@ -26,11 +26,12 @@ class MaskedDatum < ActiveRecord::Base
     "#{database_name}/#{table_name}/#{column_name}"
   end
 
-  private
-
   def self.update_data!
     @@data = all.map(&:pack)
   end
+  private_class_method :update_data!
+
+  private
 
   def update_data!
     self.class.update_data!

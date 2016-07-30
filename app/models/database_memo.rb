@@ -51,8 +51,6 @@ class DatabaseMemo < ActiveRecord::Base
     [linked? ? 0 : 1, name]
   end
 
-  private
-
   def self.import_table_memo!(schema_memo, table_memos, source_table)
     table_name = source_table.table_name
     table_memo = table_memos.find {|memo| memo.name == table_name } || schema_memo.table_memos.create!(name: table_name )
@@ -76,6 +74,7 @@ class DatabaseMemo < ActiveRecord::Base
 
     table_memo.save! if table_memo.changed?
   end
+  private_class_method :import_table_memo!
 
   def self.import_table_memo_raw_dataset!(table_memo, source_table, columns)
     table_count = source_table.fetch_count
@@ -93,4 +92,5 @@ class DatabaseMemo < ActiveRecord::Base
       table_memo.raw_dataset.rows.create!(row: row.map(&:to_s))
     end
   end
+  private_class_method :import_table_memo_raw_dataset!
 end
