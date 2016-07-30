@@ -56,6 +56,7 @@ group :development do
   gem 'meta_request'
   gem 'quiet_assets'
   gem 'ruby-prof'
+  gem 'rubocop', require: false
 end
 
 group :test do
