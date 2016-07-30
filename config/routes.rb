@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   root "top#show"
 
   resource :setting, only: %w(show)
-  resources :data_sources
+  resources :data_sources do
+    resource :synchronized_database, only: %w(update)
+  end
+
   resources :masked_data, except: %w(edit update)
   resources :ignored_tables, except: %w(edit update)
 
