@@ -10,9 +10,10 @@ class TableMemosController < ApplicationController
       merge(SchemaMemo.where(name: schema_name).joins(:database_memo).merge(DatabaseMemo.where(name: database_name))).
       where(name: name).
       take!
-    if @raw_dataset = @table_memo.raw_dataset
-      @raw_dataset_columns = @table_memo.raw_dataset.columns.order(:position)
-      @raw_dataset_rows = @table_memo.raw_dataset.rows.pluck(:row)
+    @raw_dataset = @table_memo.raw_dataset
+    if @raw_dataset
+      @raw_dataset_columns = @raw_dataset.columns.order(:position)
+      @raw_dataset_rows = @raw_dataset.rows.pluck(:row)
     end
   end
 
