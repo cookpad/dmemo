@@ -30,6 +30,7 @@ en:
   masked_table: This table contains masked data.
   masked_text: ••••••••
   data_source_updated: "'%{name}' updated."
+  data_source_synchronized: "'%{name}' synchronized."
   time:
     formats:
       default: ! '%Y/%m/%d %H:%M:%S'
