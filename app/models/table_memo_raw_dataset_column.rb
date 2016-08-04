@@ -4,10 +4,8 @@ class TableMemoRawDatasetColumn < ActiveRecord::Base
   def format_value(value)
     case sql_type
     when 'timestamp without time zone'
-      d, t, z = value.split
+      d, t, z = value.to_s.split
       "#{d} #{t}"
-    when /timestamp/
-      value
     else
       value.to_s
     end

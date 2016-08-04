@@ -84,7 +84,7 @@
                   - if MaskedDatum.masked_column?(database_name, table_name, column.name)
                     = t("masked_text")
                   - else
-                    = column.format_value(value)
+                    = value
       .pull-right.block
         #{@raw_dataset_rows.try(:size).to_i} / #{@raw_dataset.count} records
     - else
