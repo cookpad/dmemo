@@ -14,7 +14,8 @@ describe :table_memos, type: :request do
       get database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name)
       expect(response).to render_template("table_memos/show")
       expect(table_memo).to eq(assigns(:table_memo))
-      data_source.attributes.values.each {|value| expect(page).to have_content(value) }
+      %w(id name description adapter host port db_name user).each {|attr| expect(page).to have_content(data_source[attr]) }
+      expect(page).not_to have_content(/\d+:\d+:\d+ UTC/)
     end
   end
 end

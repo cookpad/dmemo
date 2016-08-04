@@ -90,12 +90,12 @@ class DatabaseMemo < ActiveRecord::Base
       table_memo.create_raw_dataset!(count: table_count)
     end
     table_memo.raw_dataset.columns.delete_all
-    columns.each_with_index do |column, position|
+    dataset_columns = columns.map.with_index do |column, position|
       table_memo.raw_dataset.columns.create!(name: column.name, sql_type: column.sql_type, position: position)
     end
     table_memo.raw_dataset.rows.delete_all
     source_table.fetch_rows.each do |row|
-      table_memo.raw_dataset.rows.create!(row: row.map(&:to_s))
+      table_memo.raw_dataset.rows.create!(row: row.map.with_index{|value, i| dataset_columns[i].format_value(value) })
     end
   end
   private_class_method :import_table_memo_raw_dataset!
