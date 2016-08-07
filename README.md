@@ -24,6 +24,18 @@ $ docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/docker_db_apply.
 $ docker-compose up
 ```
 
+## Execute synchronization
+```
+./bin/rails r 'SynchronizeDataSources.run'
+```
+
+or
+
+```
+docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/rails r 'SynchronizeDataSources.run'
+```
+
+
 ## Configure
 ### Create Admin User
 - Login dmemo by google account
