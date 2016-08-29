@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.1-rc
+- Fix data source table access [#68](https://github.com/hogelog/dmemo/pull/68) reported from [@yuemori](https://github.com/yuemori)
+
 ## 0.3.0
 - Keywords feature
 - Autolink table name in description
