@@ -18,7 +18,7 @@ class DataSourceTable
       adapter = connection.pool.connections.first
       column_names = columns.map {|column| adapter.quote_column_name(column.name) }.join(", ")
       rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
-        SELECT #{column_names} FROM #{full_table_name} LIMIT #{limit};
+        SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
       SQL
       rows.map {|row|
         columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
@@ -30,8 +30,9 @@ class DataSourceTable
 
   def fetch_count
     data_source.access_logging do
+      adapter = connection.pool.connections.first
       connection.select_value(<<-SQL).to_i
-        SELECT COUNT(*) FROM #{full_table_name};
+        SELECT COUNT(*) FROM #{adapter.quote_table_name(full_table_name)};
       SQL
     end
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
