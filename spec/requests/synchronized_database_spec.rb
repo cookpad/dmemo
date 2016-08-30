@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :synchronized_database, type: :request do
-  let(:data_source) { FactoryGirl.create(:data_source, name: "dmemo", description: "", adapter: "postgresql", host: "localhost", port: 5432, dbname: "dmemo_test", user: "postgres") }
+  let(:data_source) { FactoryGirl.create(:data_source, name: "dmemo", description: "") }
   before do
     login!(admin: true)
   end
@@ -33,7 +33,7 @@ describe :synchronized_database, type: :request do
       dataset = schema_memo.table_memos.find_by!(name: "data_sources").raw_dataset
       expect(dataset.count).to eq(1)
       expect(dataset.columns.map(&:name)).to match_array(%w(id name description adapter host port dbname user password encoding pool created_at updated_at))
-      expect(dataset.rows.take.row[1..7]).to match_array(["dmemo", "", "postgresql", "localhost", "5432", "dmemo_test", "postgres"])
+      expect(dataset.rows.take.row[1..7]).to match_array(["dmemo", "", data_source.adapter, "localhost", "5432", data_source.dbname, data_source.user])
     end
 
     context "with invalid connection param" do
