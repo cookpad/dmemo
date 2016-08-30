@@ -1,4 +1,4 @@
-# Dmemo ![travis-ci](https://travis-ci.org/hogelog/dmemo.svg)
+# Dmemo [![Build Status](https://semaphoreci.com/api/v1/hogelog/dmemo/branches/master/badge.svg)](https://semaphoreci.com/hogelog/dmemo)
 Database description management tool.
 
 
