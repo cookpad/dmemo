@@ -2,6 +2,8 @@ class DatabaseMemo < ActiveRecord::Base
   include TextDiff
   include DescriptionLogger
 
+  DEFAULT_FETCH_ROWS_LIMIT = 20
+
   scope :id_or_name, ->(id, name) { where("database_memos.id = ? OR database_memos.name = ?", id.to_i, name) }
 
   has_many :schema_memos, dependent: :destroy
@@ -94,9 +96,10 @@ class DatabaseMemo < ActiveRecord::Base
       table_memo.raw_dataset.columns.create!(name: column.name, sql_type: column.sql_type, position: position)
     end
     table_memo.raw_dataset.rows.delete_all
-    source_table.fetch_rows.each do |row|
+    source_table.fetch_rows(DEFAULT_FETCH_ROWS_LIMIT).each do |row|
       table_memo.raw_dataset.rows.create!(row: row.map.with_index{|value, i| dataset_columns[i].format_value(value) })
     end
+    table_memo.raw_dataset.save! if table_memo.raw_dataset.changed?
   end
   private_class_method :import_table_memo_raw_dataset!
 end
