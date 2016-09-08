@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.2
+- Improve data source sync performance
+- Fix table count
+
 ## 0.3.1
 - Fix data source table access [#68](https://github.com/hogelog/dmemo/pull/68) reported from [@yuemori](https://github.com/yuemori)
 
