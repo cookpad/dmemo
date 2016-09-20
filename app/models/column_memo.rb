@@ -12,7 +12,7 @@ class ColumnMemo < ActiveRecord::Base
   delegate :database_memo, to: :schema_memo
 
   def full_name
-    "#{table_memo.database_memo.name}/#{table_memo.name}/#{name}"
+    "#{table_memo.database_memo.name}/#{schema_memo.name}.#{table_memo.name}/#{name}"
   end
 
   def display_order
