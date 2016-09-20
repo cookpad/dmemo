@@ -26,11 +26,11 @@
         = link_to keywords_path do
           %i.fa.fa-book
           Keyword
-      %li.treeview.active
-        %a
+      %li.treeview.opened
+        %a.disable-click
           %i.fa.fa-database
           %span Database
-          %i.fa.fa-angle-left.pull-right
+          %i.fa.fa-angle-down.pull-right
         %ul.treeview-menu
           - @sidebar_databases.map(&:name).each do |name|
             %li

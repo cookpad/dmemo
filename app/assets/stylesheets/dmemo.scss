@@ -37,3 +37,9 @@ a.editable-click, a.editable-click:hover {
 .data-box {
   overflow: auto;
 }
+
+.sidebar-menu {
+  li.treeview.opened .treeview-menu {
+    display: block;
+  }
+}

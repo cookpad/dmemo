@@ -33,4 +33,8 @@ $(document).ready(->
     $(".favorite-table-block").addClass("favorited")
     $(".favorite-table-block").removeClass("unfavorited")
   )
+
+  $(".disable-click").on("click", (e)->
+    e.stopPropagation()
+  )
 )
