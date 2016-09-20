@@ -11,7 +11,6 @@ class SearchResult
 
   def search!
     return unless keyword.present?
-    self.results += DatabaseMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
     self.results += TableMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
     self.results += ColumnMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
   end

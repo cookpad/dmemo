@@ -11,9 +11,6 @@
       .box-header.with-border
         %h3.box-title
           - case result
-          - when DatabaseMemo
-            %small.label.bg-green Database
-            = link_to result.name, url_for(result)
           - when TableMemo
             %small.label.bg-green Table
             = link_to result.full_name, url_for(result)
