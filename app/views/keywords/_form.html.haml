@@ -15,3 +15,5 @@
             = @keyword.description_html
     .box-footer
       = f.submit class: "btn btn-primary", tabindex: 3
+      - if @keyword.persisted?
+        = link_to "Delete keyword", @keyword, class: "btn btn-danger pull-right", method: :delete, data: { confirm: t(:delete_keyword, name: @keyword.name) }

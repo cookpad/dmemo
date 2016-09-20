@@ -31,6 +31,7 @@ en:
   masked_text: ••••••••
   data_source_updated: "'%{name}' updated."
   data_source_synchronized: "'%{name}' synchronized."
+  delete_keyword: Delete keyword '%{name}'?
   time:
     formats:
       default: ! '%Y/%m/%d %H:%M:%S'
