@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.4.0-rc
+- Remove search result number limitation
+
 ## 0.3.2
 - Improve data source sync performance
 - Fix table count

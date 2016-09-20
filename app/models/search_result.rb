@@ -2,8 +2,6 @@ class SearchResult
   include ActiveModel::Model
   attr_accessor :keyword, :results
 
-  SEARCH_LIMIT = 5
-
   def initialize(*args)
     super
     self.results = []
@@ -11,8 +9,7 @@ class SearchResult
 
   def search!
     return unless keyword.present?
-    self.results += DatabaseMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
-    self.results += TableMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
-    self.results += ColumnMemo.where("name LIKE ?", "%#{keyword}%").limit(SEARCH_LIMIT).to_a
+    self.results += TableMemo.where("table_memos.name LIKE ?", "%#{keyword}%").eager_load(schema_memo: :database_memo).to_a
+    self.results += ColumnMemo.where("column_memos.name LIKE ?", "%#{keyword}%").eager_load(table_memo: {schema_memo: :database_memo}).to_a
   end
 end

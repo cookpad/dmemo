@@ -30,7 +30,7 @@ class TableMemo < ActiveRecord::Base
   end
 
   def full_name
-    "#{database_memo.name}/#{name}"
+    "#{database_memo.name}/#{schema_memo.name}.#{name}"
   end
 
   def display_order
