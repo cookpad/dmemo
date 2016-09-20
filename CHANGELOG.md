@@ -2,6 +2,7 @@
 
 ## 0.4.0-rc
 - Remove search result number limitation
+- Remove keyword name constraints
 
 ## 0.3.2
 - Improve data source sync performance

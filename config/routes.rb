@@ -35,9 +35,11 @@ Rails.application.routes.draw do
   get "/databases/:database_name/:schema_name/:name" => "table_memos#show", as: "database_schema_table"
 
   resource :markdown_preview, only: %w(create)
-  resources :keywords do
+
+  resources :keywords, except: %w(show) do
     resources :logs, controller: :keyword_logs, as: :logs, only: "index"
   end
+  get "/keywords/*id", to: "keywords#show", format: false
 
   get 'auth/google_oauth2', as: :google_oauth2, to: lambda { |_env| [500, {}, 'Never called'] }
   get "auth/google_oauth2/callback", to: "sessions#create"
