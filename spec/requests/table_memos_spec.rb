@@ -18,4 +18,12 @@ describe :table_memos, type: :request do
       expect(page).not_to have_content(/\d+:\d+:\d+ UTC/)
     end
   end
+
+  describe "#edit" do
+    it "shows table memo form" do
+      get edit_table_memo_path(table_memo)
+      expect(response).to render_template("table_memos/edit")
+      expect(table_memo).to eq(assigns(:table_memo))
+    end
+  end
 end
