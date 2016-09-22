@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.4.0-rc
+## 0.4.0
 - Remove search result number limitation
 - Remove keyword name constraints
 
