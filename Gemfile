@@ -66,4 +66,5 @@ group :test do
   gem 'launchy'
   gem 'database_rewinder'
   gem 'simplecov', require: false
+  gem 'coveralls', require: false
 end
