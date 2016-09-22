@@ -17,6 +17,13 @@ describe :table_memos, type: :request do
       %w(id name description adapter host port db_name user).each {|attr| expect(page).to have_content(data_source[attr]) }
       expect(page).not_to have_content(/\d+:\d+:\d+ UTC/)
     end
+
+    context "with id param" do
+      it "redirects to named path" do
+        get table_memo_path(table_memo.id)
+        expect(page).to redirect_to(database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name))
+      end
+    end
   end
 
   describe "#edit" do
@@ -24,6 +31,22 @@ describe :table_memos, type: :request do
       get edit_table_memo_path(table_memo)
       expect(response).to render_template("table_memos/edit")
       expect(table_memo).to eq(assigns(:table_memo))
+    end
+  end
+
+  describe "#update" do
+    it "updates table memo" do
+      patch table_memo_path(table_memo), table_memo: { description: "foo description" }
+      expect(response).to redirect_to(database_schema_table_path(table_memo.database_memo.name, table_memo.schema_memo.name, table_memo.name))
+      expect(assigns(:table_memo).description).to eq("foo description")
+    end
+  end
+
+  describe "#destroy" do
+    it "destroys table memo" do
+      delete table_memo_path(table_memo)
+      expect(response).to redirect_to(database_memo_path(table_memo.database_memo.name))
+      expect { TableMemo.find(table_memo.id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
