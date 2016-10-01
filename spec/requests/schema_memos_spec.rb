@@ -1,9 +1,8 @@
 require "rails_helper"
 
 describe :schema_memos, type: :request do
-  let(:data_source) { FactoryGirl.create(:data_source).tap {|ds| DatabaseMemo.import_data_source!(ds.id) } }
-  let(:database_memo) { data_source.database_memo }
-  let(:schema_memo) { database_memo.schema_memos.take! }
+  let(:schema_memo) { FactoryGirl.create(:schema_memo) }
+  let(:database_memo) { schema_memo.database_memo }
   before do
     login!
   end

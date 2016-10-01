@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :database_memo do
-    name "database"
+    sequence(:name) {|n| "database#{n}" }
     description "# database memo"
   end
 end

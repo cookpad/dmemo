@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :schema_memo do
     database_memo
-    name "schema"
+    sequence(:name) {|n| "schema#{n}" }
     description "# schema memo"
   end
 end
