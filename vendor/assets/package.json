@@ -1,9 +1,11 @@
 {
-  "name": "dependencies",
+  "name": "dmemo",
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
     "admin-lte": "2.3.3",
     "font-awesome": "4.5.0",
-    "pygments": "2.1.3",
+    "pygments-css": "1.0.0",
     "jquery-colorbox": "1.6.4"
   }
 }

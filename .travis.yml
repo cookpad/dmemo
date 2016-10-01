@@ -4,7 +4,7 @@ cache:
  bundler: true
  directories:
   - node_modules
-  - vendor/assets/bower_components
+  - vendor/assets/node_modules
 
 rvm:
   - 2.3.0
@@ -12,5 +12,4 @@ rvm:
 before_script:
   - ./bin/rake db:create RAILS_ENV=test
   - ./bin/rake ridgepole:apply RAILS_ENV=test
-  - npm install -g bower
-  - ./bin/rake bower:install
+  - ./bin/rake npm:install

@@ -17,6 +17,6 @@
  *= require admin-lte/dist/css/skins/skin-blue.css
  *= require font-awesome-custom
 //= require jquery-colorbox/example4/colorbox.css
- *= require pygments/css/friendly.css
+ *= require pygments-css/github.css
  *= require_self
  */

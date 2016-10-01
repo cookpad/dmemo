@@ -5,7 +5,7 @@ Database description management tool.
 ## Setup
 ```
 $ bundle install
-$ ./bin/rake bower:install
+$ ./bin/rake npm:install
 $ ./bin/rake db:create
 $ ./bin/rake ridgepole:apply
 $ ./bin/rails s

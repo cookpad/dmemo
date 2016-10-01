@@ -11,7 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
-/vendor/assets/bower_components
+/vendor/assets/node_modules
 .env
 public/assets/
 .env.docker
