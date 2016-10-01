@@ -10,6 +10,6 @@
           %i.fa.fa-user
           = current_user.name
       %li
-        %a{ href: logout_path }
+        = link_to logout_path, method: :delete do
           %i.fa.fa-sign-out
           Sign-out
