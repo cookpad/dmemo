@@ -7,7 +7,7 @@ cache:
   - vendor/assets/node_modules
 
 rvm:
-  - 2.3.0
+  - 2.3.1
 
 before_script:
   - ./bin/rake db:create RAILS_ENV=test
