@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe :column_memos, type: :request do
+describe :users, type: :request do
   let(:user) { FactoryGirl.create(:user) }
   before do
     login!(user: user)
