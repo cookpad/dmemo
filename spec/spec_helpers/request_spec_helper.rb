@@ -12,8 +12,8 @@ module RequestSpecHelper
     put RackSessionAccess.path, data: data
   end
 
-  def login!(admin: false)
-    user = FactoryGirl.create(:user, admin: admin)
+  def login!(user: nil, admin: false)
+    user ||= FactoryGirl.create(:user, admin: admin)
     set_rack_session(user_id: user.id)
   end
 
