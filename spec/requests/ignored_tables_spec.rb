@@ -53,7 +53,7 @@ describe :ignored_table, type: :request do
   describe "#destroy" do
     let(:ignored_table) { FactoryGirl.create(:ignored_table) }
 
-    it "creates ignored_table" do
+    it "deletes ignored_table" do
       delete ignored_table_path(ignored_table)
       expect(response).to redirect_to(setting_path)
       expect(IgnoredTable.find_by(id: ignored_table.id)).to eq(nil)

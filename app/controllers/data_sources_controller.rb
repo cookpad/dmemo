@@ -39,7 +39,7 @@ class DataSourcesController < ApplicationController
     redirect_to data_sources_path
   rescue  ActiveRecord::ActiveRecordError, DataSource::ConnectionBad => e
     flash[:error] = e.message
-    redirect_to :back
+    redirect_to edit_data_source_path(id)
   end
 
   def destroy(id)
