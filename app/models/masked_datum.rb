@@ -7,6 +7,10 @@ class MaskedDatum < ActiveRecord::Base
     @@data ||= update_data!
   end
 
+  def self.update_data!
+    @@data = all.map(&:pack)
+  end
+
   def self.masked_database?(database_name)
     data.include?("#{database_name}/*/*")
   end
@@ -25,11 +29,6 @@ class MaskedDatum < ActiveRecord::Base
   def pack
     "#{database_name}/#{table_name}/#{column_name}"
   end
-
-  def self.update_data!
-    @@data = all.map(&:pack)
-  end
-  private_class_method :update_data!
 
   private
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe :ignored_table, type: :request do
+describe :ignored_tables, type: :request do
   let(:user) { FactoryGirl.create(:user, admin: true) }
   before do
     login!(user: user)
