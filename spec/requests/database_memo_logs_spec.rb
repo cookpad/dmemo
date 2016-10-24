@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe :database_memos, type: :request do
+describe :database_memo_logs, type: :request do
   let(:memo_log) { FactoryGirl.create(:database_memo_log) }
   let(:memo) { memo_log.database_memo }
   before do
