@@ -9,6 +9,13 @@ describe :column_memos, type: :request do
     login!
   end
 
+  describe "#show" do
+    it "redirects table_memo" do
+      get column_memo_path(column_memo)
+      expect(response).to redirect_to(table_memo_path(table_memo))
+    end
+  end
+
   describe "#edit" do
     it "shows form" do
       get edit_column_memo_path(column_memo)

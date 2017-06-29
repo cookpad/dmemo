@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :databases, controller: :database_memos, as: :database_memos do
     resources :schemas, controller: :schema_memos, as: :schema_memos, shallow: true, except: %w(index) do
       resources :tables, controller: :table_memos, as: :table_memos, shallow: true, except: %w(index) do
-        resources :columns, controller: :column_memos, as: :column_memos, shallow: true, only: %w(edit update destroy) do
+        resources :columns, controller: :column_memos, as: :column_memos, shallow: true, only: %w(show edit update destroy) do
           resources :logs, controller: :column_memo_logs, as: :logs, only: "index"
         end
 
