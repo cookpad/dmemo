@@ -3,6 +3,11 @@ class ColumnMemosController < ApplicationController
 
   skip_before_action :set_sidebar_databases, :set_search_result
 
+  def show(id)
+    @column_memo = ColumnMemo.find(id)
+    redirect_to @column_memo.table_memo
+  end
+
   def edit(id)
     @column_memo = ColumnMemo.find(id)
     render layout: "colorbox"
