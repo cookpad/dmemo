@@ -10,4 +10,3 @@ create_table "users", force: :cascade do |t|
 end
 
 add_index "users", ["provider", "uid"], name: "uniq_provider_uid", unique: true, using: :btree
-add_index "users", ["email"], name: "uniq_email", unique: true, using: :btree
