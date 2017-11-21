@@ -17,9 +17,15 @@ class DataSourceTable
     data_source.access_logging do
       adapter = connection.pool.connections.first
       column_names = columns.map {|column| adapter.quote_column_name(column.name) }.join(", ")
-      rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
-        SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
-      SQL
+      if data_source[:adapter] == 'sqlserver'
+        rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
+          SELECT TOP #{limit} #{column_names} FROM #{adapter.quote_table_name(full_table_name)};
+        SQL
+      else
+        rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
+          SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
+        SQL
+      end
       rows.map {|row|
         columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
       }
