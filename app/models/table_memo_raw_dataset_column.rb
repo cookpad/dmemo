@@ -9,7 +9,8 @@ class TableMemoRawDatasetColumn < ActiveRecord::Base
       when 'timestamp'
         '0x' + value.unpack('H*')[0]
       else
-        value.to_s.encode(Encoding.default_internal, datasource_encoding).gsub(/\u0000/, '')
+        dst_enc = Encoding.default_internal or 'UTF-8'
+        value.to_s.encode(dst_enc, datasource_encoding).gsub(/\u0000/, '')
       end
     else
       case sql_type
