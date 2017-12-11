@@ -1,0 +1,65 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9e66b61cdff854cc0d93de029375b8373e9b82283177e61cd5c54e82256d5217",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/data_source_table.rb",
+      "line": 20,
+      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "connection.select_rows(\"        SELECT #{columns.map do\n connection.pool.connections.first.quote_column_name(column.name)\n end.join(\", \")} FROM #{connection.pool.connections.first.quote_table_name(full_table_name)} LIMIT #{limit};\\n\", \"#{table_name.classify} Load\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "DataSourceTable",
+        "method": "fetch_rows"
+      },
+      "user_input": "columns.map do\n connection.pool.connections.first.quote_column_name(column.name)\n end.join(\", \")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "e0ce3905725ca3eb8e17b4edb7c69afcf343fa420534d23beda76d294db74639",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/data_source_table.rb",
+      "line": 34,
+      "link": "http://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "connection.select_value(\"        SELECT COUNT(*) FROM #{connection.pool.connections.first.quote_table_name(full_table_name)};\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "DataSourceTable",
+        "method": "fetch_count"
+      },
+      "user_input": "connection.pool.connections.first.quote_table_name(full_table_name)",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "feb8238b3c6feeb441247ec15aa7849100d4fe07670de73583f936161c43ed06",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/search_results/show.html.haml",
+      "line": 21,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "markdown_html((TableMemo or ColumnMemo).description)",
+      "render_path": [{"type":"controller","class":"SearchResultsController","method":"show","line":7,"file":"app/controllers/search_results_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "search_results/show"
+      },
+      "user_input": "(TableMemo or ColumnMemo).description",
+      "confidence": "Weak",
+      "note": ""
+    }
+  ],
+  "updated": "2017-12-11 23:44:46 +0900",
+  "brakeman_version": "4.0.1"
+}
