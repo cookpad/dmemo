@@ -75,6 +75,14 @@ class DataSource < ActiveRecord::Base
             ) tables
             ORDER BY schemaname, tablename;
           SQL
+        when ActiveRecord::ConnectionAdapters::SQLServerAdapter
+          schemas_and_tables = source_base_class.connection.select_rows(<<-SQL, 'SCHEMA')
+            SELECT table_schema
+                 , table_name
+              FROM information_schema.tables
+             WHERE table_type = 'BASE TABLE';
+          SQL
+          schemas_and_tables.map {|table_schema, table_name| [table_schema, table_name]}
         else
           source_base_class.connection.tables.map {|table_name| [dbname, table_name] }
       end

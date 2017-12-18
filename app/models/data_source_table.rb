@@ -16,10 +16,18 @@ class DataSourceTable
   def fetch_rows(limit=20)
     data_source.access_logging do
       adapter = connection.pool.connections.first
-      column_names = columns.map {|column| adapter.quote_column_name(column.name) }.join(", ")
-      rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
-        SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
-      SQL
+      decode_with = data_source.encoding or 'UTF-8'
+      encode_to = Encoding.default_internal or 'UTF-8'
+      column_names = columns.map {|column| adapter.quote_column_name(column.name.encode(encode_to, decode_with)) }.join(", ")
+      if data_source[:adapter] == 'sqlserver'
+        rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
+          SELECT TOP #{limit} #{column_names} FROM #{adapter.quote_table_name(full_table_name)};
+        SQL
+      else
+        rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
+          SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
+        SQL
+      end
       rows.map {|row|
         columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
       }
