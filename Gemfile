@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0'
 
 gem 'pg', '~> 0.15'
 gem 'mysql2'
-gem 'activerecord4-redshift-adapter', '~> 0.2.0'
+gem 'activerecord5-redshift-adapter'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2.1'
 
 gem 'jquery-rails'
 
@@ -52,8 +52,7 @@ end
 group :development do
   gem 'ridgepole'
   gem 'capistrano-rails'
-  gem 'meta_request'
-  gem 'quiet_assets'
+  gem 'meta_request', '~> 0.6.0'
   gem 'ruby-prof'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
