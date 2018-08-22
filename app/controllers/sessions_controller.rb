@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, :create
+  skip_before_action :require_login, only: :create
 
   def create
     auth = env["omniauth.auth"]
