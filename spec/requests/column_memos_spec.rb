@@ -26,7 +26,7 @@ describe :column_memos, type: :request do
 
   describe "#update" do
     it "updates memo" do
-      patch column_memo_path(column_memo), column_memo: { description: "foo description" }
+      patch column_memo_path(column_memo), params: { column_memo: { description: "foo description" } }
       expect(response).to redirect_to(redirect_to database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name))
       expect(assigns(:column_memo).description).to eq("foo description")
     end

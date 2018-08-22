@@ -47,7 +47,7 @@ describe :users, type: :request do
 
   describe "#update" do
     it "updates user" do
-      patch user_path(user), user: { name: "foo" }
+      patch user_path(user), params: { user: { name: "foo" } }
       expect(response).to redirect_to(edit_user_path(user))
       expect(user.reload.name).to eq("foo")
     end
@@ -57,7 +57,7 @@ describe :users, type: :request do
       let(:another_user) { FactoryGirl.create(:user) }
 
       it "updates another user" do
-        patch user_path(another_user), user: { name: "foo", admin: true }
+        patch user_path(another_user), params: { user: { name: "foo", admin: true } }
         expect(response).to redirect_to(edit_user_path(another_user))
         expect(another_user.reload.name).to eq("foo")
         expect(another_user.admin).to eq(true)
@@ -69,7 +69,7 @@ describe :users, type: :request do
       let(:another_user) { FactoryGirl.create(:user) }
 
       it "returns 401" do
-        patch user_path(another_user), user: { name: "foo" }
+        patch user_path(another_user), params: { user: { name: "foo" } }
         expect(response).to have_http_status(401)
       end
     end
@@ -78,7 +78,7 @@ describe :users, type: :request do
       let(:user) { FactoryGirl.create(:user) }
 
       it "cannot update admin column" do
-        patch user_path(user), user: { admin: true }
+        patch user_path(user), params: { user: { admin: true } }
         expect(response).to have_http_status(401)
       end
     end

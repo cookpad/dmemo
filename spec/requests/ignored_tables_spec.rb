@@ -36,14 +36,14 @@ describe :ignored_tables, type: :request do
     let(:data_source) { FactoryGirl.create(:data_source) }
 
     it "creates ignored_table" do
-      post ignored_tables_path, ignored_table: { data_source_id: data_source.id, pattern: "foo" }
+      post ignored_tables_path, params: { ignored_table: { data_source_id: data_source.id, pattern: "foo" } }
       expect(response).to redirect_to(setting_path)
       expect(assigns(:ignored_table).pattern).to eq("foo")
     end
 
     context "with empty pattern" do
       it "shows error" do
-        post ignored_tables_path, ignored_table: { data_source_id: data_source.id, pattern: "" }
+        post ignored_tables_path, params: { ignored_table: { data_source_id: data_source.id, pattern: "" } }
         expect(response).to redirect_to(new_ignored_table_path)
         expect(flash[:error]).to include("Pattern")
       end

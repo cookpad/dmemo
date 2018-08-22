@@ -9,7 +9,7 @@ module RequestSpecHelper
 
   def set_rack_session(hash)
     data = ::RackSessionAccess.encode(hash)
-    put RackSessionAccess.path, data: data
+    put RackSessionAccess.path, params: { data: data }
   end
 
   def login!(user: nil, admin: false)

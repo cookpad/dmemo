@@ -9,7 +9,7 @@ describe :search_results, type: :request do
     end
 
     it "shows search result" do
-      get search_results_path, search_result: { keyword: "bar" }
+      get search_results_path, params: { search_result: { keyword: "bar" } }
       expect(response).to render_template("search_results/show")
       expect(page).to have_text(table_memo.full_name)
       expect(page).to have_text(column_memo.full_name)

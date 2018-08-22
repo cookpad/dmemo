@@ -48,7 +48,7 @@ describe :keywords, type: :request do
 
   describe "#create" do
     it "creates keyword" do
-      post keywords_path, keyword: { name: "foo", description: "foo description" }
+      post keywords_path, params: { keyword: { name: "foo", description: "foo description" } }
       keyword = Keyword.find_by!(name: "foo")
       expect(response).to redirect_to(keyword)
       expect(keyword.logs.count).to eq(1)
@@ -71,7 +71,7 @@ describe :keywords, type: :request do
 
     it "updates keyword" do
       expect(keyword.logs.count).to eq(0)
-      patch keyword_path(keyword), keyword: { description: "sushi 2" }
+      patch keyword_path(keyword), params: { keyword: { description: "sushi 2" } }
       expect(response).to redirect_to(keyword)
       expect(keyword.reload.description).to eq("sushi 2")
       expect(keyword.logs.count).to eq(1)
