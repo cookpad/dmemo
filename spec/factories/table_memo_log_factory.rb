@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :table_memo_log do
     table_memo
     sequence(:revision) {|n| n }

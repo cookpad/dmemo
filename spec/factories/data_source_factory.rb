@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :data_source do
     name "dmemo"
     description "# dmemo test db\nDB for test."

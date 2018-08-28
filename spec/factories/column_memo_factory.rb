@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :column_memo do
     table_memo
     sequence(:name) {|n| "column#{n}" }

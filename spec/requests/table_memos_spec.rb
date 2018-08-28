@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :table_memos, type: :request do
-  let(:table_memo) { FactoryGirl.create(:table_memo) }
+  let(:table_memo) { FactoryBot.create(:table_memo) }
   let(:schema_memo) { table_memo.schema_memo }
   let(:database_memo) { schema_memo.database_memo }
   before do
@@ -9,7 +9,7 @@ describe :table_memos, type: :request do
   end
 
   describe "#show" do
-    let(:data_source) { FactoryGirl.create(:data_source).tap {|ds| DatabaseMemo.import_data_source!(ds.id) } }
+    let(:data_source) { FactoryBot.create(:data_source).tap {|ds| DatabaseMemo.import_data_source!(ds.id) } }
     let(:database_memo) { data_source.database_memo }
     let(:schema_memo) { database_memo.schema_memos.take! }
     let(:table_memo) { schema_memo.table_memos.find_by!(name: "data_sources") }

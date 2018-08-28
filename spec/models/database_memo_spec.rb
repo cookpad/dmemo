@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe DatabaseMemo, type: :model do
-  let(:data_source) { FactoryGirl.create(:data_source) }
+  let(:data_source) { FactoryBot.create(:data_source) }
 
   describe ".import_data_source!" do
     it "synchronize data source" do
-      FactoryGirl.create(:keyword, name: "tempura")
+      FactoryBot.create(:keyword, name: "tempura")
 
       expect(DatabaseMemo.count).to eq(0)
       DatabaseMemo.import_data_source!(data_source.id)
@@ -17,7 +17,7 @@ describe DatabaseMemo, type: :model do
       expect(keywords_table.raw_dataset.count).to eq(1)
       expect(keywords_table.raw_dataset.rows.size).to eq(1)
 
-      FactoryGirl.create(:keyword, name: "sushi")
+      FactoryBot.create(:keyword, name: "sushi")
 
       DatabaseMemo.import_data_source!(data_source.id)
       expect(keywords_table.reload.raw_dataset.count).to eq(2)
@@ -27,7 +27,7 @@ describe DatabaseMemo, type: :model do
     context "when columns doesn't changed" do
       before do
         stub_const("DatabaseMemo::DEFAULT_FETCH_ROWS_LIMIT", 4)
-        4.times{|i| FactoryGirl.create(:keyword, name: "sushi #{i}") }
+        4.times{|i| FactoryBot.create(:keyword, name: "sushi #{i}") }
         DatabaseMemo.import_data_source!(data_source.id)
       end
 
@@ -36,7 +36,7 @@ describe DatabaseMemo, type: :model do
         expect(keywords_table.raw_dataset.count).to eq(4)
         before_row_ids = keywords_table.raw_dataset.rows.order(:id).pluck(:id)
 
-        FactoryGirl.create(:keyword, name: "tempura")
+        FactoryBot.create(:keyword, name: "tempura")
         DatabaseMemo.import_data_source!(data_source.id)
         keywords_table.reload
         after_row_ids = keywords_table.raw_dataset.rows.order(:id).pluck(:id)

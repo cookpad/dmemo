@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :schema_memos, type: :request do
-  let(:schema_memo) { FactoryGirl.create(:schema_memo) }
+  let(:schema_memo) { FactoryBot.create(:schema_memo) }
   let(:database_memo) { schema_memo.database_memo }
   before do
     login!
@@ -10,7 +10,7 @@ describe :schema_memos, type: :request do
   describe "#show" do
     context "with multiple schemas" do
       before do
-        FactoryGirl.create(:schema_memo, database_memo: database_memo)
+        FactoryBot.create(:schema_memo, database_memo: database_memo)
       end
 
       it "shows memo" do

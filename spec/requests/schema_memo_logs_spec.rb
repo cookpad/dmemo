@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :schema_memos, type: :request do
-  let(:memo_log) { FactoryGirl.create(:schema_memo_log) }
+  let(:memo_log) { FactoryBot.create(:schema_memo_log) }
   let(:memo) { memo_log.schema_memo }
   before do
     login!

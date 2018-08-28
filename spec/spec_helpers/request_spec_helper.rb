@@ -13,7 +13,7 @@ module RequestSpecHelper
   end
 
   def login!(user: nil, admin: false)
-    user ||= FactoryGirl.create(:user, admin: admin)
+    user ||= FactoryBot.create(:user, admin: admin)
     set_rack_session(user_id: user.id)
   end
 

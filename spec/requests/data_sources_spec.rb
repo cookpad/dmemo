@@ -13,7 +13,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#show" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "redirects" do
       get data_source_path(data_source)
@@ -54,7 +54,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#edit" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "shows form" do
       get edit_data_source_path(data_source)
@@ -64,7 +64,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#update" do
-    let!(:data_source) { FactoryGirl.create(:data_source) }
+    let!(:data_source) { FactoryBot.create(:data_source) }
 
     it "updates data_source" do
       patch data_source_path(data_source.id), params: { data_source: { description: "hello" } }
@@ -86,7 +86,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#destroy" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "deletes data_source" do
       delete data_source_path(data_source)

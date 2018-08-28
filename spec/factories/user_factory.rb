@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     provider "google_oauth2"
     sequence(:uid) {|n| (n * 100).to_s }

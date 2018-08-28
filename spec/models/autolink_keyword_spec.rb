@@ -2,11 +2,11 @@ require "rails_helper"
 
 describe AutolinkKeyword, type: :model do
   describe ".links" do
-    let(:database_memo) { FactoryGirl.create(:database_memo, name: "db") }
-    let(:schema_memo) { FactoryGirl.create(:schema_memo, database_memo: database_memo, name: "myapp") }
+    let(:database_memo) { FactoryBot.create(:database_memo, name: "db") }
+    let(:schema_memo) { FactoryBot.create(:schema_memo, database_memo: database_memo, name: "myapp") }
     before do
-      FactoryGirl.create(:table_memo, schema_memo: schema_memo, name: "books")
-      FactoryGirl.create(:keyword, name: "difficult-word", description: "Difficult!")
+      FactoryBot.create(:table_memo, schema_memo: schema_memo, name: "books")
+      FactoryBot.create(:keyword, name: "difficult-word", description: "Difficult!")
     end
 
     it "returns links to table" do
@@ -24,7 +24,7 @@ describe AutolinkKeyword, type: :model do
           "myapp.books" => "/databases/db/myapp/books",
           "difficult-word" => "/keywords/difficult-word",
         )
-        memo = FactoryGirl.create(:table_memo, schema_memo: schema_memo, name: "blogs")
+        memo = FactoryBot.create(:table_memo, schema_memo: schema_memo, name: "blogs")
         expect(AutolinkKeyword.links).to eq(
           "books" => "/databases/db/myapp/books",
           "myapp.books" => "/databases/db/myapp/books",
@@ -56,7 +56,7 @@ describe AutolinkKeyword, type: :model do
           "myapp.books" => "/databases/db/myapp/books",
           "difficult-word" => "/keywords/difficult-word",
         )
-        keyword = FactoryGirl.create(:keyword, name: "easy-word", description: "Easy!")
+        keyword = FactoryBot.create(:keyword, name: "easy-word", description: "Easy!")
         expect(AutolinkKeyword.links).to eq(
           "books" => "/databases/db/myapp/books",
           "myapp.books" => "/databases/db/myapp/books",

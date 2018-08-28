@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe :search_results, type: :request do
   describe "#show" do
-    let!(:table_memo) { FactoryGirl.create(:table_memo, name: "foo_bar_table") }
-    let!(:column_memo) { FactoryGirl.create(:column_memo, name: "foo_bar_column") }
+    let!(:table_memo) { FactoryBot.create(:table_memo, name: "foo_bar_table") }
+    let!(:column_memo) { FactoryBot.create(:column_memo, name: "foo_bar_column") }
     before do
       login!
     end

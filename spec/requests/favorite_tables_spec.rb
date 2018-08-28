@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe :favorite_tables, type: :request do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:table_memo) { FactoryGirl.create(:table_memo) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:table_memo) { FactoryBot.create(:table_memo) }
   before do
     login!(user: user)
   end
@@ -19,7 +19,7 @@ describe :favorite_tables, type: :request do
 
   describe "#destroy" do
     before do
-      FactoryGirl.create(:favorite_table, user: user, table_memo: table_memo)
+      FactoryBot.create(:favorite_table, user: user, table_memo: table_memo)
     end
 
     it "destroys favorite table" do

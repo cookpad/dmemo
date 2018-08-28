@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :database_memos, type: :request do
-  let(:database_memo) { FactoryGirl.create(:database_memo) }
+  let(:database_memo) { FactoryBot.create(:database_memo) }
   before do
     login!
   end

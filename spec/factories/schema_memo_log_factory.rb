@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :schema_memo_log do
     schema_memo
     sequence(:revision) {|n| n }

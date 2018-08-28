@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :column_memos, type: :request do
-  let(:column_memo) { FactoryGirl.create(:column_memo) }
+  let(:column_memo) { FactoryBot.create(:column_memo) }
   let(:table_memo) { column_memo.table_memo }
   let(:schema_memo) { table_memo.schema_memo }
   let(:database_memo) { schema_memo.database_memo }

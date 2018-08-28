@@ -20,7 +20,7 @@ describe :sessions, type: :request do
     end
 
     context "with existing user" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
       before do
         oauth[:uid] = user.uid
         OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(oauth)

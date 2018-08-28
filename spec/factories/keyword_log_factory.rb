@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :keyword_log do
     keyword
     sequence(:revision) {|n| n }
