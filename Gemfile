@@ -42,6 +42,8 @@ gem 'rails_stdout_logging', require: false
 
 gem 'addressable'
 
+gem 'bootsnap'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
