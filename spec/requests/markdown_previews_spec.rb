@@ -7,7 +7,7 @@ describe :markdown_previews, type: :request do
     end
 
     it "creates markdown preview" do
-      post markdown_preview_path(md: "**hoge**"), params: { format: :json }
+      post markdown_preview_path(md: "**hoge**"), as: :json
       expect(response).to render_template("markdown_previews/create")
       data = JSON.parse(response.body)
       expect(data["html"]).to be_include("<strong>hoge</strong>")
