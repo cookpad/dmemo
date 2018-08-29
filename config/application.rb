@@ -14,6 +14,6 @@ module Dmemo
     config.load_defaults 5.2
     config.active_record.belongs_to_required_by_default = false
 
-    config.autoload_paths << "#{Rails.root}/lib/autoload"
+    config.eager_load_paths << "#{Rails.root}/lib/autoload"
   end
 end
