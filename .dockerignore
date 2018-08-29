@@ -2,3 +2,4 @@
 .env.docker
 .git
 vendor/bundle
+vendor/assets/node_modules
