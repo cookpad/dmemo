@@ -12,6 +12,9 @@ RUN cd /tmp/vendor/assets && npm install && rm -rf node_modules/jquery
 WORKDIR /app
 RUN mv /tmp/vendor /app
 ADD . /app
-RUN bundle exec rake assets:precompile RAILS_ENV=production
+
+# Avoid Missing `secret_key_base` Error
+RUN SECRET_KEY_BASE=dummy \
+    bundle exec rake assets:precompile RAILS_ENV=production
 
 CMD ["./bin/docker_start.sh"]
