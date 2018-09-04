@@ -1,6 +1,6 @@
 require "active_record/connection_adapters/redshift_adapter"
 
-class DataSource < ActiveRecord::Base
+class DataSource < ApplicationRecord
 
   validates :name, :adapter, :host, :dbname, :user, presence: true
 
@@ -11,7 +11,7 @@ class DataSource < ActiveRecord::Base
   after_save :disconnect_data_source!
 
   module DynamicTable
-    class AbstractTable < ActiveRecord::Base
+    class AbstractTable < ApplicationRecord
       self.abstract_class = true
     end
   end

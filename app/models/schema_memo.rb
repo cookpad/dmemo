@@ -1,4 +1,4 @@
-class SchemaMemo < ActiveRecord::Base
+class SchemaMemo < ApplicationRecord
   include TextDiff
   include DescriptionLogger
 

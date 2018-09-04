@@ -1,4 +1,4 @@
-class TableMemo < ActiveRecord::Base
+class TableMemo < ApplicationRecord
   include TextDiff
   include DescriptionLogger
 

@@ -1,4 +1,4 @@
-class MaskedDatum < ActiveRecord::Base
+class MaskedDatum < ApplicationRecord
   validates :database_name, :table_name, :column_name, presence: true
 
   after_save :update_data!

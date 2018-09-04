@@ -1,4 +1,4 @@
-class Keyword < ActiveRecord::Base
+class Keyword < ApplicationRecord
   include TextDiff
   include DescriptionLogger
 

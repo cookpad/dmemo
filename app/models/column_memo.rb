@@ -1,4 +1,4 @@
-class ColumnMemo < ActiveRecord::Base
+class ColumnMemo < ApplicationRecord
   include TextDiff
   include DescriptionLogger
 

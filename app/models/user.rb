@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :favorite_tables
 
   def editable_user?(user_id)
