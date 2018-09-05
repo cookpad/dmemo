@@ -12,6 +12,6 @@ class Keyword < ApplicationRecord
   private
 
   def clear_keyword_links
-    AutolinkKeyword.clear_links! if saved_change_to_attribute?(:name) || destroyed?
+    AutolinkKeyword.clear_links! if saved_change_to_name? || destroyed?
   end
 end
