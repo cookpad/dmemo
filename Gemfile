@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.2.1'
 
 gem 'jquery-rails'
 
-gem 'faml'
 gem 'haml-rails'
 
 gem 'jbuilder'
