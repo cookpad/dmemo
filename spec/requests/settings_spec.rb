@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe :settings, type: :request do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:data_source) { FactoryGirl.create(:data_source, name: "test_ds") }
-  let!(:ignored_table) { FactoryGirl.create(:ignored_table, data_source: data_source) }
-  let!(:masked_datum) { FactoryGirl.create(:masked_datum, database_name: "test_db") }
+  let(:user) { FactoryBot.create(:user) }
+  let(:data_source) { FactoryBot.create(:data_source, name: "test_ds") }
+  let!(:ignored_table) { FactoryBot.create(:ignored_table, data_source: data_source) }
+  let!(:masked_datum) { FactoryBot.create(:masked_datum, database_name: "test_db") }
   before do
     login!(user: user)
   end
@@ -23,7 +23,7 @@ describe :settings, type: :request do
     end
 
     context "with admin user" do
-      let(:user) { FactoryGirl.create(:user, admin: true) }
+      let(:user) { FactoryBot.create(:user, admin: true) }
 
       it "shows admin buttons" do
         get setting_path

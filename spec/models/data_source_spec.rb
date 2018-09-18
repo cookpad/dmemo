@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe DataSource, type: :model do
-  let(:data_source) { FactoryGirl.create(:data_source) }
+  let(:data_source) { FactoryBot.create(:data_source) }
 
   describe "#source_base_class" do
     it "return source base class" do

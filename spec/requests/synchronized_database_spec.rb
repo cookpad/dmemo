@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :synchronized_database, type: :request do
-  let(:data_source) { FactoryGirl.create(:data_source, name: "dmemo", description: "") }
+  let(:data_source) { FactoryBot.create(:data_source, name: "dmemo", description: "") }
   before do
     login!(admin: true)
   end

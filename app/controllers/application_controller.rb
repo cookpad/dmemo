@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
   helper_method :current_user
 
   before_action :require_login
@@ -14,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     return if current_user
-    redirect_to google_oauth2_path(state: url_for(params.merge(only_path: true)))
+    redirect_to google_oauth2_path(state: request.fullpath)
   end
 
   def require_admin_login

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :masked_data, type: :request do
-  let(:user) { FactoryGirl.create(:user, admin: true) }
+  let(:user) { FactoryBot.create(:user, admin: true) }
   before do
     login!(user: user)
   end
@@ -14,7 +14,7 @@ describe :masked_data, type: :request do
   end
 
   describe "#new" do
-    let!(:database_memo) { FactoryGirl.create(:database_memo, name: "foo") }
+    let!(:database_memo) { FactoryBot.create(:database_memo, name: "foo") }
 
     it "shows" do
       get new_masked_datum_path

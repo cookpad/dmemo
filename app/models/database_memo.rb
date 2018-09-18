@@ -1,4 +1,4 @@
-class DatabaseMemo < ActiveRecord::Base
+class DatabaseMemo < ApplicationRecord
   include TextDiff
   include DescriptionLogger
 

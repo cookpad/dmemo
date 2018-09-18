@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :column_memo_logs, type: :request do
-  let(:memo_log) { FactoryGirl.create(:column_memo_log) }
+  let(:memo_log) { FactoryBot.create(:column_memo_log) }
   let(:memo) { memo_log.column_memo }
   before do
     login!

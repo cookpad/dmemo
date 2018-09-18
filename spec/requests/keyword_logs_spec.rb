@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :keyword_logs, type: :request do
-  let(:memo_log) { FactoryGirl.create(:keyword_log) }
+  let(:memo_log) { FactoryBot.create(:keyword_log) }
   let(:memo) { memo_log.keyword }
   before do
     login!

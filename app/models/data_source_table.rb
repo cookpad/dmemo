@@ -21,7 +21,7 @@ class DataSourceTable
         SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
       SQL
       rows.map {|row|
-        columns.zip(row).map {|column, value| column.type_cast_from_database(value) }
+        columns.zip(row).map {|column, value| adapter.type_cast(value, column) }
       }
     end
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e

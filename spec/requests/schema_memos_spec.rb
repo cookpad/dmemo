@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :schema_memos, type: :request do
-  let(:schema_memo) { FactoryGirl.create(:schema_memo) }
+  let(:schema_memo) { FactoryBot.create(:schema_memo) }
   let(:database_memo) { schema_memo.database_memo }
   before do
     login!
@@ -10,7 +10,7 @@ describe :schema_memos, type: :request do
   describe "#show" do
     context "with multiple schemas" do
       before do
-        FactoryGirl.create(:schema_memo, database_memo: database_memo)
+        FactoryBot.create(:schema_memo, database_memo: database_memo)
       end
 
       it "shows memo" do
@@ -45,7 +45,7 @@ describe :schema_memos, type: :request do
 
   describe "#update" do
     it "updates memo" do
-      patch schema_memo_path(schema_memo), schema_memo: { description: "foo description" }
+      patch schema_memo_path(schema_memo), params: { schema_memo: { description: "foo description" } }
       expect(response).to redirect_to(database_schema_path(database_memo.name, schema_memo.name))
       expect(assigns(:schema_memo).description).to eq("foo description")
     end

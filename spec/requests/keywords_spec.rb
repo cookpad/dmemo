@@ -7,8 +7,8 @@ describe :keywords, type: :request do
 
   describe "#index" do
     before do
-      FactoryGirl.create(:keyword, name: "sushi", description: "**delicious**")
-      FactoryGirl.create(:keyword, name: "toast", description: "__rice__")
+      FactoryBot.create(:keyword, name: "sushi", description: "**delicious**")
+      FactoryBot.create(:keyword, name: "toast", description: "__rice__")
     end
 
     it "shows index" do
@@ -27,7 +27,7 @@ describe :keywords, type: :request do
 
   describe "#show" do
     before do
-      FactoryGirl.create(:keyword, name: "sushi", description: "**delicious**")
+      FactoryBot.create(:keyword, name: "sushi", description: "**delicious**")
     end
 
     it "shows keyword detail" do
@@ -48,7 +48,7 @@ describe :keywords, type: :request do
 
   describe "#create" do
     it "creates keyword" do
-      post keywords_path, keyword: { name: "foo", description: "foo description" }
+      post keywords_path, params: { keyword: { name: "foo", description: "foo description" } }
       keyword = Keyword.find_by!(name: "foo")
       expect(response).to redirect_to(keyword)
       expect(keyword.logs.count).to eq(1)
@@ -56,7 +56,7 @@ describe :keywords, type: :request do
   end
 
   describe "#edit" do
-    let(:keyword) { FactoryGirl.create(:keyword, name: "sushi", description: "**delicious**") }
+    let(:keyword) { FactoryBot.create(:keyword, name: "sushi", description: "**delicious**") }
 
     it "shows edit form" do
       get edit_keyword_path(keyword)
@@ -67,11 +67,11 @@ describe :keywords, type: :request do
   end
 
   describe "#update" do
-    let(:keyword) { FactoryGirl.create(:keyword, name: "sushi", description: "sushi 1") }
+    let(:keyword) { FactoryBot.create(:keyword, name: "sushi", description: "sushi 1") }
 
     it "updates keyword" do
       expect(keyword.logs.count).to eq(0)
-      patch keyword_path(keyword), keyword: { description: "sushi 2" }
+      patch keyword_path(keyword), params: { keyword: { description: "sushi 2" } }
       expect(response).to redirect_to(keyword)
       expect(keyword.reload.description).to eq("sushi 2")
       expect(keyword.logs.count).to eq(1)
@@ -79,7 +79,7 @@ describe :keywords, type: :request do
   end
 
   describe "#destroy" do
-    let(:keyword) { FactoryGirl.create(:keyword, name: "sushi", description: "sushi 1") }
+    let(:keyword) { FactoryBot.create(:keyword, name: "sushi", description: "sushi 1") }
 
     it "destroys keyword" do
       delete keyword_path(keyword)

@@ -13,7 +13,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#show" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "redirects" do
       get data_source_path(data_source)
@@ -34,7 +34,7 @@ describe :data_sources, type: :request do
     }
 
     it "creates data_source and related memos" do
-      post data_sources_path, data_source: data_source_param
+      post data_sources_path, params: { data_source: data_source_param }
       data_source = assigns(:data_source)
       expect(data_source).to be_present
       expect(response).to redirect_to(data_sources_path)
@@ -46,7 +46,7 @@ describe :data_sources, type: :request do
       end
 
       it "shows error" do
-        post data_sources_path, data_source: data_source_param
+        post data_sources_path, params: { data_source: data_source_param }
         expect(response).to redirect_to(new_data_source_path)
         expect(flash[:error]).to include("Name")
       end
@@ -54,7 +54,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#edit" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "shows form" do
       get edit_data_source_path(data_source)
@@ -64,10 +64,10 @@ describe :data_sources, type: :request do
   end
 
   describe "#update" do
-    let!(:data_source) { FactoryGirl.create(:data_source) }
+    let!(:data_source) { FactoryBot.create(:data_source) }
 
     it "updates data_source" do
-      patch data_source_path(data_source.id), data_source: { description: "hello" }
+      patch data_source_path(data_source.id), params: { data_source: { description: "hello" } }
 
       expect(data_source.id).to eq(assigns(:data_source).id)
       expect(response).to redirect_to(data_sources_path)
@@ -77,7 +77,7 @@ describe :data_sources, type: :request do
 
     context "with empty name" do
       it "shows error" do
-        patch data_source_path(data_source.id), data_source: { name: "" }
+        patch data_source_path(data_source.id), params: { data_source: { name: "" } }
 
         expect(response).to redirect_to(edit_data_source_path(data_source.id))
         expect(flash[:error]).to include("Name")
@@ -86,7 +86,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#destroy" do
-    let(:data_source) { FactoryGirl.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "deletes data_source" do
       delete data_source_path(data_source)

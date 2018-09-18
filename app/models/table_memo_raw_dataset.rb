@@ -1,4 +1,4 @@
-class TableMemoRawDataset < ActiveRecord::Base
+class TableMemoRawDataset < ApplicationRecord
   belongs_to :table_memo
 
   has_many :columns, class_name: "TableMemoRawDatasetColumn", dependent: :destroy

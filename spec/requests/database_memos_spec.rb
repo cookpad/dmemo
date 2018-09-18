@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe :database_memos, type: :request do
-  let(:database_memo) { FactoryGirl.create(:database_memo) }
+  let(:database_memo) { FactoryBot.create(:database_memo) }
   before do
     login!
   end
@@ -38,7 +38,7 @@ describe :database_memos, type: :request do
 
   describe "#update" do
     it "updates memo" do
-      patch database_memo_path(database_memo), database_memo: { description: "foo description" }
+      patch database_memo_path(database_memo), params: { database_memo: { description: "foo description" } }
       expect(response).to redirect_to(database_memo_path(database_memo.name))
       expect(assigns(:database_memo).description).to eq("foo description")
     end
