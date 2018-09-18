@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.5.0 (Not released)
+- Upgrade to Rails v5.2 [#99](https://github.com/hogelog/dmemo/pull/99)
+- Upgrade many dependencies
+- Remove some dependencies
+  - faml
+  - capistrano-rails
+
 ## 0.4.0
 - Remove search result number limitation
 - Remove keyword name constraints
