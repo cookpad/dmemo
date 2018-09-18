@@ -52,7 +52,6 @@ end
 
 group :development do
   gem 'ridgepole'
-  gem 'capistrano-rails'
   gem 'meta_request', '~> 0.6.0'
   gem 'ruby-prof'
   gem 'rubocop', require: false
