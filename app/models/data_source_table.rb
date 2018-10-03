@@ -1,4 +1,6 @@
 class DataSourceTable
+  Column = Struct.new(:name, :sql_type, :default, :null)
+
   attr_reader :data_source, :schema_name, :table_name, :full_table_name, :columns, :defined_at
 
   delegate :source_base_class, to: :data_source
@@ -9,19 +11,21 @@ class DataSourceTable
     @schema_name = schema_name
     @table_name = table_name
     @full_table_name = "#{schema_name}.#{table_name}"
-    @columns = data_source.access_logging { connection.columns(full_table_name) }
+    @raw_columns = data_source.access_logging { connection.columns(full_table_name) }
+    adapter = source_base_class.connection.pool.connections.first
+    @columns = @raw_columns.map { |c| Column.new(c.name, c.sql_type, adapter.quote(c.default), c.null) }
     @defined_at = Time.now
   end
 
   def fetch_rows(limit=20)
     data_source.access_logging do
       adapter = connection.pool.connections.first
-      column_names = columns.map {|column| adapter.quote_column_name(column.name) }.join(", ")
+      column_names = @raw_columns.map {|column| adapter.quote_column_name(column.name) }.join(", ")
       rows = connection.select_rows(<<-SQL, "#{table_name.classify} Load")
         SELECT #{column_names} FROM #{adapter.quote_table_name(full_table_name)} LIMIT #{limit};
       SQL
       rows.map {|row|
-        columns.zip(row).map {|column, value| adapter.type_cast(value, column) }
+        @raw_columns.zip(row).map {|column, value| adapter.type_cast(value, column) }
       }
     end
   rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e

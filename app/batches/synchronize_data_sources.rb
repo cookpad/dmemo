@@ -43,8 +43,6 @@ class SynchronizeDataSources
     column_memos = table_memo.column_memos.to_a
 
     columns = source_table.columns
-    adapter = source_table.source_base_class.connection.pool.connections.first
-
     import_table_memo_raw_dataset!(table_memo, source_table, columns)
 
     column_names = columns.map(&:name)
@@ -53,7 +51,7 @@ class SynchronizeDataSources
     columns.each_with_index do |column, position|
       column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
       column_memo.linked = true
-      column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null, position: position)
+      column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position: position)
       column_memo.save! if column_memo.changed?
     end
 
