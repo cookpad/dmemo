@@ -9,10 +9,13 @@ describe :table_memos, type: :request do
   end
 
   describe "#show" do
-    let(:data_source) { FactoryBot.create(:data_source).tap {|ds| DatabaseMemo.import_data_source!(ds.id) } }
+    let!(:data_source) { FactoryBot.create(:data_source) }
     let(:database_memo) { data_source.database_memo }
     let(:schema_memo) { database_memo.schema_memos.take! }
     let(:table_memo) { schema_memo.table_memos.find_by!(name: "data_sources") }
+    before do
+      SynchronizeDataSources.run
+    end
 
     it "shows table memo and data" do
       get database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name)
