@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.5.0 (Not released)
+## 0.5.0
 - Upgrade to Rails v5.2 [#99](https://github.com/hogelog/dmemo/pull/99)
 - Upgrade many dependencies
 - Remove some dependencies
