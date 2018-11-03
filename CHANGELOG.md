@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.0 (Not released)
+- Remove sync data source feature from web setting view
+- Refactoring
+
 ## 0.5.0
 - Upgrade to Rails v5.2 [#99](https://github.com/hogelog/dmemo/pull/99)
 - Upgrade many dependencies
