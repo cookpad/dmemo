@@ -35,6 +35,3 @@
               = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
                 %button.btn.btn-default
                   %i.fa.fa-trash
-              = form_tag data_source_synchronized_database_path(data_source.id), method: :patch, class: "inline" do
-                %button.btn.btn-default
-                  %i.fa.fa-refresh
