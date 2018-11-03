@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe SynchronizeDataSources do
-  let!(:data_source) { FactoryBot.create(:data_source, name: "dmemo", description: "") }
   let(:batch) { SynchronizeDataSources }
 
   describe ".run" do
+    let!(:data_source) { FactoryBot.create(:data_source, name: "dmemo", description: "") }
+
     it "synchronize data_source" do
       expect(DatabaseMemo.count).to eq(0)
       expect(TableMemoRawDataset.count).to eq(0)
@@ -37,6 +38,54 @@ describe SynchronizeDataSources do
         expect(data_source.database_memo).to be_present
         expect(SchemaMemo.count).to eq(0)
         expect(TableMemoRawDataset.count).to eq(0)
+      end
+    end
+  end
+
+  describe ".import_data_source" do
+    let(:data_source) { FactoryBot.create(:data_source) }
+
+    describe ".import_data_source!" do
+      it "synchronize data source" do
+        FactoryBot.create(:keyword, name: "tempura")
+
+        expect(DatabaseMemo.count).to eq(0)
+        batch.import_data_source!(data_source)
+
+        database_memo = DatabaseMemo.take
+        expect(database_memo.name).to eq(data_source.name)
+
+        keywords_table = TableMemo.find_by(name: "keywords")
+        expect(keywords_table.raw_dataset.count).to eq(1)
+        expect(keywords_table.raw_dataset.rows.size).to eq(1)
+
+        FactoryBot.create(:keyword, name: "sushi")
+
+        batch.import_data_source!(data_source)
+        expect(keywords_table.reload.raw_dataset.count).to eq(2)
+        expect(keywords_table.raw_dataset.rows.size).to eq(2)
+      end
+
+      context "when columns doesn't changed" do
+        before do
+          stub_const("SynchronizeDataSources::DEFAULT_FETCH_ROWS_LIMIT", 4)
+          4.times{|i| FactoryBot.create(:keyword, name: "sushi #{i}") }
+          batch.import_data_source!(data_source)
+        end
+
+        it "skip update raw_dataset.rows" do
+          keywords_table = TableMemo.find_by(name: "keywords")
+          expect(keywords_table.raw_dataset.count).to eq(4)
+          before_row_ids = keywords_table.raw_dataset.rows.order(:id).pluck(:id)
+
+          FactoryBot.create(:keyword, name: "tempura")
+          batch.import_data_source!(data_source)
+          keywords_table.reload
+          after_row_ids = keywords_table.raw_dataset.rows.order(:id).pluck(:id)
+
+          expect(keywords_table.raw_dataset.count).to eq(5)
+          expect(after_row_ids).to eq(before_row_ids)
+        end
       end
     end
   end

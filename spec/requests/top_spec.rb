@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe :top, type: :request do
-  let(:data_source) { FactoryBot.create(:data_source) }
   before do
+    FactoryBot.create(:data_source)
+    SynchronizeDataSources.run
     login!
-    DatabaseMemo.import_data_source!(data_source.id)
   end
 
   describe "#show" do
