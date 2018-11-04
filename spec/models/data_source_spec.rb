@@ -18,6 +18,17 @@ describe DataSource, type: :model do
         id name description adapter host port dbname user password encoding pool created_at updated_at
       ))
     end
+
+    context "with invalid connection param" do
+      let(:table_names) { [["public", "data_sources"]] }
+      before do
+        data_source.update!(port: 5439)
+      end
+
+      it "raises error" do
+        expect { data_source.data_source_table("public", "data_sources", table_names) }.to raise_error(DataSource::ConnectionBad)
+      end
+    end
   end
 
   describe "#data_source_tables" do
