@@ -8,8 +8,6 @@ class DataSource < ApplicationRecord
 
   has_one :database_memo, class_name: "DatabaseMemo", foreign_key: :name, primary_key: :name, dependent: :destroy
 
-  after_save :disconnect_data_source!
-
   module DynamicTable
     class AbstractTable < ApplicationRecord
       self.abstract_class = true
