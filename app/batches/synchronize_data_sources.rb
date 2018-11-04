@@ -8,8 +8,6 @@ class SynchronizeDataSources
   end
 
   def self.import_data_source!(data_source)
-    data_source.reset_data_source_tables!
-
     db_memo = DatabaseMemo.find_or_create_by!(name: data_source.name)
     schema_memos = db_memo.schema_memos.includes(table_memos: [:column_memos, :raw_dataset]).to_a
     schema_memos.each {|memo| memo.linked = false }

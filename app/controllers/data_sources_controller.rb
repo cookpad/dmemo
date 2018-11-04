@@ -33,7 +33,6 @@ class DataSourcesController < ApplicationController
 
   def update(id, data_source)
     @data_source = DataSource.find(id)
-    @data_source.reset_data_source_tables!
     @data_source.update!(data_source_params(data_source))
     flash[:info] = t("data_source_updated", name: @data_source.name)
     redirect_to data_sources_path
