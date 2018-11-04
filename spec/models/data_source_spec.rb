@@ -11,8 +11,10 @@ describe DataSource, type: :model do
 
   describe "#data_source_table" do
     it "return data source table" do
-      expect(data_source.data_source_table("public", "data_sources")).to be_present
-      expect(data_source.data_source_table("public", "data_sources").columns.map(&:name)).to match_array(%w(
+      table_names = data_source.source_table_names
+      ds_table = data_source.data_source_table("public", "data_sources", table_names)
+      expect(ds_table).to be_present
+      expect(ds_table.columns.map(&:name)).to match_array(%w(
         id name description adapter host port dbname user password encoding pool created_at updated_at
       ))
     end

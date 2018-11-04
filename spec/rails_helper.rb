@@ -53,7 +53,10 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    DataSource.all.each {|ds| ds.reset_data_source_tables! }
+    DataSource.all.each do |ds|
+      ds.source_base_class.establish_connection.disconnect!
+      DataSource::DynamicTable.send(:remove_const, ds.source_base_class_name)
+    end
     DatabaseRewinder.clean
   end
 end
