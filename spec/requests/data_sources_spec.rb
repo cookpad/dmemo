@@ -51,6 +51,20 @@ describe :data_sources, type: :request do
         expect(flash[:error]).to include("Name")
       end
     end
+
+    context "with bigquery adapter" do
+      before do
+        data_source_param[:adapter] = "bigquery"
+        data_source_param[:bigquery_config] = { project_id: "sample", dataset: "public" }
+      end
+
+      it "creates data_source and bigquery config" do
+        post data_sources_path, params: { data_source: data_source_param }
+        data_source = assigns(:data_source)
+
+        expect(data_source.bigquery_config).to be_present
+      end
+    end
   end
 
   describe "#edit" do
@@ -64,7 +78,7 @@ describe :data_sources, type: :request do
   end
 
   describe "#update" do
-    let!(:data_source) { FactoryBot.create(:data_source) }
+    let(:data_source) { FactoryBot.create(:data_source) }
 
     it "updates data_source" do
       patch data_source_path(data_source.id), params: { data_source: { description: "hello" } }
@@ -81,6 +95,17 @@ describe :data_sources, type: :request do
 
         expect(response).to redirect_to(edit_data_source_path(data_source.id))
         expect(flash[:error]).to include("Name")
+      end
+    end
+
+    context "with bigquery adapter" do
+      let(:data_source) { FactoryBot.create(:data_source) }
+
+      it "creates data_source and bigquery config" do
+        patch data_source_path(data_source.id), params: { data_source: { adapter: "bigquery", bigquery_config: { project_id: "new_project" } } }
+
+        data_source = assigns(:data_source)
+        expect(data_source.bigquery_config.project_id).to eq "new_project"
       end
     end
   end
