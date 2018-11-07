@@ -5,6 +5,7 @@ class DataSource < ApplicationRecord
   has_many :ignored_tables
 
   has_one :database_memo, class_name: "DatabaseMemo", foreign_key: :name, primary_key: :name, dependent: :destroy
+  has_one :bigquery_config, dependent: :destroy
 
   class ConnectionBad < IOError
   end

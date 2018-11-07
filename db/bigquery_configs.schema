@@ -1,0 +1,8 @@
+create_table "bigquery_configs", force: :cascade do |t|
+  t.integer "data_source_id", null: false
+  t.string  "project_id",     null: false
+  t.string  "dataset",        null: false
+  t.binary  "credentials"
+end
+
+add_index "bigquery_configs", ["data_source_id"], name: "bigquery_configs_data_source_id", using: :btree
