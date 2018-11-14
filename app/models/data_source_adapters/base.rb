@@ -17,7 +17,7 @@ module DataSourceAdapters
     end
 
     def fetch_count(table)
-      raise NotImplementedError
+      nil
     end
 
     def reset!

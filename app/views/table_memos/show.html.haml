@@ -86,6 +86,6 @@
                   - else
                     = value
       .pull-right.block
-        #{@raw_dataset_rows.try(:size).to_i} / #{@raw_dataset.count} records
+        #{@raw_dataset_rows.try(:size).to_i} / #{@raw_dataset.count || '?' } records
     - else
       = t("no_preview_dataset")

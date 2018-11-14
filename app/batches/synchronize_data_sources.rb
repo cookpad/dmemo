@@ -60,7 +60,7 @@ class SynchronizeDataSources
   def self.import_table_memo_raw_dataset!(table_memo, source_table, columns)
     table_count = source_table.fetch_count
     if table_memo.raw_dataset
-      unless table_memo.raw_dataset.same_columns?(columns) && (table_memo.raw_dataset.count >= DEFAULT_FETCH_ROWS_LIMIT || table_memo.raw_dataset.count == table_count)
+      unless table_memo.raw_dataset.same_columns?(columns) && (table_memo.raw_dataset.rows.count >= DEFAULT_FETCH_ROWS_LIMIT || table_memo.raw_dataset.rows.count == table_count)
         import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
       end
       table_memo.raw_dataset.update!(count: table_count)
