@@ -2,8 +2,6 @@ require "google/cloud/bigquery"
 
 module DataSourceAdapters
   class BigqueryAdapter < Base
-    DataSourceAdapters.register_adapter(self, 'bigquery')
-
     def fetch_table_names
       latest_table_names.keys.map do |prefix|
         [bq_dataset.dataset_id, prefix]

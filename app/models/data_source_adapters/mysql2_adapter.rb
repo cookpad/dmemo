@@ -1,7 +1,5 @@
 module DataSourceAdapters
   class Mysql2Adapter < StandardAdapter
-    DataSourceAdapters.register_adapter(self, 'mysql2')
-
     def fetch_table_names
       source_base_class.connection.tables.map { |table_name| [@data_source.dbname, table_name] }
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error => e

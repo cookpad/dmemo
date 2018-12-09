@@ -2,8 +2,6 @@ require "active_record/connection_adapters/redshift_adapter"
 
 module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
-    DataSourceAdapters.register_adapter(self, 'redshift')
-
     def fetch_table_names
       source_base_class.connection.query(<<-SQL, 'SCHEMA')
         SELECT schemaname, tablename

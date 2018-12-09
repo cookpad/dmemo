@@ -1,7 +1,5 @@
 module DataSourceAdapters
   class PostgresqlAdapter < StandardAdapter
-    DataSourceAdapters.register_adapter(self, 'postgresql')
-
     def fetch_table_names
       source_base_class.connection.query(<<-SQL, 'SCHEMA')
         SELECT schemaname, tablename
