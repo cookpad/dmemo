@@ -1,8 +1,6 @@
-require 'data_source_adapters'
-require 'data_source_adapters/base'
-require 'data_source_adapters/standard_adapter'
-
-require 'data_source_adapters/postgresql_adapter'
-require 'data_source_adapters/mysql2_adapter'
-require 'data_source_adapters/redshift_adapter'
-require 'data_source_adapters/bigquery_adapter'
+ActiveSupport.on_load(:active_record) do
+  DataSourceAdapters.register_adapter(DataSourceAdapters::PostgresqlAdapter, 'postgresql')
+  DataSourceAdapters.register_adapter(DataSourceAdapters::Mysql2Adapter, 'mysql2')
+  DataSourceAdapters.register_adapter(DataSourceAdapters::RedshiftAdapter, 'redshift')
+  DataSourceAdapters.register_adapter(DataSourceAdapters::BigqueryAdapter, 'bigquery')
+end
