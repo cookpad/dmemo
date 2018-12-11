@@ -41,6 +41,26 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "fc710822e5f18a86b339c0ca44e09b16c6e944b66fdc13de19b99e04f89436a4",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/data_source_adapters/standard_adapter.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "connection.select_rows(\"        SELECT #{raw_columns(table).map do\n connection.pool.connection.quote_column_name(column.name)\n end.join(\", \")} FROM #{connection.pool.connection.quote_table_name(table.full_table_name)} LIMIT #{limit};\\n\", \"#{table.full_table_name.classify} Load\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "DataSourceAdapters::StandardAdapter",
+        "method": "fetch_rows"
+      },
+      "user_input": "raw_columns(table).map do\n connection.pool.connection.quote_column_name(column.name)\n end.join(\", \")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "feb8238b3c6feeb441247ec15aa7849100d4fe07670de73583f936161c43ed06",
@@ -48,7 +68,7 @@
       "message": "Unescaped model attribute",
       "file": "app/views/search_results/show.html.haml",
       "line": 21,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "markdown_html((TableMemo or ColumnMemo).description)",
       "render_path": [{"type":"controller","class":"SearchResultsController","method":"show","line":7,"file":"app/controllers/search_results_controller.rb"}],
       "location": {
@@ -60,6 +80,6 @@
       "note": ""
     }
   ],
-  "updated": "2017-12-11 23:44:46 +0900",
-  "brakeman_version": "4.0.1"
+  "updated": "2018-11-07 16:26:50 +0900",
+  "brakeman_version": "4.3.1"
 }

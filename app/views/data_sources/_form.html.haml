@@ -8,24 +8,58 @@
       .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
     .form-group
       = f.label :adapter, class: "col-sm-2 control-label"
-      .col-sm-10= f.select :adapter, %w(redshift postgresql mysql2), {}, class: "form-control"
-    .form-group
-      = f.label :host, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :host, class: "form-control", placeholder: "localhost"
-    .form-group
-      = f.label :port, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :port, class: "form-control", placeholder: "5432"
-    .form-group
-      = f.label :dbname, "Database Name", class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :dbname, class: "form-control", placeholder: "dmemo"
-    .form-group
-      = f.label :user, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :user, class: "form-control", placeholder: "root"
-    .form-group
-      = f.label :password, class: "col-sm-2 control-label"
-      .col-sm-10= f.password_field :password, class: "form-control", value: @data_source.password
-    .form-group
-      = f.label :encoding, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :encoding, class: "form-control"
+      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, class: "form-control"
+
+    #standard-config-fields.adapter-config
+      .form-group
+        = f.label :host, class: "col-sm-2 control-label"
+        .col-sm-10= f.text_field :host, class: "form-control", placeholder: "localhost"
+      .form-group
+        = f.label :port, class: "col-sm-2 control-label"
+        .col-sm-10= f.text_field :port, class: "form-control", placeholder: "5432"
+      .form-group
+        = f.label :dbname, "Database Name", class: "col-sm-2 control-label"
+        .col-sm-10= f.text_field :dbname, class: "form-control", placeholder: "dmemo"
+      .form-group
+        = f.label :user, class: "col-sm-2 control-label"
+        .col-sm-10= f.text_field :user, class: "form-control", placeholder: "root"
+      .form-group
+        = f.label :password, class: "col-sm-2 control-label"
+        .col-sm-10= f.password_field :password, class: "form-control", value: @data_source.password
+      .form-group
+        = f.label :encoding, class: "col-sm-2 control-label"
+        .col-sm-10= f.text_field :encoding, class: "form-control"
+
+    #bigquery-config-fields.adapter-config
+      = f.fields_for :bigquery_config, @data_source.bigquery_config || BigqueryConfig.new do |bq|
+        .form-group
+          = bq.label :project_id, class: "col-sm-2 control-label"
+          .col-sm-10= bq.text_field :project_id, class: "form-control", placeholder: "project-1234"
+        .form-group
+          = bq.label :dataset, class: "col-sm-2 control-label"
+          .col-sm-10= bq.text_field :dataset, class: "form-control", placeholder: "public"
+        .form-group
+          = bq.label :credentials, class: "col-sm-2 control-label"
+          .col-sm-10= bq.file_field :credentials, class: "form-control", placeholder: "public"
+
+
   .box-footer
     = f.submit class: "btn btn-primary pull-right"
+
+:javascript
+  $(function() {
+    var standardAdpaters = #{DataSourceAdapters.standard_adapter_names.to_json.html_safe};
+    function toggleAdapter(adapterName) {
+      if (standardAdpaters.includes(adapterName)) {
+        adapterName = 'standard';
+      }
+
+      $('.adapter-config').hide();
+      $('#' + adapterName + '-config-fields' ).show();
+    }
+
+    $('#data_source_adapter').change(function(){
+      toggleAdapter($(this).val());
+    });
+    toggleAdapter($('#data_source_adapter').val());
+  });

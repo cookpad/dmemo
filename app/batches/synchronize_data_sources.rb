@@ -32,8 +32,6 @@ class SynchronizeDataSources
     end
     schema_memos.each {|memo| memo.save! if memo.changed? }
     all_table_memos.each {|memo| memo.save! if memo.changed? }
-  rescue Mysql2::Error, PG::Error => e
-    raise DataSource::ConnectionBad.new(e)
   end
 
   def self.import_table_memo!(schema_memo, table_memos, source_table)
@@ -43,8 +41,6 @@ class SynchronizeDataSources
     column_memos = table_memo.column_memos.to_a
 
     columns = source_table.columns
-    adapter = source_table.source_base_class.connection.pool.connections.first
-
     import_table_memo_raw_dataset!(table_memo, source_table, columns)
 
     column_names = columns.map(&:name)
@@ -53,13 +49,11 @@ class SynchronizeDataSources
     columns.each_with_index do |column, position|
       column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
       column_memo.linked = true
-      column_memo.assign_attributes(sql_type: column.sql_type, default: adapter.quote(column.default), nullable: column.null, position: position)
+      column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position: position)
       column_memo.save! if column_memo.changed?
     end
 
     table_memo.save! if table_memo.changed?
-  rescue Mysql2::Error, PG::Error => e
-    raise DataSource::ConnectionBad.new(e)
   end
   private_class_method :import_table_memo!
 

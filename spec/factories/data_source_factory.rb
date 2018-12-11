@@ -10,5 +10,12 @@ FactoryBot.define do
     password { ActiveRecord::Base.establish_connection.spec.config[:password] }
     encoding { nil }
     pool { 1 }
+
+    trait :bigquery_adapter do
+      adapter { "bigquery" }
+      after(:create) do |data_source|
+        FactoryBot.create(:bigquery_config, data_source: data_source)
+      end
+    end
   end
 end

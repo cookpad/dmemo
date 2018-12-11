@@ -7,6 +7,7 @@ gem 'rails', '~> 5.2.0'
 gem 'pg', '~> 0.15'
 gem 'mysql2'
 gem 'activerecord5-redshift-adapter'
+gem 'google-cloud-bigquery'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
