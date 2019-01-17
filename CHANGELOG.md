@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## 0.6.0 (Not released)
+## 0.6.0
 - Remove sync data source feature from web setting view
 - Refactoring
+- Support Google BigQuery as DataSource [#106](https://github.com/hogelog/dmemo/pull/106)
 
 ## 0.5.0
 - Upgrade to Rails v5.2 [#99](https://github.com/hogelog/dmemo/pull/99)
