@@ -12,11 +12,11 @@ class DataSource < ApplicationRecord
 
   def source_table_names
     table_names = access_logging { data_source_adapter.fetch_table_names }
-    table_names.reject { |schema_name, table_name| ignore(schema_name, table_name) }
+    table_names.reject { |schema_name, table_name| ignore?(schema_name, table_name) }
   end
 
   def data_source_table(schema_name, table_name, table_names)
-    return if ignore(schema_name, table_name)
+    return if ignore?(schema_name, table_name)
     schema_name, _ = table_names.find {|schema, table| schema == schema_name && table == table_name }
     return nil unless schema_name
     DataSourceTable.new(self, schema_name, table_name)
@@ -43,7 +43,7 @@ class DataSource < ApplicationRecord
 
   private
 
-  def ignore(schema_name, table_name)
+  def ignore?(schema_name, table_name)
     ignored_table_patterns.match("#{schema_name}.#{table_name}")
   end
 
