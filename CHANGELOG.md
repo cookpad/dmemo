@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.7.0 (Not releaed)
+## 0.7.0
 - ignored_tables settings also ignore schema
   - This is possible breaking change. Your schemas may be ignored depending on ignored_tables settings.
 - Support Presto as DataSource [#112](https://github.com/hogelog/dmemo/pull/112)
