@@ -7,6 +7,9 @@ AllCops:
 Style:
   Enabled: false
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Metrics/LineLength:
   Enabled: false
 

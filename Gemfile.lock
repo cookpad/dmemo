@@ -215,6 +215,9 @@ GEM
       ast (~> 2.4.0)
     pg (0.21.0)
     powerpack (0.1.2)
+    presto-client (0.5.12)
+      faraday (~> 0.12)
+      msgpack (>= 0.7.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -388,6 +391,7 @@ DEPENDENCIES
   non-stupid-digest-assets
   omniauth-google-oauth2
   pg (~> 0.15)
+  presto-client
   pry-byebug
   pry-rails
   puma
