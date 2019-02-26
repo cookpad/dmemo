@@ -1,9 +1,9 @@
 module ApplicationHelper
   def render_diff(diff)
-    Markdown.new(<<-DIFF).html
-```diff
-#{diff}
-```
+    Markdown.new(<<~DIFF).html
+      ```diff
+      #{diff}
+      ```
     DIFF
   end
 
