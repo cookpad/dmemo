@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+### Changed
+- Use INFORMATION_SCHEMA system table in mysql2 adapter to count rows
+
 ## 0.7.0
 - ignored_tables settings also ignore schema
   - This is possible breaking change. Your schemas may be ignored depending on ignored_tables settings.
