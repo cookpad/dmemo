@@ -1,4 +1,4 @@
-# Dmemo [![Build Status](https://semaphoreci.com/api/v1/hogelog/dmemo/branches/master/badge.svg)](https://semaphoreci.com/hogelog/dmemo) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
+# Dmemo [![CircleCI](https://circleci.com/gh/hogelog/dmemo.svg?style=svg)](https://circleci.com/gh/hogelog/dmemo) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
 Database description management tool.
 
 
