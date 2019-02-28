@@ -3,7 +3,7 @@ if ENV["COVERAGE"]
   SimpleCov.start("rails")
 end
 
-if ENV["COVERALLS_REPO_TOKEN"]
+if ENV["COVERALLS_REPO_TOKEN"] && ENV["CIRCLE_BRANCH"] == "master"
   require 'coveralls'
   Coveralls.wear!('rails')
 end
