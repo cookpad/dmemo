@@ -3,7 +3,7 @@ require "active_record/connection_adapters/redshift_adapter"
 module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
     def fetch_table_names
-      source_base_class.connection.query(<<-SQL, 'SCHEMA')
+      source_base_class.connection.query(<<~SQL, 'SCHEMA')
         SELECT schemaname, tablename
         FROM (
           SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))

@@ -25,7 +25,7 @@ con.transaction do
     connection = database_memo.data_source.source_base_class.connection
     table_names = case connection
       when ActiveRecord::ConnectionAdapters::PostgreSQLAdapter, ActiveRecord::ConnectionAdapters::RedshiftAdapter
-        connection.query(<<-SQL, 'SCHEMA')
+        connection.query(<<~SQL, 'SCHEMA')
           SELECT schemaname, tablename
           FROM (
             SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
