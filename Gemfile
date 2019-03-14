@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.2'
 
 gem 'pg', '~> 0.15'
 gem 'mysql2'
