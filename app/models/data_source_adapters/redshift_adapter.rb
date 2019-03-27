@@ -3,21 +3,23 @@ require "active_record/connection_adapters/redshift_adapter"
 module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
     def fetch_table_names
-      @table_names = source_base_class.connection.query(<<~SQL, 'SCHEMA')
-        SELECT schemaname, tablename
+      query_result = source_base_class.connection.query(<<~SQL, 'SCHEMA')
+        SELECT table_schema, table_name, table_type
         FROM (
-          SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
+          SELECT table_schema, table_name, table_type FROM svv_tables WHERE table_schema = ANY (current_schemas(false)) or table_type = 'EXTERNAL TABLE'
           UNION
-          SELECT schemaname, viewname AS tablename FROM pg_views WHERE schemaname = ANY (current_schemas(false))
+          SELECT schemaname as table_schema, viewname AS table_name, 'VIEW' FROM pg_views WHERE schemaname = ANY (current_schemas(false))
         ) tables
-        ORDER BY schemaname, tablename;
+        ORDER BY table_schema, table_name;
       SQL
 
-      @external_table_names = source_base_class.connection.query(<<~SQL, 'SCHEMA')
-        SELECT schemaname, tablename FROM svv_external_tables ORDER BY schemaname, tablename;
-      SQL
+      table_groups = group_by_table_type(query_result)
 
-      @table_names + @external_table_names
+      @base_table_names = table_groups['BASE TABLE'] || []
+      @external_table_names = table_groups['EXTERNAL TABLE'] || []
+      @view_names = table_groups['VIEW'] || []
+
+      (@base_table_names + @external_table_names + @view_names).uniq
     rescue ActiveRecord::ActiveRecordError, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
@@ -47,7 +49,16 @@ module DataSourceAdapters
 
     private
 
+    def group_by_table_type(records)
+      records.group_by { |r| r[2] }.map { |k, v| [k, reject_table_type(v)] }.to_h
+    end
+
+    def reject_table_type(records)
+      records.map { |r| [r[0], r[1]] }
+    end
+
     def spectrum?(table)
+      raise "@external_table_names must be defined, execute fetch_table befor spectrum?" unless instance_variable_defined?(:@external_table_names)
       @external_table_names.include?(table.full_table_name.split('.'))
     end
   end
