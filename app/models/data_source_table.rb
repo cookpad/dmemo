@@ -22,4 +22,12 @@ class DataSourceTable
   def fetch_count
     @data_source.access_logging { data_source_adapter.fetch_count(self) }
   end
+
+  def fetch_view_query
+    @view_query ||= @data_source.access_logging { data_source_adapter.fetch_view_query(self) }
+  end
+
+  def fetch_view_query_plan
+    @view_query_plan ||= @data_source.access_logging { data_source_adapter.fetch_view_query_plan(@view_query) }
+  end
 end

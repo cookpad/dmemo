@@ -1,0 +1,14 @@
+.box.data-box
+  .box-header
+    %h3.box-title View Query
+  .box-body
+    %pre
+      %code= @view_meta_data.query
+
+.box.data-box
+  .box-header
+    %h3.box-title View Query Plan
+  .box-body
+    %pre
+      %code= @view_meta_data.explain
+

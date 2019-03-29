@@ -49,6 +49,20 @@ module DataSourceAdapters
       super
     end
 
+    def fetch_view_query(table)
+      return nil unless view?(table)
+      adapter = connection.pool.connection
+      connection.query(<<~SQL, 'VIEW QUERY').join("\n")
+        SELECT definition FROM pg_views WHERE schemaname = '#{table.schema_name}' and viewname = '#{table.table_name}';
+      SQL
+    end
+
+    def fetch_view_query_plan(query)
+      return nil if query.blank?
+      query = query.sub(/create view .*?as/, '').sub('with no schema binding', '')
+      super
+    end
+
     private
 
     def group_by_table_type(records)
