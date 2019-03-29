@@ -6,9 +6,14 @@ module DataSourceAdapters
       query_result = source_base_class.connection.query(<<~SQL, 'SCHEMA')
         SELECT table_schema, table_name, table_type
         FROM (
-          SELECT table_schema, table_name, table_type FROM svv_tables WHERE table_schema = ANY (current_schemas(false)) or table_type = 'EXTERNAL TABLE'
+          SELECT table_schema, table_name, table_type
+          FROM svv_tables
+          WHERE table_schema = ANY (current_schemas(false)) or table_type = 'EXTERNAL TABLE'
+
           UNION
-          SELECT schemaname as table_schema, viewname AS table_name, 'VIEW' FROM pg_views WHERE schemaname = ANY (current_schemas(false))
+
+          SELECT DISTINCT view_schema, view_name, 'LATE BINDING'
+          FROM pg_get_late_binding_view_cols() cols(view_schema name, view_name name, col_name name, col_type varchar, col_num int)
         ) tables
         ORDER BY table_schema, table_name;
       SQL
@@ -18,32 +23,29 @@ module DataSourceAdapters
       @base_table_names = table_groups['BASE TABLE'] || []
       @external_table_names = table_groups['EXTERNAL TABLE'] || []
       @view_names = table_groups['VIEW'] || []
+      @late_binding_view_names = table_groups['LATE BINDING'] || []
 
-      (@base_table_names + @external_table_names + @view_names).uniq
+      (@base_table_names + @external_table_names + @view_names + @late_binding_view_names).uniq
     rescue ActiveRecord::ActiveRecordError, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
 
     def fetch_columns(table)
       adapter = connection.pool.connection
-      if spectrum?(table)
-        connection.query(<<~SQL, 'COLUMN').map { |name, sql_type| Column.new(name, sql_type, "NULL", true) }
-          SELECT columnname, external_type FROM svv_external_columns WHERE tablename = '#{table.table_name}';
-        SQL
-      else
-        connection.columns(table.full_table_name).map { |c| Column.new(c.name, c.sql_type, adapter.quote(c.default), c.null) }
-      end
+      connection.query(<<~SQL, 'COLUMN').map { |name, sql_type, default, nullable| Column.new(name, sql_type, adapter.quote(default), nullable || false) }
+        SELECT column_name, data_type, column_default, is_nullable FROM svv_columns WHERE table_schema = '#{table.schema_name}' and table_name = '#{table.table_name}';
+      SQL
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
 
     def fetch_rows(table, limit)
-      return [] if spectrum?(table)
+      return [] if spectrum?(table) || late_binding_view?(table)
       super
     end
 
     def fetch_count(table)
-      return 0 if spectrum?(table)
+      return 0 if spectrum?(table) || late_binding_view?(table)
       super
     end
 
@@ -60,6 +62,20 @@ module DataSourceAdapters
     def spectrum?(table)
       raise "@external_table_names must be defined, execute fetch_table befor spectrum?" unless instance_variable_defined?(:@external_table_names)
       @external_table_names.include?(table.full_table_name.split('.'))
+    end
+
+    def view?(table)
+      base_view?(table) || late_binding_view?(table)
+    end
+
+    def base_view?(table)
+      raise "@view_names must be defined, execute fetch_table befor view?" unless instance_variable_defined?(:@view_names)
+      @view_names.include?(table.full_table_name.split('.'))
+    end
+
+    def late_binding_view?(table)
+      raise "@late_binding_view_names must be defined, execute fetch_table befor late_binding_view?" unless instance_variable_defined?(:@late_binding_view_names)
+      @late_binding_view_names.include?(table.full_table_name.split('.'))
     end
   end
 end
