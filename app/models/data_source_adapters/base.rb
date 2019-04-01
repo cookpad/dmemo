@@ -20,6 +20,14 @@ module DataSourceAdapters
       nil
     end
 
+    def fetch_view_query(view)
+      nil
+    end
+
+    def fetch_view_query_plan(query)
+      raise NotImplementedError
+    end
+
     def reset!
       raise NotImplementedError
     end

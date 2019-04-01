@@ -33,10 +33,6 @@ module DataSourceAdapters
       raise DataSource::ConnectionBad.new(e)
     end
 
-    def fetch_view_query(view)
-      raise NotImplementedError
-    end
-
     def fetch_view_query_plan(query)
       adapter = connection.pool.connection
       connection.query("EXPLAIN #{query}", 'EXPLAIN').join("\n")
