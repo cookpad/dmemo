@@ -26,6 +26,7 @@ describe DataSourceAdapters::Mysql2Adapter, type: :model do
       CREATE TABLE IF NOT EXISTS #{table.table_name} (id INT PRIMARY KEY);
       TRUNCATE TABLE #{table.table_name};
       INSERT INTO #{table.table_name} VALUES (1);
+      ANALYZE TABLE #{table.table_name};
     SQL
   end
 
