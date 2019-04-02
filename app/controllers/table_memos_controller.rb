@@ -15,6 +15,7 @@ class TableMemosController < ApplicationController
       @raw_dataset_columns = @raw_dataset.columns.order(:position)
       @raw_dataset_rows = @raw_dataset.rows.pluck(:row)
     end
+    @view_meta_data = @table_memo.view_meta_data
   end
 
   def edit(id)

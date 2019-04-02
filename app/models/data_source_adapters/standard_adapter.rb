@@ -33,6 +33,13 @@ module DataSourceAdapters
       raise DataSource::ConnectionBad.new(e)
     end
 
+    def fetch_view_query_plan(query)
+      adapter = connection.pool.connection
+      connection.query("EXPLAIN #{query}", 'EXPLAIN').join("\n")
+    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
+      raise DataSource::ConnectionBad.new(e)
+    end
+
     def source_base_class
       return DynamicTable.const_get(source_base_class_name) if DynamicTable.const_defined?(source_base_class_name)
 

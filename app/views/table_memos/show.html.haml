@@ -60,32 +60,7 @@
         %th Nullable
       = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
 
-.box.data-box
-  .box-header
-    %h3.box-title Data
-  .box-body
-    - if @raw_dataset
-      %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
-        %tr
-          - @raw_dataset_columns.each do |column|
-            %th #{column.name} (#{column.sql_type})
-        - if @table_memo.masked?
-          %tr
-            %td.text-center{ colspan: @raw_dataset_columns.size }
-              = t("masked_table")
-        - else
-          - database_name = @table_memo.database_memo.name
-          - table_name = @table_memo.name
-          - @raw_dataset_rows.each do |row|
-            %tr
-              - Array.wrap(row).each_with_index do |value, i|
-                - column = @raw_dataset_columns[i]
-                %td
-                  - if MaskedDatum.masked_column?(database_name, table_name, column.name)
-                    = t("masked_text")
-                  - else
-                    = value
-      .pull-right.block
-        #{@raw_dataset_rows.try(:size).to_i} / #{@raw_dataset.count || '?' } records
-    - else
-      = t("no_preview_dataset")
+- if @view_meta_data
+  = render partial: "view_meta_data"
+- else
+  = render partial: "raw_dataset"

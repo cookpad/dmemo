@@ -7,6 +7,7 @@ class TableMemo < ApplicationRecord
   belongs_to :schema_memo
 
   has_one :raw_dataset, class_name: "TableMemoRawDataset", dependent: :destroy
+  has_one :view_meta_data, class_name: "ViewMetaDatum", dependent: :destroy
 
   has_many :column_memos, dependent: :destroy
   has_many :logs, -> { order(:id) }, class_name: "TableMemoLog", dependent: :destroy
