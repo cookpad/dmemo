@@ -4,6 +4,11 @@
 ### Changed
 - Use INFORMATION_SCHEMA system table in mysql2 adapter to count rows
 
+## 0.8.0
+- Support Spectrum schema of AWS Redshift [#117](https://github.com/hogelog/dmemo/pull/117)
+- Support late binding view of AWS Redshfit [#118](https://github.com/hogelog/dmemo/pull/118)
+- Upgrade to Ruby v2.6.2 and Debian Stretch
+
 ## 0.7.0
 - ignored_tables settings also ignore schema
   - This is possible breaking change. Your schemas may be ignored depending on ignored_tables settings.
