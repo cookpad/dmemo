@@ -14,6 +14,7 @@ module DataSourceAdapters
 
           SELECT DISTINCT view_schema, view_name, 'LATE BINDING'
           FROM pg_get_late_binding_view_cols() cols(view_schema name, view_name name, col_name name, col_type varchar, col_num int)
+          WHERE view_schema = ANY (current_schemas(false))
         ) tables
         ORDER BY table_schema, table_name;
       SQL
