@@ -1,12 +1,13 @@
 - content_for :header do
   %h1.page-header
     = @table_memo.name
-    - favorited_status = @table_memo.favorited_by?(current_user) ? "favorited" : "unfavorited"
-    %span.favorite-table-block{ class: favorited_status }
-      = link_to table_memo_favorite_table_path(@table_memo.id), method: :delete, remote: true, class: "unfavorite-table-link" do
-        %i.fa.fa-star
-      = link_to table_memo_favorite_table_path(@table_memo.id), method: :post, remote: true, class: "favorite-table-link" do
-        %i.fa.fa-star-o
+    - if current_user
+      - favorited_status = @table_memo.favorited_by?(current_user) ? "favorited" : "unfavorited"
+      %span.favorite-table-block{ class: favorited_status }
+        = link_to table_memo_favorite_table_path(@table_memo.id), method: :delete, remote: true, class: "unfavorite-table-link" do
+          %i.fa.fa-star
+        = link_to table_memo_favorite_table_path(@table_memo.id), method: :post, remote: true, class: "favorite-table-link" do
+          %i.fa.fa-star-o
     = link_to edit_table_memo_path(@table_memo) do
       %i.fa.fa-edit
 

@@ -9,8 +9,9 @@
     - if column_memo.logs.present?
       = link_to column_memo_logs_path(column_memo.id), class: "pull-right colorbox" do
         %i.fa.fa-clock-o
-    = link_to edit_column_memo_path(column_memo), class: "pull-right colorbox" do
-      %i.fa.fa-edit
+    - if current_user
+      = link_to edit_column_memo_path(column_memo), class: "pull-right colorbox" do
+        %i.fa.fa-edit
     .column-description
       - if column_memo.description.present?
         = column_memo.description_html

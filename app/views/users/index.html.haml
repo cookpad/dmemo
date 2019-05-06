@@ -27,6 +27,6 @@
             - if user.admin?
               %i.fa.fa-check
           %td
-            - if current_user.editable_user?(user.id)
+            - if current_user.try!(:editable_user?, user.id)
               = link_to edit_user_path(user) do
                 %i.fa.fa-edit
