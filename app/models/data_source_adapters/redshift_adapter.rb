@@ -60,7 +60,8 @@ module DataSourceAdapters
 
     def fetch_view_query_plan(query)
       return nil if query.blank?
-      query = query.sub(/create view .*?as/, '').sub('with no schema binding', '')
+      # to explain, extract of select statement from view query without 'with no schema binding'
+      query = query.match(/select(.|\n)+/)[0].sub('with no schema binding', '')
       super
     end
 
