@@ -41,12 +41,22 @@ module DataSourceAdapters
     end
 
     def fetch_rows(table, limit)
-      return [] if spectrum?(table) || late_binding_view?(table)
+      return [] if late_binding_view?(table)
+      return fetch_spectrum_rows(table, limit) if spectrum?(table)
       super
     end
 
+    def fetch_spectrum_rows(table, limit)
+      adapter = connection.pool.connection
+      rows = connection.select_rows(<<~SQL, "#{table.full_table_name.classify} Load")
+        SELECT * FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};
+      SQL
+    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
+      raise DataSource::ConnectionBad.new(e)
+    end
+
     def fetch_count(table)
-      return 0 if spectrum?(table) || late_binding_view?(table)
+      return 0 if late_binding_view?(table)
       super
     end
 
