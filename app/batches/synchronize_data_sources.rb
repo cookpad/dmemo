@@ -87,10 +87,10 @@ class SynchronizeDataSources
   def self.import_view_query!(table_memo, source_table)
     query = source_table.fetch_view_query
     query_plan = source_table.fetch_view_query_plan
-    if query && query_plan
+    if query
       ViewMetaDatum.find_or_initialize_by(table_memo_id: table_memo.id) do |meta_data|
         meta_data.query = query
-        meta_data.explain = query_plan
+        meta_data.explain = query_plan || 'explain error'
         meta_data.save
       end
     end
