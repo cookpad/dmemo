@@ -3,7 +3,7 @@
     %h3.box-title View Query
   .box-body
     %pre
-      %code= @view_meta_data.query
+      %code= sql_query_format(@view_meta_data.query)
 
 .box.data-box
   .box-header

@@ -45,6 +45,8 @@ gem 'addressable'
 
 gem 'bootsnap'
 
+gem 'anbt-sql-formatter', require: 'anbt-sql-formatter/formatter'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
