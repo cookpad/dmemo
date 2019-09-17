@@ -85,9 +85,12 @@ class SynchronizeDataSources
   private_class_method :import_table_memo_raw_dataset_rows!
 
   def self.import_view_query!(table_memo, source_table)
+    return unless source_table.data_source.adapter.is_a?(DataSourceAdapters::RedshiftAdapter)
+
     query = source_table.fetch_view_query
-    query_plan = source_table.fetch_view_query_plan
     if query
+      query_plan = source_table.fetch_view_query_plan
+
       ViewMetaDatum.find_or_initialize_by(table_memo_id: table_memo.id) do |meta_data|
         meta_data.query = query
         meta_data.explain = query_plan || 'explain error'

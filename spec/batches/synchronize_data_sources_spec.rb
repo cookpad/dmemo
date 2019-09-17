@@ -21,6 +21,9 @@ describe SynchronizeDataSources do
       table_memos = schema_memo.table_memos
       expect(table_memos.find_by!(name: "data_sources")).to be_present
 
+      column_memos = table_memos.find_by!(name: "data_sources").column_memos
+      expect(column_memos).to be_present
+
       dataset = table_memos.find_by!(name: "data_sources").raw_dataset
       expect(dataset.count).to eq(1)
       expect(dataset.columns.map(&:name)).to match_array(%w(id name description adapter host port dbname user password encoding pool created_at updated_at))
