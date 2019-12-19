@@ -137,7 +137,7 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 5.1)
     hashie (3.6.0)
-    html-pipeline (2.5.0)
+    html-pipeline (2.12.3)
       activesupport (>= 2)
       nokogiri (>= 1.4)
     html-pipeline-rouge_filter (1.0.7)
@@ -190,7 +190,7 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.5.2)
     nio4r (2.3.1)
-    nokogiri (1.10.5)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -385,7 +385,7 @@ DEPENDENCIES
   github-markdown
   google-cloud-bigquery
   haml-rails
-  html-pipeline (~> 2.5.0)
+  html-pipeline (~> 2.12.3)
   html-pipeline-rouge_filter
   jbuilder
   jquery-rails
