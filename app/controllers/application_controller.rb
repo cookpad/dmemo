@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     return if current_user
+    return if Rails.application.config.allow_anonymous_to_read && ["index", "show"].include?(params[:action])
     redirect_to google_oauth2_path(state: request.fullpath)
   end
 

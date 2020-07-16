@@ -25,13 +25,14 @@
             %td
               = database_memo.schema_memos.map(&:table_memos).flatten.map(&:name).join(", ").truncate(100)
 
-.box
-  .box-header.with-border
-    %h2.box-title Favorite tables
+- if current_user
+  .box
+    .box-header.with-border
+      %h2.box-title Favorite tables
 
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th Name
-        %th Description
-      = render partial: "table_memo", collection: @favorite_tables
+    .box-body
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %tr
+          %th Name
+          %th Description
+        = render partial: "table_memo", collection: @favorite_tables

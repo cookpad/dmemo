@@ -18,5 +18,6 @@ module Dmemo
     config.active_record.belongs_to_required_by_default = false
 
     config.eager_load_paths << "#{Rails.root}/lib/autoload"
+    config.allow_anonymous_to_read = ENV.has_key? 'ALLOW_ANONYMOUS_TO_READ'
   end
 end
