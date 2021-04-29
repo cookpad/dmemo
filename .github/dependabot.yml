@@ -1,0 +1,35 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: rubocop
+    versions:
+    - 1.10.0
+    - 1.11.0
+    - 1.12.0
+    - 1.12.1
+    - 1.9.0
+    - 1.9.1
+  - dependency-name: ridgepole
+    versions:
+    - 0.8.13
+    - 0.9.0
+    - 0.9.1
+    - 0.9.2
+  - dependency-name: nokogiri
+    versions:
+    - 1.11.1
+    - 1.11.2
+  - dependency-name: omniauth
+    versions:
+    - 2.0.1
+    - 2.0.2
+    - 2.0.3
+  - dependency-name: omniauth-google-oauth2
+    versions:
+    - 0.8.1
