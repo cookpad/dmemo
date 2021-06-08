@@ -20,10 +20,10 @@ gem 'haml-rails'
 
 gem 'jbuilder'
 
-gem 'html-pipeline', '~> 2.5.0'
-gem 'html-pipeline-rouge_filter'
+gem 'html-pipeline'
+gem 'rouge'
 gem 'rinku'
-gem 'github-markdown'
+gem 'commonmarker'
 
 gem 'active_decorator'
 
