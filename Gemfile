@@ -20,7 +20,7 @@ gem 'haml-rails'
 
 gem 'jbuilder'
 
-gem 'html-pipeline', '~> 2.5.0'
+gem 'html-pipeline', '~> 2.14.0'
 gem 'html-pipeline-rouge_filter'
 gem 'rinku'
 gem 'github-markdown'

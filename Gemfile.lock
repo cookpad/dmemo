@@ -146,7 +146,7 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 5.1)
     hashie (4.1.0)
-    html-pipeline (2.5.0)
+    html-pipeline (2.14.0)
       activesupport (>= 2)
       nokogiri (>= 1.4)
     html-pipeline-rouge_filter (1.0.7)
@@ -402,7 +402,7 @@ DEPENDENCIES
   github-markdown
   google-cloud-bigquery
   haml-rails
-  html-pipeline (~> 2.5.0)
+  html-pipeline (~> 2.14.0)
   html-pipeline-rouge_filter
   jbuilder
   jquery-rails
