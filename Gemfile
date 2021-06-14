@@ -56,7 +56,7 @@ end
 
 group :development do
   gem 'ridgepole'
-  gem 'meta_request', '~> 0.6.0'
+  gem 'meta_request', '~> 0.7.2'
   gem 'ruby-prof'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
