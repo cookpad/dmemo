@@ -84,9 +84,9 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     coderay (1.1.3)
-    coffee-rails (4.2.2)
+    coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
+      railties (>= 5.2.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -290,9 +290,6 @@ GEM
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
-    rb-fsevent (0.11.0)
-    rb-inotify (0.10.1)
-      ffi (~> 1.0)
     regexp_parser (2.1.1)
     representable (3.1.1)
       declarative (< 0.1.0)
@@ -343,17 +340,16 @@ GEM
     ruby-progressbar (1.11.0)
     ruby_parser (3.16.0)
       sexp_processor (~> 4.15, >= 4.15.1)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     sexp_processor (4.15.3)
     signet (0.15.0)
       addressable (~> 2.3)
@@ -408,7 +404,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
-  coffee-rails (~> 4.2.1)
+  coffee-rails (~> 5.0.0)
   commonmarker
   coveralls (>= 0.8.21)
   database_rewinder
@@ -442,7 +438,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   ruby-prof
-  sass-rails (~> 5.0)
+  sass-rails (~> 6.0)
   simplecov
   uglifier (>= 1.3.0)
 
