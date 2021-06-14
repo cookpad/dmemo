@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2'
 
 gem 'pg', '~> 0.15'
 gem 'mysql2'
@@ -20,10 +20,10 @@ gem 'haml-rails'
 
 gem 'jbuilder'
 
-gem 'html-pipeline', '~> 2.5.0'
-gem 'html-pipeline-rouge_filter'
+gem 'html-pipeline'
+gem 'rouge'
 gem 'rinku'
-gem 'github-markdown'
+gem 'commonmarker'
 
 gem 'active_decorator'
 
@@ -46,6 +46,8 @@ gem 'addressable'
 gem 'bootsnap'
 
 gem 'anbt-sql-formatter', require: 'anbt-sql-formatter/formatter'
+
+gem 'ransack'
 
 group :development, :test do
   gem 'byebug'
