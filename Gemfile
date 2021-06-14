@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.1'
 
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 1.2.2'
 gem 'mysql2'
-gem 'activerecord5-redshift-adapter'
+gem 'activerecord6-redshift-adapter'
 gem 'google-cloud-bigquery'
 gem 'presto-client'
 
@@ -58,7 +58,6 @@ end
 
 group :development do
   gem 'ridgepole'
-  gem 'meta_request', '~> 0.6.0'
   gem 'ruby-prof'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
