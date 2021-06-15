@@ -215,6 +215,9 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    omniauth-rails_csrf_protection (1.0.0)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     os (1.1.1)
     parallel (1.20.1)
     parser (3.0.1.1)
@@ -411,6 +414,7 @@ DEPENDENCIES
   mysql2
   non-stupid-digest-assets
   omniauth-google-oauth2
+  omniauth-rails_csrf_protection
   pg (~> 0.15)
   presto-client
   pry-byebug
