@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   end
   get "/keywords/*id", to: "keywords#show", format: false
 
-  get 'auth/google_oauth2', as: :google_oauth2, to: lambda { |_env| [500, {}, 'Never called'] }
-  get "auth/google_oauth2/callback", to: "sessions#create"
+  get "sign_in", to: "sessions#new"
+
+  post "auth/google_oauth2", as: :google_oauth2, to: lambda { |_env| [500, {}, 'Never called'] }
+  get "auth/google_oauth2/callback", to: "sessions#callback"
   delete "logout", to: "sessions#destroy"
 end

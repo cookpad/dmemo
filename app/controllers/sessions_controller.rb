@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: :create
+  skip_before_action :require_login, only: [:new, :callback]
 
-  def create
+  def new
+    redirect_to root_path if session[:user_id]
+    session[:return_to] = params[:return_to]
+  end
+  def callback
     auth = request.env["omniauth.auth"]
     user = User.find_or_initialize_by(
       provider: auth[:provider],
@@ -15,11 +19,12 @@ class SessionsController < ApplicationController
     user.save! if user.changed?
 
     session[:user_id] = user.id
-    return_to = root_path
-    if ReturnToValidator.valid?(params[:state])
-      return_to = params[:state]
+
+    if ReturnToValidator.valid?(session[:return_to])
+      redirect_to session[:return_to]
+    else
+      redirect_to root_path
     end
-    redirect_to return_to
   end
 
   def destroy

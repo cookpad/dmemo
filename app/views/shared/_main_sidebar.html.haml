@@ -1,10 +1,11 @@
 %aside.main-sidebar
   %section.sidebar
-    .user-panel
-      .pull-left.image
-        = image_tag current_user.image_url, class: "img-rounded"
-      .pull-left.info
-        %p= current_user.name
+    - if current_user
+      .user-panel
+        .pull-left.image
+          = image_tag current_user.image_url, class: "img-rounded"
+        .pull-left.info
+          %p= current_user.name
 
     = form_for @search_result, method: :get, html: { class: "sidebar-form" } do |f|
       .input-group
