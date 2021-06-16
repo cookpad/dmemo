@@ -4,7 +4,7 @@ gem 'denv'
 
 gem 'rails', '~> 5.2.2'
 
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 1.2'
 gem 'mysql2'
 gem 'activerecord5-redshift-adapter'
 gem 'google-cloud-bigquery'

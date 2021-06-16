@@ -222,7 +222,7 @@ GEM
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
-    pg (0.21.0)
+    pg (1.2.3)
     presto-client (0.6.5)
       faraday (~> 0.12)
       faraday_middleware (~> 0.12.2)
@@ -415,7 +415,7 @@ DEPENDENCIES
   non-stupid-digest-assets
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pg (~> 0.15)
+  pg (~> 1.2)
   presto-client
   pry-byebug
   pry-rails
