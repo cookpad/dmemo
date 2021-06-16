@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.0.0-node
+      - image: circleci/ruby:3.0.0-node
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_RETRY: 3
