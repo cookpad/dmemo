@@ -17,9 +17,6 @@ module DataSourceAdapters
       rows = connection.select_rows(<<~SQL, "#{table.full_table_name.classify} Load")
         SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};
       SQL
-      rows.map {|row|
-        raw_columns(table).zip(row).map {|column, value| adapter.type_cast(value, column) }
-      }
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
