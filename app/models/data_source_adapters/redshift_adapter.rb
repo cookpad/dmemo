@@ -49,9 +49,8 @@ module DataSourceAdapters
     def fetch_spectrum_rows(table, limit)
       adapter = connection.pool.connection
       column_names = table.columns.map { |column| adapter.quote_column_name(column.name) }.join(", ")
-      rows = connection.select_rows(<<~SQL, "#{table.full_table_name.classify} Load")
-        SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};
-      SQL
+      sql = "SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};"
+      rows = connection.select_rows(sql, "#{table.full_table_name.classify} Load")
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
