@@ -2,12 +2,12 @@ FactoryBot.define do
   factory :data_source do
     name { "dmemo" }
     description { "# dmemo test db\nDB for test." }
-    adapter { ActiveRecord::Base.establish_connection.spec.config[:adapter] }
+    adapter { ActiveRecord::Base.establish_connection.db_config.configuration_hash[:adapter] }
     host { "localhost" }
     port { 5432 }
-    dbname { ActiveRecord::Base.establish_connection.spec.config[:database] }
-    user { ActiveRecord::Base.establish_connection.spec.config[:username] }
-    password { ActiveRecord::Base.establish_connection.spec.config[:password] }
+    dbname { ActiveRecord::Base.establish_connection.db_config.configuration_hash[:database] }
+    user { ActiveRecord::Base.establish_connection.db_config.configuration_hash[:username] }
+    password { ActiveRecord::Base.establish_connection.db_config.configuration_hash[:password] }
     encoding { nil }
     pool { 1 }
 

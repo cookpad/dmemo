@@ -2,17 +2,18 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 6.1'
 
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 1.2.2'
 gem 'mysql2'
-gem 'activerecord5-redshift-adapter'
+gem 'activerecord6-redshift-adapter'
 gem 'google-cloud-bigquery'
 gem 'presto-client'
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2.1'
+gem 'coffee-rails', '~> 5.0.0'
+gem 'sprockets', '~>3.7' # fix sprockets version under v3.x
 
 gem 'jquery-rails'
 
@@ -20,10 +21,10 @@ gem 'haml-rails'
 
 gem 'jbuilder'
 
-gem 'html-pipeline', '~> 2.5.0'
-gem 'html-pipeline-rouge_filter'
+gem 'html-pipeline'
+gem 'rouge'
 gem 'rinku'
-gem 'github-markdown'
+gem 'commonmarker'
 
 gem 'active_decorator'
 
@@ -48,6 +49,8 @@ gem 'bootsnap'
 
 gem 'anbt-sql-formatter', require: 'anbt-sql-formatter/formatter'
 
+gem 'ransack'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
@@ -57,7 +60,6 @@ end
 
 group :development do
   gem 'ridgepole'
-  gem 'meta_request', '~> 0.6.0'
   gem 'ruby-prof'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
