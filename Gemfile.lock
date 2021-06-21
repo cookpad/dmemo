@@ -134,11 +134,11 @@ GEM
       rexml
       signet (~> 0.14)
       webrick
-    google-cloud-bigquery (1.31.0)
+    google-cloud-bigquery (1.32.0)
       concurrent-ruby (~> 1.0)
       google-apis-bigquery_v2 (~> 0.1)
-      google-cloud-core (~> 1.2)
-      googleauth (~> 0.9)
+      google-cloud-core (~> 1.6)
+      googleauth (>= 0.16.2, < 2.a)
       mini_mime (~> 1.0)
     google-cloud-core (1.6.0)
       google-cloud-env (~> 1.0)
