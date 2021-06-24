@@ -57,5 +57,4 @@
         %tr
           %th Name
           %th Description
-          %th Tables
         = render partial: "schema_memo", collection: @database_memo.schema_memos.sort_by(&:display_order)

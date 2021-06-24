@@ -6,5 +6,3 @@
   %td.truncate-td
     - if schema_memo.description.present?
       = schema_memo.description_text.truncate(200)
-  %td.truncate-td
-    = schema_memo.table_memos.map(&:name).join(", ").truncate(100)
