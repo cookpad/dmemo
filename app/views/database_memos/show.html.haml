@@ -46,7 +46,6 @@
         %tr
           %th Name
           %th Description
-          %th Columns
         = render partial: "table_memo", collection: @database_memo.schema_memos.map(&:table_memos).flatten.sort_by(&:display_order)
 - else
   .box
