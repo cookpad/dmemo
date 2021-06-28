@@ -26,6 +26,6 @@
         %th Description
       - @keywords.each do |keyword|
         %tr
-          %td= link_to keyword.name, keyword_path(keyword.name)
-          %td= keyword.description_text.truncate(50)
+          %td.truncate-td= link_to keyword.name, keyword_path(keyword.name)
+          %td.truncate-td= keyword.description_text.truncate(200)
 

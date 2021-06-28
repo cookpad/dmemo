@@ -43,3 +43,10 @@ a.editable-click, a.editable-click:hover {
     display: block;
   }
 }
+
+.truncate-td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
