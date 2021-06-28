@@ -1,9 +1,12 @@
 # CHANGELOG
 
 ## Unreleased
+
+## 0.8.1
 - Upgrade gems not versioned in Gemfile [#252](https://github.com/hogelog/dmemo/pull/252)
 - Support Omniauth v2 [#256](https://github.com/hogelog/dmemo/pull/256)
 - Upgrade to Ruby v3.0.0 and Rails v6.1.3 [#253](https://github.com/hogelog/dmemo/pull/253)
+- Fix SQL to get raw data from Redshift Spectrum [#258](https://github.com/hogelog/dmemo/pull/258)
 
 ## 0.8.0
 - Use INFORMATION_SCHEMA system table in mysql2 adapter to count rows [#114](https://github.com/hogelog/dmemo/pull/114)
