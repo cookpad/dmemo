@@ -8,7 +8,7 @@ class DatabaseMemosController < ApplicationController
   end
 
   def show(id)
-    @database_memo = DatabaseMemo.where(name: id).includes(schema_memos: { table_memos: :column_memos }).take!
+    @database_memo = DatabaseMemo.where(name: id).includes(schema_memos: :table_memos ).take!
   end
 
   def edit(id)
