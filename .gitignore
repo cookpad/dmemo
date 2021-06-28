@@ -16,3 +16,5 @@
 public/assets/
 .env.docker
 coverage
+
+.DS_Store

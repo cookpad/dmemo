@@ -1,4 +1,7 @@
 # Dmemo [![CircleCI](https://circleci.com/gh/hogelog/dmemo.svg?style=svg)](https://circleci.com/gh/hogelog/dmemo) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
+
+![](app/assets/images/dmemo_logo_horizontal.png)
+
 Database description management tool.
 
 
