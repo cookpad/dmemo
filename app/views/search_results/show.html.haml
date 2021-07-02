@@ -14,9 +14,9 @@
           - case result
           - when TableMemo
             %small.label.bg-green Table
-            = link_to result.full_name, url_for(result)
+            = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
           - when ColumnMemo
             %small.label.bg-green Column
-            = link_to result.full_name, url_for(result)
+            = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
       .box-body
-        = markdown_html(result.description).html_safe
+        = highlight(markdown_html(result.description), @search_result.keyword).html_safe
