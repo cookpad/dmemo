@@ -18,6 +18,7 @@ gem 'sprockets', '~>3.7' # fix sprockets version under v3.x
 gem 'jquery-rails'
 
 gem 'haml-rails'
+gem 'kaminari'
 
 gem 'jbuilder'
 

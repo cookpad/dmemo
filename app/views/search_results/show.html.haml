@@ -1,22 +1,29 @@
 - content_for :title, "\"#{@search_result.keyword}\" « Search"
 - content_for :header do
   %h1.page-header "#{@search_result.keyword}" search result
+  %p #{@search_result.tables.total_count} Table hits / #{@search_result.columns.total_count} Column hits
 
-- unless @search_result.results.present?
+- unless @search_result.tables.present? || @search_result.columns.present?
   .box
     .box-body
       No results found.
 - else
-  - @search_result.results.each do |result|
+  - @search_result.tables.each do |result|
     .box
       .box-header.with-border
         %h3.box-title
-          - case result
-          - when TableMemo
-            %small.label.bg-green Table
-            = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
-          - when ColumnMemo
-            %small.label.bg-aqua-active Column
-            = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
+          %small.label.bg-green Table
+          = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
       .box-body
-        = highlight(markdown_html(result.description), @search_result.keyword).html_safe
+        = highlight(markdown_html(result.description).html_safe, @search_result.keyword)
+  = paginate @search_result.tables, param_name: 'table_page'
+
+  - @search_result.columns.each do |result|
+    .box
+      .box-header.with-border
+        %h3.box-title
+          %small.label.bg-aqua-active Column
+          = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
+      .box-body
+        = highlight(markdown_html(result.description).html_safe, @search_result.keyword)
+  = paginate @search_result.columns, param_name: 'column_page'
