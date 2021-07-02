@@ -16,7 +16,7 @@
             %small.label.bg-green Table
             = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
           - when ColumnMemo
-            %small.label.bg-green Column
+            %small.label.bg-aqua-active Column
             = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
       .box-body
         = highlight(markdown_html(result.description), @search_result.keyword).html_safe
