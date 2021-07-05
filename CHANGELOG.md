@@ -3,6 +3,8 @@
 ## Unreleased
 - Modify listed item UI [#263](https://github.com/hogelog/dmemo/pull/263)
 - Improve visibility in browser tab [#262](https://github.com/hogelog/dmemo/pull/262)
+- Modify search result page [#268](https://github.com/hogelog/dmemo/pull/268)
+
 ## 0.8.1
 - Upgrade gems not versioned in Gemfile [#252](https://github.com/hogelog/dmemo/pull/252)
 - Support Omniauth v2 [#256](https://github.com/hogelog/dmemo/pull/256)
