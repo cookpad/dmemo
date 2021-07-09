@@ -13,7 +13,7 @@ gem 'presto-client'
 gem 'sass-rails', '~> 6.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 5.0.0'
-gem 'sprockets', '~>3.7' # fix sprockets version under v3.x
+gem 'sprockets', '~>4.0' # fix sprockets version under v3.x
 
 gem 'jquery-rails'
 
