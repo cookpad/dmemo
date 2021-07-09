@@ -33,6 +33,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'revision_plate', require: 'revision_plate/rails'
+gem 'silencer'
 
 gem 'puma'
 
