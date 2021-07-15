@@ -1,13 +1,7 @@
-class SynchronizeRawDataset
-  DEFAULT_FETCH_ROWS_LIMIT = 20
+class ImportDataSourceRawDatasets
 
-  def self.run
-    DataSource.all.find_each do |data_source|
-      import_data_source!(data_source)
-    end
-  end
-
-  def self.import_data_source!(data_source)
+  def self.run(data_source_name)
+    DataSource.find_by(name: data_source_name)
     db_memo = DatabaseMemo.find_or_create_by!(name: data_source.name)
     schema_memos = db_memo.schema_memos.includes(table_memos: [:column_memos, :raw_dataset]).to_a
 
