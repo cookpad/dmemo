@@ -5,3 +5,4 @@ class SynchronizeRawDatasets
       ImportDataSourceRawDatasets.run(data_source.name)
     end
   end
+end

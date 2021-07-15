@@ -5,3 +5,4 @@ class SynchronizeDefinitions
       ImportDataSourceDefinitions.run(data_source.name)
     end
   end
+end
