@@ -1,40 +1,33 @@
 class ImportSchemaDefinitions
 
-  def self.run(database_name, schema_name)
-    data_source = DataSource.find_by(name: database_name)
-    schema_memo = data_source.database_memo.schema_memos.find_or_create_by(name: schema_name)
-    schema_memo.linked = false
+  def self.run(data_source_name, schema_name)
+    data_source = DataSource.find_by(name: data_source_name)
+    source_tables = data_source.data_source_tables.select {|table| table.schema_name == schema_name }
 
+    schema_memo = data_source.database_memo.schema_memos.find_or_create_by(name: schema_name)
     table_memos = schema_memo.table_memos
     table_memos.each {|memo| memo.linked = false }
 
-    source_tables = data_source.data_source_tables.select {|table| table.schema_name == schema_name }
-    schema_memo.linked = true unless source_tables.empty?
+    if source_tables.empty?
+      schema_memo.linked = false
+    else
+      schema_memo.linked = true
+      self.import_table_memos!(source_tables, table_memos)
+    end
 
+    table_memos.each {|memo| memo.save! if memo.has_changes_to_save? }
+    schema_memo.save! if schema_memo.has_changes_to_save?
+  end
+
+  def self.import_table_memos!(source_tables, table_memos)
     source_tables.each do |source_table|
+      table_memo = table_memos.find_or_create_by(name: source_table.table_name)
+      table_memo.update!(linked: true)
       begin
-        table_memo = table_memos.find_or_create_by(name: source_table.table_name)
-        table_memo.linked = true
-
-        column_memos = table_memo.column_memos.to_a
-        columns = source_table.columns
-
-        column_names = columns.map(&:name)
-        column_memos.reject {|memo| column_names.include?(memo.name) }.each {|memo| memo.update!(linked: false) }
-
-        columns.each_with_index do |column, position|
-          column_memo = column_memos.find {|memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
-          column_memo.linked = true
-          column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position: position)
-          column_memo.save! if column_memo.changed?
-        end
+        ImportTableDefinitions.import_column_memos!(source_table, table_memo)
       rescue DataSource::ConnectionBad => e
         Rails.logger.error e
       end
     end
-
-    table_memos.each {|memo| memo.save! if memo.changed? }
-    schema_memo.save! if schema_memo.changed?
   end
-
 end
