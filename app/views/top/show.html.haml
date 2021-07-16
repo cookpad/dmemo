@@ -10,7 +10,7 @@
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %thead
         %tr
-          %th Database
+          %th.leftmost-th Database
           %th Description
           %th Tables
       %tbody
@@ -33,6 +33,6 @@
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %tr
-        %th Name
+        %th.leftmost-th Name
         %th Description
       = render partial: "table_memo", collection: @favorite_tables

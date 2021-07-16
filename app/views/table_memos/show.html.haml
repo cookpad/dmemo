@@ -54,11 +54,11 @@
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
       %tr
-        %th Name
-        %th Description
-        %th Sql Type
-        %th Default Value
-        %th Nullable
+        %th{width: '200px'} Name
+        %th{width: 'auto' } Description
+        %th{width: '200px'} Sql Type
+        %th{width: '100px'} Default Value
+        %th{width: '100px'} Nullable
       = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
 
 - if @view_meta_data
