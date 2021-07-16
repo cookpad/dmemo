@@ -45,7 +45,7 @@
     .box-body
       %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
         %tr
-          %th Name
+          %th.leftmost-th Name
           %th Description
         = render partial: "table_memo", collection: @database_memo.schema_memos.map(&:table_memos).flatten.sort_by(&:display_order)
 - else
@@ -56,6 +56,6 @@
     .box-body
       %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
         %tr
-          %th Name
+          %th.leftmost-th Name
           %th Description
         = render partial: "schema_memo", collection: @database_memo.schema_memos.sort_by(&:display_order)
