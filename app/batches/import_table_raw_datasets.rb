@@ -6,7 +6,7 @@ class ImportTableRawDatasets
     source_table = data_source.data_source_tables.find {|dst| dst.full_table_name == "#{schema_name}.#{table_name}" }
 
     schema_memo = data_source.database_memo.schema_memos.find_by(name: schema_name)
-    table_memo = schema_memo.table_memos.find_or_create_by(name: table_name)
+    table_memo = schema_memo.table_memos.find_or_create_by!(name: table_name)
 
     begin
       import_table_memo_raw_dataset!(table_memo, source_table)
