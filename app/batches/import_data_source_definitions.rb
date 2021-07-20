@@ -12,7 +12,7 @@ class ImportDataSourceDefinitions
     all_table_memos.each {|memo| memo.linked = false }
 
     data_source_tables.group_by(&:schema_name).each do |schema_name, source_tables|
-      schema_memo = schema_memos.find_or_create_by(name: schema_name)
+      schema_memo = schema_memos.find_or_create_by!(name: schema_name)
       schema_memo.update!(linked: true)
       begin
         ImportSchemaDefinitions.import_table_memos!(source_tables, schema_memo.table_memos)
