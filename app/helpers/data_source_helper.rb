@@ -4,7 +4,7 @@ module DataSourceHelper
   end
 
   def exist?(schema_name)
-    @redshift_schema_names.include?(schema_name)
+    @data_source_schema_names.include?(schema_name)
   end
 
   def able_to_import?(schema_name)

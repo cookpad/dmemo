@@ -4,7 +4,10 @@ module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
     def fetch_schema_names
       @schema_names ||= source_base_class.connection.query(<<~SQL, 'SCHEMA')
-        SELECT DISTINCT schema_name, schema_type, source_database FROM svv_all_schemas
+        SELECT nspname as schema_name, usename as owner_name
+        FROM pg_catalog.pg_namespace s join pg_catalog.pg_user u on u.usesysid = s.nspowner
+        WHERE usename != 'rdsdb'
+        ORDER BY schema_name;
       SQL
     end
 

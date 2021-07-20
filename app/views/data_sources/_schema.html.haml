@@ -8,25 +8,28 @@
     status schemas will be imported by batch. Click the Import button to add a schema to the whitelist.
   %p
     This schemas list is retrieved from
-    %code svv_all_schemas
+    - case @data_source.adapter
+      - when 'postgresql'
+        %code pg_catalog.pg_namespace
+      - when 'mysql2'
+        %code database_name
+      - when 'redshift'
+        %code pg_catalog.pg_namespace
     , so it has no effect on search_path or Ignored Tables on the setting page.
 
   %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
     %tr
       %th schema name
-      %th schema type
-      %th souce database
+      %th schema owner
       %th{ width: "90px"} subscribe status
       %th{ width: "90px"} data source status
       %th{ width: "170px"}
-    - @all_schemas.each do |schema_name, schema_type, source_database|
+    - @all_schemas.each do |schema_name, schema_owner|
       %tr
         %td
           = schema_name
         %td
-          = schema_type
-        %td
-          = source_database
+          = schema_owner
         %td
           - if subscribe?(schema_name)
             %span.label.label-success Subscribe

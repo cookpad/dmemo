@@ -1,5 +1,9 @@
 module DataSourceAdapters
   class StandardAdapter < Base
+    def fetch_schema_names
+      raise NotImplementedError
+    end
+
     def fetch_table_names
       raise NotImplementedError
     end
