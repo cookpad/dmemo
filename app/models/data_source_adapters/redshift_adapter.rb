@@ -2,6 +2,12 @@ require "active_record/connection_adapters/redshift_adapter"
 
 module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
+    def fetch_schema_names
+      @schema_names ||= source_base_class.connection.query(<<~SQL, 'SCHEMA')
+        SELECT DISTINCT schema_name, schema_type, source_database FROM svv_all_schemas
+      SQL
+    end
+
     def fetch_table_names
       query_result = source_base_class.connection.query(<<~SQL, 'SCHEMA')
         SELECT table_schema, table_name, table_type
@@ -33,9 +39,32 @@ module DataSourceAdapters
 
     def fetch_columns(table)
       adapter = connection.pool.connection
-      connection.query(<<~SQL, 'COLUMN').map { |name, sql_type, default, nullable| Column.new(name, sql_type, adapter.quote(default), nullable || false) }
-        SELECT column_name, data_type, column_default, is_nullable FROM svv_columns WHERE table_schema = '#{table.schema_name}' and table_name = '#{table.table_name}';
+      query = <<~SQL
+        SELECT column_name, data_type, column_default, is_nullable, character_maximum_length
+        FROM svv_columns
+        WHERE table_schema = '#{table.schema_name}' and table_name = '#{table.table_name}'
+        ORDER BY ordinal_position;
       SQL
+      connection.query(query, 'COLUMN').map do |name, sql_type, default, nullable, char_length|
+        is_nullable =
+          if spectrum?(table)
+            # could not get nullable info from Spectrum table
+            true
+          else
+            # is_nullable column in svv_columns contains 'YES' or 'NO' or null.
+            # It must be correctly converted to a boolean.
+            case nullable
+            when 'YES'
+              true
+            when 'NO'
+              false
+            else
+              false
+            end
+          end
+        column_type = sql_type == 'character varying' ? "varchar(#{char_length})" : sql_type
+        Column.new(name, column_type, adapter.quote(default), is_nullable)
+      end
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
@@ -56,8 +85,11 @@ module DataSourceAdapters
     end
 
     def fetch_count(table)
-      return 0 if late_binding_view?(table)
-      super
+      return 0 if late_binding_view?(table) # Late binding view executes SELECT on access and the scan volume cannot be estimated
+      return super if spectrum?(table)      # Spectrum tables can't get information from svv_table_info
+      connection.query(<<~SQL)
+        SELECT estimated_visible_rows FROM svv_table_info WHERE "schema" = '#{table.schema_name}' and "table" = '#{table.table_name}'
+      SQL
     end
 
     def fetch_view_query(table)
