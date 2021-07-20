@@ -18,4 +18,12 @@ module ApplicationHelper
     formatter = AnbtSql::Formatter.new(rule)
     formatter.format(query)
   end
+
+  def favicon_override
+    if Rails.env.production?
+      favicon_link_tag '/favicon.ico'
+    else
+      favicon_link_tag '/favicon_gray.ico'
+    end
+  end
 end
