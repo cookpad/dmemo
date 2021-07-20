@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resource :setting, only: %w(show)
   resources :data_sources
+  patch "/data_sources/:id/import_schema/:schema_name" => "data_sources#import_schema", as: "import_schema"
+  patch "/data_sources/:id/unlink_schema/:schema_name" => "data_sources#unlink_schema", as: "unlink_schema"
 
   resources :masked_data, except: %w(edit update)
   resources :ignored_tables, except: %w(edit update)

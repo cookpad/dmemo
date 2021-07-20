@@ -1,5 +1,5 @@
 class DataSourcesController < ApplicationController
-  before_action :require_admin_login, only: %w(new create edit update destroy)
+  before_action :require_admin_login, only: %w(new create edit update destroy import_schema remove_schema)
 
   DUMMY_PASSWORD = "__DUMMY__"
 
@@ -29,6 +29,19 @@ class DataSourcesController < ApplicationController
 
   def edit(id)
     @data_source = DataSource.find(id)
+
+    if @data_source.adapter == 'redshift'
+      @redshift_schemas = @data_source.data_source_adapter.fetch_schemas
+      @redshift_schema_names = @redshift_schemas.map(&:first)
+
+      @imported_schema_memos = @data_source.database_memo.schema_memos
+      @subscribe_schema_names = @imported_schema_memos.where(linked: true).map(&:name)
+
+      @only_dmemo_schema_names = @imported_schema_memos.pluck(:name) - @redshift_schema_names
+      @only_dmemo_schemas = @only_dmemo_schema_names.map{|s| [s, 'unknown', 'unkown']}
+      @all_schemas = (@redshift_schemas + @only_dmemo_schemas).sort_by{|s| s[0]} # s[0] is schema name
+    end
+
     @data_source.password = DUMMY_PASSWORD
   end
 
@@ -49,6 +62,23 @@ class DataSourcesController < ApplicationController
     data_source = DataSource.find(id)
     data_source.destroy!
     redirect_to data_sources_path
+  end
+
+  def import_schema(id, schema_name)
+    data_source = DataSource.includes(:database_memo).find(id)
+    schema_memo = data_source.database_memo.schema_memos.find_or_create_by(name: schema_name)
+    schema_memo.linked = true
+
+    # import_schema
+    redirect_to edit_data_source_path(id)
+  end
+
+  def unlink_schema(id, schema_name)
+    data_source = DataSource.includes(database_memo: :schema_memos).find(id)
+    schema_memo = data_source.database_memo.schema_memos.find_by(name: schema_name)
+    schema_memo.linked = false
+
+    redirect_to edit_data_source_path(id)
   end
 
   private
