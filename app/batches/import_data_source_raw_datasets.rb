@@ -12,7 +12,8 @@ class ImportDataSourceRawDatasets
     data_source_tables = data_source.data_source_tables
 
     data_source_tables.group_by(&:schema_name).each do |schema_name, source_tables|
-      schema_memo = db_memo.schema_memos.find_or_create_by!(name: schema_name)
+      schema_memo = db_memo.schema_memos.find_by(name: schema_name)
+      next if schema_mnemo.nil?
       table_memos = schema_memo.table_memos
 
       source_tables.each do |source_table|
