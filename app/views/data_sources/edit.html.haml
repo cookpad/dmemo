@@ -14,6 +14,6 @@
 
 .box
   = render "form"
-- if ['postgresql', 'mysql2', 'redshift'].include?(@data_source.adapter)
+- if @data_source_schemas
   .box
     = render "schema"

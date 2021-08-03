@@ -30,7 +30,7 @@ class DataSourcesController < ApplicationController
   def edit(id)
     @data_source = DataSource.find(id)
 
-    if ['postgresql', 'mysql2', 'redshift'].include?(@data_source.adapter)
+    begin
       @data_source_schemas = @data_source.data_source_adapter.fetch_schema_names # [[schema_name, schema_owner], ...]
       @data_source_schema_names = @data_source_schemas.map(&:first)
 
@@ -39,6 +39,11 @@ class DataSourcesController < ApplicationController
       @only_dmemo_schema_names = @imported_schema_memos.pluck(:name) - @data_source_schema_names
       @only_dmemo_schemas = @only_dmemo_schema_names.map{|s| [s, 'unknown']}
       @all_schemas = (@data_source_schemas + @only_dmemo_schemas).sort_by{|s| s[0]} # s[0] is schema name
+    rescue NotImplementedError => e
+      # when not implement fetch_schema_names for adapter
+      # data_sources/:id/edit page does not view Schema Candidates block
+    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
+      raise DataSource::ConnectionBad.new(e)
     end
 
     @data_source.password = DUMMY_PASSWORD
