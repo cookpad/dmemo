@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## 1.0.0
 - Modify listed item UI [#263](https://github.com/hogelog/dmemo/pull/263)
 - Improve visibility in browser tab [#262](https://github.com/hogelog/dmemo/pull/262)
 - Modify search result page [#268](https://github.com/hogelog/dmemo/pull/268)
