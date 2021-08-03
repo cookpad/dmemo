@@ -51,7 +51,7 @@ module DataSourceAdapters
       connection.query(query, 'COLUMN').map do |name, sql_type, default, nullable, char_length|
         is_nullable =
           if spectrum?(table)
-            # could not get nullable info from Spectrum table
+            # FIXME: could not get nullable info from Spectrum table
             true
           else
             # is_nullable column in svv_columns contains 'YES' or 'NO' or null.

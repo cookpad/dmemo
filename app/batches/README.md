@@ -1,4 +1,4 @@
-# batche
+# Batch Jobs
 
 For synchronization of database information from data source.  
 The behavior differs greatly depending on whether you use SynchronizeDataSources or not.  
@@ -20,7 +20,7 @@ IgnoredTables and MskedData work. Only schemas that have SchemaMemo and are link
 If you don't want to include them, the Dmemo administrator can edit the DataSource and unlink it.  
 Since we have created batches for each granularity, we need to specify the target with an argument for each granularity.  
 
-### For Sample
+### For Examples
 ```
 $bundle exec rails runner 'ImportDataSourceDefinitions.run("DWH”)’
 
