@@ -4,6 +4,10 @@
 - Modify listed item UI [#263](https://github.com/hogelog/dmemo/pull/263)
 - Improve visibility in browser tab [#262](https://github.com/hogelog/dmemo/pull/262)
 - Modify search result page [#268](https://github.com/hogelog/dmemo/pull/268)
+- Fix a type of image_url column in User table [#271](https://github.com/hogelog/dmemo/pull/271)
+- Add batch to split synchronize process [#274](https://github.com/teamdmemo/dmemo/pull/274)
+- Modify config for development environment [#280](https://github.com/teamdmemo/dmemo/pull/280)
+- Modify import batch to obsolate a dependency on search_path [#282](https://github.com/teamdmemo/dmemo/pull/282)
 
 ## 0.8.1
 - Upgrade gems not versioned in Gemfile [#252](https://github.com/hogelog/dmemo/pull/252)

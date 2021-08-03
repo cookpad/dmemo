@@ -14,3 +14,6 @@
 
 .box
   = render "form"
+- if @data_source_schemas
+  .box
+    = render "schema"

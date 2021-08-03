@@ -4,6 +4,10 @@ module DataSourceAdapters
       @data_source = data_source
     end
 
+    def fetch_schema_names
+      raise NotImplementedError
+    end
+
     def fetch_table_names
       raise NotImplementedError
     end
