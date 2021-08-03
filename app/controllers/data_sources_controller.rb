@@ -42,8 +42,9 @@ class DataSourcesController < ApplicationController
     rescue NotImplementedError => e
       # when not implement fetch_schema_names for adapter
       # data_sources/:id/edit page does not view Schema Candidates block
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
-      raise DataSource::ConnectionBad.new(e)
+    rescue ActiveRecord::ActiveRecordError, DataSource::ConnectionBad => e
+      flash[:error] = e.message
+      redirect_to edit_data_source_path(id)
     end
 
     @data_source.password = DUMMY_PASSWORD
