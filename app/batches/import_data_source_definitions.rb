@@ -1,6 +1,8 @@
 class ImportDataSourceDefinitions
 
   def self.run(data_source_name)
+    Rails.logger.info "[Start] Import dataset in #{data_source_name}"
+
     data_source = DataSource.find_by(name: data_source_name)
     data_source_tables = data_source.data_source_tables
 
@@ -27,4 +29,6 @@ class ImportDataSourceDefinitions
     schema_memos.each {|memo| memo.save! if memo.has_changes_to_save? }
     db_memos.save! if db_memo.has_changes_to_save?
   end
+
+  Rails.logger.info "[Finish] Imported dataset"
 end

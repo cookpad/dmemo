@@ -2,6 +2,8 @@ class ImportTableRawDatasets
   DEFAULT_FETCH_ROWS_LIMIT = 20
 
   def self.run(data_source_name, schema_name, table_name)
+    Rails.logger.info "[Start] Import dataset of #{schema_name}.#{table_name} table in #{data_source_name}"
+
     data_source = DataSource.find_by(name: data_source_name)
     source_table = data_source.data_source_tables.find {|dst| dst.full_table_name == "#{schema_name}.#{table_name}" }
 
@@ -13,6 +15,8 @@ class ImportTableRawDatasets
     rescue DataSource::ConnectionBad => e
       Rails.logger.error e
     end
+
+    Rails.logger.info "[Finish] Imported dataset"
   end
 
   def self.import_table_memo_raw_dataset!(table_memo, source_table)
@@ -23,9 +27,11 @@ class ImportTableRawDatasets
         import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
       end
       table_memo.raw_dataset.update!(count: table_count)
+      Rails.logger.info "[Update] #{table_memo.name} dataset" if table_memo.raw_dataset.saved_changes?
     else
       table_memo.create_raw_dataset!(count: table_count)
       import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
+      Rails.logger.info "[Create] #{table_memo.name} dataset"
     end
   end
 

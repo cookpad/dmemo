@@ -1,6 +1,8 @@
 class ImportTableDefinitions
 
   def self.run(data_source_name, schema_name, table_name)
+    Rails.logger.info "[Start] Import definition of #{schema_name}.#{table_name} table in #{data_source_name}"
+
     data_source = DataSource.find_by(name: data_source_name)
     source_table = data_source.data_source_tables.find {|dst| dst.full_table_name == "#{schema_name}.#{table_name}" }
 
@@ -8,6 +10,7 @@ class ImportTableDefinitions
     table_memo = schema_memo.table_memos.find_or_create_by!(name: table_name)
 
     if source_table.nil?
+      Rails.logger.info "Not found #{schema_name}.#{table_name} in #{data_source_name}"
       table_memo.linked = false
     else
       table_memo.linked = true
@@ -19,6 +22,8 @@ class ImportTableDefinitions
       end
     end
     table_memo.save! if table_memo.has_changes_to_save?
+    Rails.logger.info "[Update] #{schema_name}.#{table_name} table" if table_memo.saved_changes?
+    Rails.logger.info "[Finish] Imported definition"
   end
 
   def self.import_column_memos!(source_table, table_memo)
@@ -33,6 +38,8 @@ class ImportTableDefinitions
       column_memo.linked = true
       column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position: position)
       column_memo.save! if column_memo.has_changes_to_save?
+
+      Rails.logger.info "[Update Column] #{column_memo.name} column" if column_memo.saved_changes?
     end
   end
 end

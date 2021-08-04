@@ -1,6 +1,8 @@
 class ImportSchemaRawDatasets
 
   def self.run(data_source_name, schema_name)
+    Rails.logger.info "[Start] Import dataset of #{schema_name} schema in #{data_source_name}"
+
     data_source = DataSource.find_by(name: data_source_name)
     source_tables = data_source.data_source_tables.select {|dst| dst.schema_name == schema_name }
 
@@ -15,4 +17,6 @@ class ImportSchemaRawDatasets
       end
     end
   end
+
+  Rails.logger.info "[Finish] Imported dataset"
 end
