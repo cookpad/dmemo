@@ -12,9 +12,9 @@ module DataSourceAdapters
       source_base_class.connection.query(<<~SQL, 'SCHEMA')
         SELECT schemaname, tablename
         FROM (
-          SELECT schemaname, tablename FROM pg_tables WHERE schemaname = ANY (current_schemas(false))
+          SELECT schemaname, tablename FROM pg_tables
           UNION
-          SELECT schemaname, viewname AS tablename FROM pg_views WHERE schemaname = ANY (current_schemas(false))
+          SELECT schemaname, viewname AS tablename FROM pg_views
         ) tables
         ORDER BY schemaname, tablename;
       SQL
