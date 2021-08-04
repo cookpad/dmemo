@@ -16,6 +16,7 @@ module DataSourceAdapters
           UNION
           SELECT schemaname, viewname AS tablename FROM pg_views
         ) tables
+        WHERE schemaname not in ('pg_catalog', 'information_schema')
         ORDER BY schemaname, tablename;
       SQL
     rescue ActiveRecord::ActiveRecordError, PG::Error => e
