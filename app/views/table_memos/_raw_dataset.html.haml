@@ -16,8 +16,7 @@
           - table_name = @table_memo.name
           - @raw_dataset_rows.each do |row|
             %tr
-              - Array.wrap(row).each_with_index do |value, i|
-                - column = @raw_dataset_columns[i]
+              - Array.wrap(row).zip(@raw_dataset_columns).each_with_index do |(value, column), i|
                 %td
                   - if MaskedDatum.masked_column?(database_name, table_name, column.name)
                     = t("masked_text")
