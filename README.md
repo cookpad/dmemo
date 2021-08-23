@@ -1,4 +1,4 @@
-# Dmemo [![CircleCI](https://circleci.com/gh/teamdmemo/dmemo.svg?style=svg)](https://circleci.com/gh/teamdmemo/dmemo) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
+# Dmemo [![GitHub Actions Status](https://github.com/teamdmemo/dmemo/actions/workflows/main.yml/badge.svg)](https://circleci.com/gh/teamdmemo/dmemo) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
 
 ![](app/assets/images/dmemo_logo_horizontal.png)
 

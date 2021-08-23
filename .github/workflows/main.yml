@@ -1,0 +1,48 @@
+name: Ruby
+on: [push,pull_request]
+jobs:
+  spec:
+    runs-on: ubuntu-latest
+    name: Run test
+    services:
+      postgres:
+        image: circleci/postgres:10.6-alpine
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: dmemo_test
+      mysql:
+        image: circleci/mysql:5.6
+        ports: ["3306:3306"]
+        env:
+          MYSQL_DATABASE: dmemo_test
+    env:
+      PG_HOST: localhost
+      RAILS_ENV: test
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: vendor/assets/package-lock.json
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+    - name: Setup DB
+      run: bin/rails db:create ridgepole:apply
+    - name: Setup Node
+      run: bin/rails npm:install
+    - name: Run rspec
+      run: |
+        bin/rspec --profile 10 \
+        --format progress \
+        --format RspecJunitFormatter \
+        --out test_results/rspec.xml
+    # XXX: we may need simplecov-lcov for this
+    # - name: Coveralls
+    #   uses: coverallsapp/github-action@master
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     path-to-lcov: test_results/rspec.xml
