@@ -1,2 +1,5 @@
 .box.box-info.with-border
+  .box-header
+    %h4
+      = @column_memo.name
   = render "shared/description_editor", memo: @column_memo
