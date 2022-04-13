@@ -1,4 +1,4 @@
-FROM ruby:3.0.0-slim-buster
+FROM public.ecr.aws/docker/library/ruby:3.0.0-slim-buster
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev default-libmysqlclient-dev nodejs libnode64 curl git
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 RUN apt-get -y install nodejs
