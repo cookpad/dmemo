@@ -6,7 +6,7 @@
     "@rails/ujs": "^6.1.5",
     "admin-lte": "2.3.3",
     "font-awesome": "4.5.0",
-    "jquery": "^2.2.4",
+    "jquery": "^3.5.0",
     "jquery-colorbox": "1.6.4",
     "pygments-css": "1.0.0"
   },
