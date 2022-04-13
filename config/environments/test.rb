@@ -46,5 +46,5 @@ Rails.application.configure do
 
   config.middleware.use RackSessionAccess::Middleware
 
-  config.assets.digest = false
+  # config.assets.digest = false
 end

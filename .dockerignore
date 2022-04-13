@@ -2,4 +2,6 @@
 .env.docker
 .git
 vendor/bundle
-vendor/assets/node_modules
+/node_modules
+/public/packs
+/.bundle

@@ -25,15 +25,16 @@ jobs:
       with:
         node-version: '16'
         cache: 'npm'
-        cache-dependency-path: vendor/assets/package-lock.json
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
         bundler-cache: true
     - name: Setup DB
       run: bin/rails db:create ridgepole:apply
-    - name: Setup Node
-      run: bin/rails npm:install
+    - name: Setup npm packages
+      run: npm install
+    - name: Compile assets
+      run: npm run webpack
     - name: Run rspec
       run: |
         bin/rspec --profile 10 \

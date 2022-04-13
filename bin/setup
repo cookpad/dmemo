@@ -9,9 +9,7 @@ Dir.chdir APP_ROOT do
   system "gem install bundler --conservative"
   system "bundle check || bundle install"
 
-  Dir.chdir "vendor/assets" do
-    system "npm install"
-  end
+  system "npm install"
 
   puts "\n== Copying .env files =="
   unless File.exist?(".env")
