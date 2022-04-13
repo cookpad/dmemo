@@ -1,6 +1,6 @@
 # Dmemo ![GitHub Actions Status](https://github.com/teamdmemo/dmemo/actions/workflows/main.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/hogelog/dmemo/badge.svg?branch=master)](https://coveralls.io/github/hogelog/dmemo?branch=master)
 
-![](app/assets/images/dmemo_logo_horizontal.png)
+![](dmemo_logo_horizontal.png)
 
 Database description management tool.
 
@@ -15,7 +15,7 @@ Database description management tool.
 $ ./bin/setup
 $ # Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET of your OAuth client credential
 $ vi .env
-$ ./bin/rails s
+$ bundle exec foreman start
 ```
 
 ### Docker

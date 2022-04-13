@@ -10,12 +10,7 @@ gem 'activerecord6-redshift-adapter'
 gem 'google-cloud-bigquery'
 gem 'presto-client'
 
-gem 'sass-rails', '~> 6.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 5.0.0'
-gem 'sprockets', '~>3.7' # fix sprockets version under v3.x
-
-gem 'jquery-rails'
+gem 'simpacker'
 
 gem 'haml-rails'
 gem 'kaminari'
@@ -36,8 +31,6 @@ gem 'revision_plate', require: 'revision_plate/rails'
 gem 'silencer'
 
 gem 'puma'
-
-gem 'non-stupid-digest-assets'
 
 gem 'action_args'
 
@@ -65,6 +58,7 @@ group :development do
   gem 'ruby-prof'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
+  gem 'foreman'
 end
 
 group :test do

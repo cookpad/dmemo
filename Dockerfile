@@ -1,22 +1,20 @@
+FROM public.ecr.aws/docker/library/node:16 as assets-builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY webpack.config.js ./
+COPY app/javascript ./app/javascript
+RUN NODE_ENV=production npm run webpack
+
 FROM public.ecr.aws/docker/library/ruby:3.0.0-slim-buster
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev default-libmysqlclient-dev nodejs libnode64 curl git
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
-RUN apt-get -y install nodejs
-RUN mkdir /app
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev default-libmysqlclient-dev
 
-ADD Gemfile /tmp/Gemfile
-ADD Gemfile.lock /tmp/Gemfile.lock
-RUN cd /tmp && bundle install -j5 --deployment --without test
-
-ADD vendor/assets/package.json /tmp/vendor/assets/package.json
-RUN cd /tmp/vendor/assets && npm install && rm -rf node_modules/jquery
+COPY Gemfile Gemfile.lock /tmp/
+RUN cd /tmp && bundle install -j5 --deployment --path /gems --without test
 
 WORKDIR /app
-RUN mv /tmp/vendor /app
-ADD . /app
+COPY . ./
 
-# Avoid Missing `secret_key_base` Error
-RUN SECRET_KEY_BASE=dummy \
-    bundle exec rake assets:precompile RAILS_ENV=production
+COPY --from=assets-builder /app/public/packs ./public/packs
 
 CMD ["./bin/docker_start.sh"]

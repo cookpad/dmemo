@@ -11,9 +11,9 @@
 /log/*
 !/log/.keep
 /tmp
-/vendor/assets/node_modules
+/node_modules
 .env
-public/assets/
+public/packs
 .env.docker
 coverage
 
