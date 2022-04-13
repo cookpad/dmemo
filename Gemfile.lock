@@ -91,7 +91,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commonmarker (0.22.0)
+    commonmarker (0.23.4)
     concurrent-ruby (1.1.9)
     coveralls (0.8.23)
       json (>= 1.8, < 3)
