@@ -36,14 +36,4 @@ jobs:
     - name: Compile assets
       run: npm run webpack
     - name: Run rspec
-      run: |
-        bin/rspec --profile 10 \
-        --format progress \
-        --format RspecJunitFormatter \
-        --out test_results/rspec.xml
-    # XXX: we may need simplecov-lcov for this
-    # - name: Coveralls
-    #   uses: coverallsapp/github-action@master
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     path-to-lcov: test_results/rspec.xml
+      run: bin/rspec

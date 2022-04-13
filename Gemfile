@@ -69,6 +69,4 @@ group :test do
   gem 'database_rewinder'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
-  gem 'coveralls', '>= 0.8.21', require: false
-  gem 'rspec_junit_formatter'
 end
