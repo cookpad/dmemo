@@ -13,7 +13,7 @@ class MaskedDataController < ApplicationController
 
   def new
     @masked_datum = MaskedDatum.new
-    @database_name_options = (["*"] + DatabaseMemo.pluck(:name)).map {|x| [x, x]}
+    @database_name_options = (["*"] + DatabaseMemo.pluck(:name)).map { |x| [x, x] }
   end
 
   def create(masked_datum)

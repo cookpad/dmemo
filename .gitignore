@@ -16,5 +16,6 @@
 public/packs
 .env.docker
 coverage
+.rubocop-https?--*
 
 .DS_Store

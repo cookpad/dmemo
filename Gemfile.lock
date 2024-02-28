@@ -329,6 +329,19 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
+    rubocop-capybara (2.20.0)
+      rubocop (~> 1.41)
+    rubocop-factory_bot (2.25.1)
+      rubocop (~> 1.41)
+    rubocop-rails (2.23.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
+    rubocop-rspec (2.26.1)
+      rubocop (~> 1.40)
+      rubocop-capybara (~> 2.17)
+      rubocop-factory_bot (~> 2.22)
     ruby-prof (1.4.3)
     ruby-progressbar (1.13.0)
     ruby_parser (3.16.0)
@@ -414,6 +427,10 @@ DEPENDENCIES
   rouge
   rspec-rails
   rubocop
+  rubocop-capybara
+  rubocop-factory_bot
+  rubocop-rails
+  rubocop-rspec
   ruby-prof
   silencer
   simpacker

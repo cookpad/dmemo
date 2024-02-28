@@ -37,8 +37,8 @@ class DataSourcesController < ApplicationController
       @imported_schema_memos = @data_source.database_memo.schema_memos
       @subscribe_schema_names = @imported_schema_memos.where(linked: true).map(&:name)
       @only_dmemo_schema_names = @imported_schema_memos.pluck(:name) - @data_source_schema_names
-      @only_dmemo_schemas = @only_dmemo_schema_names.map{|s| [s, 'unknown']}
-      @all_schemas = (@data_source_schemas + @only_dmemo_schemas).sort_by{|s| s[0]} # s[0] is schema name
+      @only_dmemo_schemas = @only_dmemo_schema_names.map { |s| [s, 'unknown'] }
+      @all_schemas = (@data_source_schemas + @only_dmemo_schemas).sort_by { |s| s[0] } # s[0] is schema name
     rescue NotImplementedError => e
       # when not implement fetch_schema_names for adapter
       # data_sources/:id/edit page does not view Schema Candidates block

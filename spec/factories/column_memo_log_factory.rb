@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :column_memo_log do
     column_memo
-    sequence(:revision) {|n| n }
+    sequence(:revision) { |n| n }
     user
     description { "# column memo" }
     description_diff { "+# column memo" }

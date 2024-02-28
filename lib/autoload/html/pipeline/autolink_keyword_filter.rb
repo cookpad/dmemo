@@ -9,7 +9,7 @@ module HTML
         doc.search('.//text()').each do |node|
           next if has_ancestor?(node, IGNORED_ANCESTOR_TAGS)
           content = node.to_html
-          html = content.gsub(patterns) {|matched|
+          html = content.gsub(patterns) { |matched|
             %{<a href="#{context[:autolink_keywords][matched]}">#{matched}</a>}
           }
           next if html == content
@@ -19,7 +19,7 @@ module HTML
       end
 
       def patterns
-        @patterns ||= Regexp.union(context[:autolink_keywords].keys.sort_by {|k| -k.size })
+        @patterns ||= Regexp.union(context[:autolink_keywords].keys.sort_by { |k| -k.size })
       end
     end
   end
