@@ -1,5 +1,4 @@
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - 'vendor/**/*'
     - 'tmp/**/*'
@@ -11,20 +10,20 @@ Style:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
 
-Metrics/ClassLength:
+Metrics/BlockLength:
   Enabled: false
 
-Metrics/ModuleLength:
+Metrics/ClassLength:
   Enabled: false
 
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/BlockLength:
+Metrics/ModuleLength:
   Enabled: false
