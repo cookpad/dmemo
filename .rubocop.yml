@@ -16,14 +16,14 @@ Layout/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
-Metrics/ClassLength:
+Metrics/BlockLength:
   Enabled: false
 
-Metrics/ModuleLength:
+Metrics/ClassLength:
   Enabled: false
 
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/BlockLength:
+Metrics/ModuleLength:
   Enabled: false
