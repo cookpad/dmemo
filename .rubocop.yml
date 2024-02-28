@@ -10,7 +10,7 @@ Style:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Metrics/AbcSize:
