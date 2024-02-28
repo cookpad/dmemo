@@ -174,6 +174,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    language_server-protocol (3.17.0.3)
     launchy (2.5.0)
       addressable (~> 2.7)
     loofah (2.10.0)
@@ -218,9 +219,10 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     os (1.1.1)
-    parallel (1.20.1)
-    parser (3.0.2.0)
+    parallel (1.24.0)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
+      racc
     pg (1.2.3)
     presto-client (0.6.5)
       faraday (~> 0.12)
@@ -277,13 +279,13 @@ GEM
       method_source
       rake (>= 0.13)
       thor (~> 1.0)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     ransack (2.4.2)
       activerecord (>= 5.2.4)
       activesupport (>= 5.2.4)
       i18n
-    regexp_parser (2.1.1)
+    regexp_parser (2.9.0)
     representable (3.1.1)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -291,7 +293,7 @@ GEM
     retriable (3.1.2)
     revision_plate (0.1.2)
       rack
-    rexml (3.2.5)
+    rexml (3.2.6)
     ridgepole (0.9.5)
       activerecord (>= 5.1, < 6.2)
       diffy
@@ -314,19 +316,21 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.18.3)
+    rubocop (1.60.2)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.0.0.0)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
-      rubocop-ast (>= 1.7.0, < 2.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.8.0)
-      parser (>= 3.0.1.1)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.30.0)
+      parser (>= 3.2.1.0)
     ruby-prof (1.4.3)
-    ruby-progressbar (1.11.0)
+    ruby-progressbar (1.13.0)
     ruby_parser (3.16.0)
       sexp_processor (~> 4.15, >= 4.15.1)
     sexp_processor (4.15.3)
@@ -357,7 +361,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
-    unicode-display_width (2.0.0)
+    unicode-display_width (2.5.0)
     webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -416,4 +420,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.2.3
+   2.4.22
