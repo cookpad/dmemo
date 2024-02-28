@@ -1,38 +1,32 @@
 class MaskedDatum < ApplicationRecord
+  ANY_NAME = "*".freeze
+
   validates :database_name, :table_name, :column_name, presence: true
 
-  after_save :update_data!
-
-  def self.data
-    @@data ||= update_data!
-  end
-
-  def self.update_data!
-    @@data = all.map(&:pack)
-  end
+  scope :masking_database, ->(database_name) {
+    where(database_name: database_name, table_name: ANY_NAME, column_name: ANY_NAME)
+  }
+  scope :masking_table, ->(database_name, table_name) {
+    masking_database(database_name)
+      .or(where(database_name: database_name, table_name: table_name, column_name: ANY_NAME))
+      .or(where(database_name: ANY_NAME, table_name: table_name, column_name: ANY_NAME))
+  }
 
   def self.masked_database?(database_name)
-    data.include?("#{database_name}/*/*")
+    self.masking_database(database_name).exists?
   end
 
   def self.masked_table?(database_name, table_name)
-    return true if masked_database?(database_name)
-    data.include?("#{database_name}/#{table_name}/*")
+    self.masking_table(database_name, table_name).exists?
   end
 
-  def self.masked_column?(database_name, table_name, column_name)
-    return true if masked_database?(database_name)
-    return true if masked_table?(database_name, table_name)
-    data.include?("#{database_name}/#{table_name}/#{column_name}") || data.include?("#{database_name}/*/#{column_name}") || data.include?("*/*/#{column_name}")
+  def self.masked_columns(database_name, table_name)
+    return [ANY_NAME] if self.masked_table?(database_name, table_name)
+
+    Set.new(self.where(database_name: database_name, table_name: table_name).pluck(:column_name))
   end
 
   def pack
     "#{database_name}/#{table_name}/#{column_name}"
-  end
-
-  private
-
-  def update_data!
-    self.class.update_data!
   end
 end
