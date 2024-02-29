@@ -12,26 +12,26 @@
         = f.text_field :keyword, placeholder: "Search...", class: "form-control"
         %span.input-group-btn
           %button#search-btn.btn.btn-flat{name: "search", type: "submit"}
-            %i.fa.fa-search
+            %i.fa-solid.fa-magnifying-glass
 
     %ul.sidebar-menu
       %li
         = link_to root_path do
-          %i.fa.fa-home
+          %i.fa-solid.fa-home
           Home
       %li
         = link_to users_path do
-          %i.fa.fa-user
+          %i.fa-solid.fa-user
           User
       %li
         = link_to keywords_path do
-          %i.fa.fa-book
+          %i.fa-solid.fa-book
           Keyword
       %li.treeview.opened
         %a.disable-click
-          %i.fa.fa-database
+          %i.fa-solid.fa-database
           %span Database
-          %i.fa.fa-angle-down.pull-right
+          %i.fa-solid.fa-angle-down.pull-right
         %ul.treeview-menu
           - @sidebar_databases.map(&:name).each do |name|
             %li

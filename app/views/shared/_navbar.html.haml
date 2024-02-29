@@ -4,13 +4,13 @@
       %ul.nav.navbar-nav
         %li
           = link_to setting_path do
-            %i.fa.fa-gear
+            %i.fa-solid.fa-gear
             Setting
         %li
           = link_to edit_user_path(current_user) do
-            %i.fa.fa-user
+            %i.fa-solid.fa-user
             = current_user.name
         %li
           = link_to logout_path, method: :delete do
-            %i.fa.fa-sign-out
+            %i.fa-solid.fa-arrow-right-from-bracket
             Sign-out

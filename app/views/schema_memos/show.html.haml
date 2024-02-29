@@ -3,13 +3,13 @@
   %h1.page-header
     = @schema_memo.name
     = link_to edit_schema_memo_path(@schema_memo) do
-      %i.fa.fa-edit
+      %i.fa-solid.fa-pen-to-square
 
   - unless @schema_memo.linked?
     .box.box-warning
       .box-header
         %h4
-          %i.fa.fa-warning= t("unlinked_schema")
+          %i.fa-solid.fa-triangle-exclamation= t("unlinked_schema")
       .box-body
         = link_to "Delete schema information", @schema_memo,
           method: :delete,
@@ -19,7 +19,7 @@
   %ol.breadcrumb
     %li
       = link_to root_path do
-        %i.fa.fa-home
+        %i.fa-solid.fa-home
         Home
     %li
       = link_to @schema_memo.database_memo.name, database_memo_path(@schema_memo.database_memo.name)
@@ -37,7 +37,7 @@
     = l(@schema_memo.updated_at)
     - if @schema_memo.logs.exists?
       = link_to schema_memo_logs_path(@schema_memo.id) do
-        %i.fa.fa-clock-o
+        %i.fa-regular.fa-clock
 
 .box
   .box-header.with-border

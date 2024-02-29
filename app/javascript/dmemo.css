@@ -16,10 +16,6 @@
   }
 }
 
-.page-header i.fa {
-  vertical-align: text-bottom;
-}
-
 a.editable-click, a.editable-click:hover {
   cursor: pointer !important;
   border-bottom: none !important;

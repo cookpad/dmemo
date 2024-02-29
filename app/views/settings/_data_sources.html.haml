@@ -4,7 +4,7 @@
 
     - if current_user.admin?
       = link_to new_data_source_path, class: "btn btn-default btn-sm pull-right" do
-        %i.fa.fa-plus
+        %i.fa-solid.fa-plus
         Add Data Source
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
@@ -34,7 +34,7 @@
             - if current_user.admin?
               = link_to edit_data_source_path(data_source) do
                 %button.btn.btn-default
-                  %i.fa.fa-edit
+                  %i.fa-solid.fa-pen-to-square
               = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
                 %button.btn.btn-default
-                  %i.fa.fa-trash
+                  %i.fa-solid.fa-trash

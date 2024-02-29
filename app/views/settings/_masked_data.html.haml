@@ -4,7 +4,7 @@
 
     - if current_user.admin?
       = link_to new_masked_datum_path, class: "btn btn-default btn-sm pull-right" do
-        %i.fa.fa-plus
+        %i.fa-solid.fa-plus
         Add Masked Data
   .box-body
     %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
@@ -25,5 +25,5 @@
             - if current_user.admin?
               = link_to masked_datum_path(masked_datum), method: :delete, data: { confirm: "Delete masked_data #{masked_datum.pack}?" } do
                 %button.btn.btn-default
-                  %i.fa.fa-trash
+                  %i.fa-solid.fa-trash
 

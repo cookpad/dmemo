@@ -3,12 +3,12 @@
   %h1.page-header
     = @keyword.name
     = link_to edit_keyword_path(@keyword) do
-      %i.fa.fa-edit
+      %i.fa-solid.fa-pen-to-square
 
   %ol.breadcrumb
     %li
       = link_to root_path do
-        %i.fa.fa-home
+        %i.fa-solid.fa-home
         Home
     %li
       = link_to "Keywords", keywords_path
@@ -23,4 +23,4 @@
     = l(@keyword.updated_at)
     - if @keyword.logs.exists?
       = link_to keyword_logs_path(@keyword.id) do
-        %i.fa.fa-clock-o
+        %i.fa-regular.fa-clock

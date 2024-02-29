@@ -3,13 +3,13 @@
   %h1.page-header
     = @database_memo.name
     = link_to edit_database_memo_path(@database_memo) do
-      %i.fa.fa-edit
+      %i.fa-solid.fa-pen-to-square
 
   - unless @database_memo.linked?
     .box.box-warning
       .box-header
         %h4
-          %i.fa.fa-warning= t("unlinked_database")
+          %i.fa-solid.fa-triangle-exclamation= t("unlinked_database")
       .box-body
         = link_to "Delete database information", @database_memo,
           method: :delete,
@@ -19,7 +19,7 @@
   %ol.breadcrumb
     %li
       = link_to root_path do
-        %i.fa.fa-home
+        %i.fa-solid.fa-home
         Home
     %li.active
       = @database_memo.name
@@ -35,7 +35,7 @@
     = l(@database_memo.updated_at)
     - if @database_memo.logs.exists?
       = link_to database_memo_logs_path(@database_memo.id) do
-        %i.fa.fa-clock-o
+        %i.fa-regular.fa-clock
 
 - if @database_memo.single_schema?
   .box
