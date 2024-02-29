@@ -20,28 +20,20 @@ $ bundle exec foreman start
 
 ### Docker
 
-Docker images are published on Docker Hub.
-https://hub.docker.com/r/hogelog/dmemo/
-
 ```
+$ docker build . -t dmemo
 $ cp .env.production.sample .env.docker
 $ # Set all environment variables.
 $ # You can generate secret_key_base by the following command:
-$ #   `docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/rake secret`
+$ #   `docker run --rm --env-file .env.docker -t dmemo ./bin/rake secret`
 $ vi .env.docker
-$ docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/docker_db_apply.sh
-$ docker-compose up
+$ docker run --rm --env-file .env.docker -t dmemo ./bin/docker_db_apply.sh
+$ docker compose up
 ```
 
 ## Execute synchronization
 ```
 ./bin/rails r 'SynchronizeDataSources.run'
-```
-
-or
-
-```
-docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/rails r 'SynchronizeDataSources.run'
 ```
 
 
@@ -50,9 +42,7 @@ docker run --rm --env-file .env.docker -t hogelog/dmemo ./bin/rails r 'Synchroni
 - Login dmemo by google account
 - Activate user as admin
 ```
-$ ./bin/rake admin:activate EMAIL=konbu.komuro@gmail.com
- or
-$ docker run --env-file .env.docker hogelog/dmemo ./bin/docker_admin_activate.sh konbu.komuro@gmail.com
+$ ./bin/rake admin:activate EMAIL=foobar@example.com
 ```
 
 ### Environment Variables
