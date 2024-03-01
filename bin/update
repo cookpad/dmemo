@@ -21,7 +21,8 @@ chdir APP_ROOT do
   # system('bin/yarn')
 
   puts "\n== Updating database =="
-  system! 'bin/rails db:migrate'
+  system! "bin/rake ridgepole:apply"
+  system! "RAILS_ENV=test bin/rake ridgepole:apply"
 
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
