@@ -1,18 +1,24 @@
 - content_for :title, "#{@database_memo.name} « Database Log"
 - content_for :header do
-  %h1.page-header
-    = @database_memo.name
-    logs
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @database_memo.name
+        logs
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa-solid.fa-home
-        Home
-    %li
-      = link_to @database_memo.name, database_memo_path(@database_memo.name)
-    %li.active
-      logs
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to @database_memo.name, database_memo_path(@database_memo.name)
+        %li.breadcrumb-item.active
+          logs
 
-%ul.timeline
+.timeline
   = render partial: "shared/description_log", collection: @database_memo_logs
+  - # The ending icon for the timeline.
+  %div
+    %i.fas.fa-clock.bg-gray

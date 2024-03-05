@@ -1,26 +1,29 @@
 - content_for :title, "#{@keyword.name} « Keyword"
 - content_for :header do
-  %h1.page-header
-    = @keyword.name
-    = link_to edit_keyword_path(@keyword) do
-      %i.fa-solid.fa-pen-to-square
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @keyword.name
+        = link_to edit_keyword_path(@keyword) do
+          %i.fas.fa-pen-to-square
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa-solid.fa-home
-        Home
-    %li
-      = link_to "Keywords", keywords_path
-    %li.active
-      = @keyword.name
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to "Keywords", keywords_path
+        %li.breadcrumb-item.active
+          = @keyword.name
 
-.box.box-info.with-border
-  .box-body
+.card
+  .card-body
     .markdown-block
       = @keyword.description_html
-  .box-footer
+  .card-footer
     = l(@keyword.updated_at)
     - if @keyword.logs.exists?
       = link_to keyword_logs_path(@keyword.id) do
-        %i.fa-regular.fa-clock
+        %i.far.fa-clock

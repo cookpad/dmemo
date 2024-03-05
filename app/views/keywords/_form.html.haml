@@ -1,9 +1,9 @@
 = form_for @keyword, html: { class: "form" } do |f|
-  .box.box-info.with-border
-    .box-body
+  .card
+    .card-body
       .row
         .col-sm-6.form-group
-          = f.label :name, class: "col-sm-2 control-label"
+          = f.label :name, class: "col-sm-2 col-form-label"
           = f.text_field :name, class: "form-control", placeholder: "keyword", tabindex: 1
       .row
         .col-sm-6.form-group
@@ -13,7 +13,7 @@
           %label Preview
           .markdown-block.description-preview
             = @keyword.description_html
-    .box-footer
+    .card-footer
       = f.submit class: "btn btn-primary", tabindex: 3
       - if @keyword.persisted?
-        = link_to "Delete keyword", @keyword, class: "btn btn-danger pull-right", method: :delete, data: { confirm: t(:delete_keyword, name: @keyword.name) }
+        = link_to "Delete keyword", @keyword, class: "btn btn-danger float-right", method: :delete, data: { confirm: t(:delete_keyword, name: @keyword.name) }

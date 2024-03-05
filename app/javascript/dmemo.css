@@ -1,18 +1,103 @@
+.skin-blue {
+  a {
+    color: #3c8dbc;
+
+    &:active,
+    &:focus,
+    &:hover {
+      outline: none;
+      text-decoration: none;
+      color: #72afd2;
+    }
+  }
+
+  .btn {
+    color: #ffffff;
+  }
+
+  .btn-primary {
+    background: #3c8dbc;
+  }
+
+  .main-header.navbar {
+    background: #3c8dbc;
+    border-bottom: 0 solid transparent;
+    
+    .nav-item > a {
+      color: #ffffff;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #f6f6f6;
+      }
+    }
+  }
+
+  .main-sidebar {
+    background: #222d32;
+
+    .brand-link {
+      background: #367fa9;
+      border-bottom: 0 solid transparent;
+      color: #ffffff;
+
+      padding: 0.8rem 0.5rem;
+
+      &:active,
+      &:hover {
+        background-color: #357ca5;
+      }
+    }
+
+    .sidebar {
+      .user-panel .info {
+        color: #b8c7ce;
+      }
+
+      .nav-item {
+        a {
+          color: #b8c7ce;
+        }
+
+        &:active > .nav-link,
+        &:hover > .nav-link {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+        }
+      }
+
+      .btn,
+      .form-control {
+        background-color: #374850;
+        border: 1px solid #56606a;
+        color: white;
+      }
+    }
+  }
+}
+
+.brand-text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
 .memo-block {
   .timeline-header {
     text-align: right;
 
     img {
-      width: 20px;
-      height: 20px;
+      width: 1rem;
+      height: 1rem;
     }
   }
 }
 
 .markdown-block {
   h1, h2, h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -30,14 +115,8 @@ a.editable-click, a.editable-click:hover {
   }
 }
 
-.data-box {
+.data-card {
   overflow: auto;
-}
-
-.sidebar-menu {
-  li.treeview.opened .treeview-menu {
-    display: block;
-  }
 }
 
 .truncate-td {
@@ -45,8 +124,4 @@ a.editable-click, a.editable-click:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 0;
-}
-
-.leftmost-th {
-  width: 400px;
 }

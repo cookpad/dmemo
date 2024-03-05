@@ -1,29 +1,34 @@
 - content_for :title, "\"#{@search_result.keyword}\" « Search"
 - content_for :header do
-  %h1.page-header "#{@search_result.keyword}" search result
-  %p #{@search_result.tables.total_count} Table hits / #{@search_result.columns.total_count} Column hits
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap "#{@search_result.keyword}" search result
+  
+  .row.mb-2
+    .col
+      #{@search_result.tables.total_count} Table hits / #{@search_result.columns.total_count} Column hits
 
 - unless @search_result.tables.present? || @search_result.columns.present?
-  .box
-    .box-body
+  .card
+    .card-body
       No results found.
 - else
   - @search_result.tables.each do |result|
-    .box
-      .box-header.with-border
-        %h3.box-title
-          %small.label.bg-green Table
+    .card
+      .card-header
+        %h3.card-title
+          %small.badge.badge-success Table
           = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
-      .box-body
+      .card-body
         = highlight(markdown_html(result.description).html_safe, @search_result.keyword)
   = paginate @search_result.tables, param_name: 'table_page'
 
   - @search_result.columns.each do |result|
-    .box
-      .box-header.with-border
-        %h3.box-title
-          %small.label.bg-aqua-active Column
+    .card
+      .card-header
+        %h3.card-title
+          %small.badge.badge-info Column
           = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
-      .box-body
+      .card-body
         = highlight(markdown_html(result.description).html_safe, @search_result.keyword)
   = paginate @search_result.columns, param_name: 'column_page'

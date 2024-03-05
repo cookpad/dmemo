@@ -1,5 +1,5 @@
 = form_for memo do |f|
-  .box-body
+  .card-body
     .row
       .col-sm-6.form-group
         = f.label :description
@@ -8,5 +8,5 @@
         %label Preview
         .markdown-block.description-preview
           = memo.description_html
-  .box-footer
+  .card-footer
     = f.button "Update", class: "btn btn-primary", tabindex: 2

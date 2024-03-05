@@ -1,20 +1,26 @@
 - content_for :title, "#{@schema_memo.name} « Schema Log"
 - content_for :header do
-  %h1.page-header
-    = @schema_memo.name
-    logs
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @schema_memo.name
+        logs
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa-solid.fa-home
-        Home
-    %li
-      = link_to @schema_memo.database_memo.name, database_memo_path(@schema_memo.database_memo.name)
-    %li
-      = link_to @schema_memo.name, database_schema_path(@schema_memo.database_memo.name, @schema_memo.name)
-    %li.active
-      logs
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to @schema_memo.database_memo.name, database_memo_path(@schema_memo.database_memo.name)
+        %li.breadcrumb-item
+          = link_to @schema_memo.name, database_schema_path(@schema_memo.database_memo.name, @schema_memo.name)
+        %li.breadcrumb-item.active
+          logs
 
 %ul.timeline
   = render partial: "shared/description_log", collection: @schema_memo_logs
+  - # The ending icon for the timeline.
+  %div
+    %i.fas.fa-clock.bg-gray

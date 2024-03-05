@@ -1,25 +1,28 @@
-.box
-  .box-header.with-border
-    %h2.box-title Ignored Tables
+.card
+  .card-header
+    %h2.card-title Ignored Tables
 
     - if current_user.admin?
-      = link_to new_ignored_table_path, class: "btn btn-default btn-sm pull-right" do
-        %i.fa-solid.fa-plus
+      = link_to new_ignored_table_path, class: "btn btn-secondary btn-sm float-right" do
+        %i.fas.fa-plus
         Add Ignored Table
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th Database
-        %th Ignored table pattern
-        %th
-      - @ignored_tables.each do |ignored_table|
-        %tr
-          %td
-            = ignored_table.data_source.try(:name)
-          %td
-            = ignored_table.pattern
-          %td
-            - if current_user.admin?
-              = link_to ignored_table, method: :delete, data: { confirm: "Delete ignore table pattern #{ignored_table.pattern}" } do
-                %button.btn.btn-default
-                  %i.fa-solid.fa-trash
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
+          %tr
+            %th Database
+            %th Ignored table pattern
+            %th
+        %tbody
+          - @ignored_tables.each do |ignored_table|
+            %tr
+              %td
+                = ignored_table.data_source.try(:name)
+              %td
+                = ignored_table.pattern
+              %td
+                - if current_user.admin?
+                  = link_to ignored_table, method: :delete, data: { confirm: "Delete ignore table pattern #{ignored_table.pattern}" } do
+                    %button.btn.btn-secondary
+                      %i.fas.fa-trash

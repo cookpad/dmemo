@@ -1,7 +1,9 @@
 - content_for :title, "#{@schema_memo.name} « Schema"
 - content_for :header do
-  %h1.page-header
-    %span= @schema_memo.name
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        %span= @schema_memo.name
 
-.box.box-info.with-border
+.card
   = render "shared/description_editor", memo: @schema_memo

@@ -1,14 +1,14 @@
-.box.data-box
-  .box-header
-    %h3.box-title View Query
-  .box-body
+.card.data-card
+  .card-header
+    %h3.card-title View Query
+  .card-body
     %pre
       %code= sql_query_format(@view_meta_data.query)
 
-.box.data-box
-  .box-header
-    %h3.box-title View Query Plan
-  .box-body
+.card.data-card
+  .card-header
+    %h3.card-title View Query Plan
+  .card-body
     %pre
       %code= @view_meta_data.explain
 

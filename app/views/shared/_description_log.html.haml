@@ -1,8 +1,10 @@
-%li
+%div
+  %i.fas.fa-pen.bg-gray
   .timeline-item.memo-block
     %span.time= l(description_log.created_at)
     %h3.timeline-header
-      %img.img-rounded{ src: description_log.user.image_url }/
+      %img.rounded{ src: description_log.user.image_url }/
       = description_log.user.name
     .timeline-body
-      = render_diff(description_log.description_diff)
+      .bg-light.border.border-gray.rounded
+        = render_diff(description_log.description_diff)

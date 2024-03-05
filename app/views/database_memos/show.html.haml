@@ -1,61 +1,73 @@
 - content_for :title, "#{@database_memo.name} « Database"
 - content_for :header do
-  %h1.page-header
-    = @database_memo.name
-    = link_to edit_database_memo_path(@database_memo) do
-      %i.fa-solid.fa-pen-to-square
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @database_memo.name
+        = link_to edit_database_memo_path(@database_memo) do
+          %i.fas.fa-pen-to-square
+
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item.active
+          = @database_memo.name
 
   - unless @database_memo.linked?
-    .box.box-warning
-      .box-header
-        %h4
-          %i.fa-solid.fa-triangle-exclamation= t("unlinked_database")
-      .box-body
-        = link_to "Delete database information", @database_memo,
-          method: :delete,
-          class: "btn btn-lg btn-danger",
-          data: { confirm: "Delete database #{@database_memo.name} information?" }
+    .row.mb-2
+      .col
+        .card.card-warning
+          .card-header
+            %h4.card-title
+              %i.fas.fa-triangle-exclamation
+              = t("unlinked_database")
+          .card-body
+            = link_to "Delete database information", @database_memo,
+              method: :delete,
+              class: "btn btn-lg btn-danger",
+              data: { confirm: "Delete database #{@database_memo.name} information?" }
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa-solid.fa-home
-        Home
-    %li.active
-      = @database_memo.name
-
-.memo-block.box.box-info.with-border
-  .box-body
+.memo-block.card
+  .card-body
     .markdown-block
       - if @database_memo.description.present?
         = @database_memo.description_html
       - else
         = t("no_description")
-  .box-footer
+  .card-footer
     = l(@database_memo.updated_at)
     - if @database_memo.logs.exists?
       = link_to database_memo_logs_path(@database_memo.id) do
-        %i.fa-regular.fa-clock
+        %i.far.fa-clock
 
 - if @database_memo.single_schema?
-  .box
-    .box-header.with-border
-      %h2.box-title Tables
+  .card
+    .card-header
+      %h2.card-title Tables
 
-    .box-body
-      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-        %tr
-          %th.leftmost-th Name
-          %th Description
-        = render partial: "table_memo", collection: @database_memo.schema_memos.map(&:table_memos).flatten.sort_by(&:display_order)
+    .card-body.p-0
+      .table-responsive
+        %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+          %thead
+            %tr
+              %th.col-4 Name
+              %th Description
+          %tbody
+            = render partial: "table_memo", collection: @database_memo.schema_memos.map(&:table_memos).flatten.sort_by(&:display_order)
 - else
-  .box
-    .box-header.with-border
-      %h2.box-title Schemas
+  .card
+    .card-header
+      %h2.card-title Schemas
 
-    .box-body
-      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-        %tr
-          %th.leftmost-th Name
-          %th Description
-        = render partial: "schema_memo", collection: @database_memo.schema_memos.sort_by(&:display_order)
+    .card-body.p-0
+      .table-responsive
+        %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+          %thead
+            %tr
+              %th.col-4 Name
+              %th Description
+          %tbody
+            = render partial: "schema_memo", collection: @database_memo.schema_memos.sort_by(&:display_order)

@@ -1,7 +1,9 @@
 - content_for :title, "#{@database_memo.name} « Database"
 - content_for :header do
-  %h1.page-header
-    %span= @database_memo.name
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        %span= @database_memo.name
 
-.box.box-info.with-border
+.card
   = render "shared/description_editor", memo: @database_memo

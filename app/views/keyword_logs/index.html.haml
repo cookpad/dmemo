@@ -1,20 +1,26 @@
 - content_for :title, "#{@keyword.name} « Keyword Log"
 - content_for :header do
-  %h1.page-header
-    = @keyword.name
-    logs
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @keyword.name
+        logs
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa-solid.fa-home
-        Home
-    %li
-      = link_to "Keywords", keywords_path
-    %li
-      = link_to @keyword.name, keyword_path(@keyword.name)
-    %li.active
-      logs
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to "Keywords", keywords_path
+        %li.breadcrumb-item
+          = link_to @keyword.name, keyword_path(@keyword.name)
+        %li.breadcrumb-item.active
+          logs
 
 %ul.timeline
   = render partial: "shared/description_log", collection: @keyword_logs
+  - # The ending icon for the timeline.
+  %div
+    %i.fas.fa-clock.bg-gray
