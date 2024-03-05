@@ -19,7 +19,7 @@ describe :masked_data, type: :request do
     it "shows" do
       get new_masked_datum_path
       expect(response).to render_template("masked_data/new")
-      expect(assigns(:database_name_options)).to eq([["*", "*"], ["foo", "foo"]])
+      expect(assigns(:database_name_options)).to eq([%w[* *], %w[foo foo]])
     end
   end
 end

@@ -5,6 +5,6 @@ class TableMemoRawDataset < ApplicationRecord
   has_many :rows, class_name: "TableMemoRawDatasetRow", dependent: :destroy
 
   def same_columns?(source_columns)
-    source_columns.all? {|column| columns.where(name: column.name, sql_type: column.sql_type).exists? }
+    source_columns.all? { |column| columns.where(name: column.name, sql_type: column.sql_type).exists? }
   end
 end

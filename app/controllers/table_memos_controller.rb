@@ -12,7 +12,11 @@ class TableMemosController < ApplicationController
       take!
     @raw_dataset = @table_memo.raw_dataset
     if @raw_dataset
-      @raw_dataset_columns = @raw_dataset.columns.order(:position)
+      @masked_columns = MaskedDatum.masked_columns(database_name, name)
+      @raw_dataset_columns = @raw_dataset.columns.order(:position).map { |column| {
+        data: column,
+        masked: @masked_columns.include?(::MaskedDatum::ANY_NAME) || @masked_columns.include?(column.name),
+      }}
       @raw_dataset_rows = @raw_dataset.rows.pluck(:row)
     end
     @view_meta_data = @table_memo.view_meta_data

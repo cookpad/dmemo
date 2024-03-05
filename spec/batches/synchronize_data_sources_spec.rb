@@ -36,7 +36,7 @@ describe SynchronizeDataSources do
       end
 
       it "fails data_sources sync" do
-        expect{ batch.run }.to raise_error(DataSource::ConnectionBad)
+        expect { batch.run }.to raise_error(DataSource::ConnectionBad)
 
         expect(data_source.database_memo).to be_present
         expect(SchemaMemo.count).to eq(0)
@@ -72,7 +72,7 @@ describe SynchronizeDataSources do
       context "when columns doesn't changed" do
         before do
           stub_const("SynchronizeDataSources::DEFAULT_FETCH_ROWS_LIMIT", 4)
-          4.times{|i| FactoryBot.create(:keyword, name: "sushi #{i}") }
+          4.times { |i| FactoryBot.create(:keyword, name: "sushi #{i}") }
           batch.import_data_source!(data_source)
         end
 

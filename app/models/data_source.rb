@@ -17,7 +17,7 @@ class DataSource < ApplicationRecord
 
   def data_source_table(schema_name, table_name, table_names)
     return if ignore?(schema_name, table_name)
-    schema_name, _ = table_names.find {|schema, table| schema == schema_name && table == table_name }
+    schema_name, _ = table_names.find { |schema, table| schema == schema_name && table == table_name }
     return nil unless schema_name
     DataSourceTable.new(self, schema_name, table_name)
   end

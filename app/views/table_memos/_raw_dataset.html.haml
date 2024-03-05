@@ -6,7 +6,7 @@
       %table.table.table-hover.table-bordered.table-striped.text-sm{ role: "grid" }
         %tr
           - @raw_dataset_columns.each do |column|
-            %th #{column.name} (#{column.sql_type})
+            %th #{column.fetch(:data).name} (#{column.fetch(:data).sql_type})
         - if @table_memo.masked?
           %tr
             %td.text-center{ colspan: @raw_dataset_columns.size }
@@ -18,7 +18,7 @@
             %tr
               - Array.wrap(row).zip(@raw_dataset_columns).each_with_index do |(value, column), i|
                 %td
-                  - if MaskedDatum.masked_column?(database_name, table_name, column.name)
+                  - if column.fetch(:masked)
                     = t("masked_text")
                   - else
                     = value

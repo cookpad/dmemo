@@ -10,7 +10,7 @@ class SearchResult
                             .order(description: :desc, updated_at: :desc)
                             .page(table_page).per(per_page)
     self.columns = ColumnMemo.where("column_memos.name LIKE ? OR column_memos.description LIKE ?", pattern, pattern)
-                            .eager_load(table_memo: {schema_memo: :database_memo})
+                            .eager_load(table_memo: { schema_memo: :database_memo })
                             .order(description: :desc, updated_at: :desc)
                             .page(column_page).per(per_page)
   end

@@ -42,14 +42,15 @@ module DataSourceAdapters
       return @bq_dataset if @bq_dataset
 
       config = @data_source.bigquery_config
-      client = config.credentials ?
-        Google::Cloud::Bigquery.new(
-          project_id: config.project_id,
-          credentials: JSON.parse(config.credentials),
-        ) :
-        Google::Cloud::Bigquery.new(
-          project_id: config.project_id,
-        )
+      client =
+        if config.credentials
+          Google::Cloud::Bigquery.new(
+            project_id: config.project_id,
+            credentials: JSON.parse(config.credentials),
+          )
+        else
+          Google::Cloud::Bigquery.new(project_id: config.project_id)
+        end
 
       @bq_dataset = client.dataset(config.dataset)
       raise DataSource::ConnectionBad.new("dataset \"#{config.dataset}\" not found") if @bq_dataset.nil?

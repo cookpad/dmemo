@@ -1,14 +1,21 @@
+inherit_from:
+  - https://raw.githubusercontent.com/cookpad/styleguide/master/.rubocop.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+require:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+
 AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'tmp/**/*'
     - 'db/**/*'
-
-Style:
-  Enabled: false
-
-Layout/EmptyLineAfterGuardClause:
-  Enabled: false
 
 Layout/LineLength:
   Enabled: false
