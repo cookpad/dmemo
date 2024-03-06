@@ -280,10 +280,6 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    ransack (2.4.2)
-      activerecord (>= 5.2.4)
-      activesupport (>= 5.2.4)
-      i18n
     regexp_parser (2.9.0)
     representable (3.1.1)
       declarative (< 0.1.0)
@@ -418,7 +414,6 @@ DEPENDENCIES
   rack_session_access
   rails (~> 6.1)
   rails-controller-testing
-  ransack
   revision_plate
   ridgepole
   rinku
