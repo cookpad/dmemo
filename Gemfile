@@ -27,7 +27,7 @@ gem 'puma'
 gem 'revision_plate', require: 'revision_plate/rails'
 gem 'rinku'
 gem 'rouge'
-gem 'silencer'
+gem 'silencer', require: 'silencer/rails/logger'
 gem 'simpacker'
 
 group :development, :test do
