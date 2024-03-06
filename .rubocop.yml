@@ -17,6 +17,15 @@ AllCops:
     - 'tmp/**/*'
     - 'db/**/*'
 
+Bundler/DuplicatedGem:
+  Enabled: true
+
+Bundler/DuplicatedGroup:
+  Enabled: true
+
+Bundler/OrderedGems:
+  Enabled: true
+
 Layout/LineLength:
   Enabled: false
 
