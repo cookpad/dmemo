@@ -41,8 +41,8 @@ end
 
 group :development do
   gem 'brakeman', require: false
-  gem 'foreman'
-  gem 'ridgepole'
+  gem 'foreman', require: false
+  gem 'ridgepole', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
