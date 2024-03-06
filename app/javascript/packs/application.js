@@ -13,4 +13,5 @@ import 'jquery-colorbox/jquery.colorbox';
 import Rails from '@rails/ujs';
 import '../dmemo';
 
+global.$ = jQuery;
 Rails.start();

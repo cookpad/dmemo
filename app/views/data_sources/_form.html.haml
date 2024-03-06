@@ -10,7 +10,7 @@
       .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
     .form-group.row
       = f.label :adapter, class: "col-sm-2 col-form-label"
-      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, class: "form-control"
+      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, { id: "data-source-adapter", class: "form-control" }
 
     #standard-config-fields.adapter-config
       .form-group.row
@@ -43,25 +43,24 @@
         .form-group.row
           = bq.label :credentials, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.file_field :credentials, class: "form-control", placeholder: "public"
-
+    
+    #data-source-form-data.d-none{ 'data-standard-adapters': DataSourceAdapters.standard_adapter_names.to_json }
 
   .card-footer
     = f.submit class: "btn btn-primary float-right"
 
 :javascript
   $(() => {
-    var standardAdpaters = #{DataSourceAdapters.standard_adapter_names.to_json.html_safe};
-    function toggleAdapter(adapterName) {
-      if (standardAdpaters.includes(adapterName)) {
-        adapterName = 'standard';
-      }
+    const standardAdpaters = $('#data-source-form-data').data('standard-adapters');
+    const toggleAdapter = (adapterName) => {
+      const adapterId = standardAdpaters.includes(adapterName) ? 'standard' : adapterName;
 
       $('.adapter-config').hide();
-      $('#' + adapterName + '-config-fields' ).show();
-    }
+      $('#' + adapterId + '-config-fields').show();
+    };
 
-    $('#data_source_adapter').change(function(){
-      toggleAdapter($(this).val());
+    $('#data-source-adapter').change(() => {
+      toggleAdapter($('#data-source-adapter').val());
     });
-    toggleAdapter($('#data_source_adapter').val());
+    toggleAdapter($('#data-source-adapter').val());
   });
