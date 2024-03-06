@@ -24,7 +24,6 @@ gem 'kaminari'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'puma'
-gem 'rails_stdout_logging', require: false
 gem 'ransack'
 gem 'revision_plate', require: 'revision_plate/rails'
 gem 'rinku'
