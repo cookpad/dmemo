@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0.0'
 
-gem 'activerecord6-redshift-adapter'
+gem 'activerecord7-redshift-adapter-pennylane'
 gem 'google-cloud-bigquery'
 gem 'mysql2'
 gem 'pg'
