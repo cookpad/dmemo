@@ -1,8 +1,10 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'active_record/railtie'
-require 'action_controller/railtie'
-require 'action_view/railtie'
+require "rails"
+require "active_model/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_view/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -10,12 +12,18 @@ Bundler.require(*Rails.groups)
 
 module Dmemo
   class Application < Rails::Application
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.active_record.belongs_to_required_by_default = false
 
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << "#{Rails.root}/lib/autoload"
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
   end
 end
