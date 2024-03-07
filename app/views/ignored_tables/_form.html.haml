@@ -1,4 +1,4 @@
-= form_for @ignored_table do |f|
+= form_with model: @ignored_table, local: true do |f|
   .card-body
     .form-group.row
       = f.label :data_source_id, class: "col-sm-2 col-form-label"
