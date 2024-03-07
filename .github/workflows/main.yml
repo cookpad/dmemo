@@ -39,5 +39,7 @@ jobs:
       run: npm install
     - name: Compile assets
       run: npm run webpack
+    - name: Run Zeitwerk check
+      run: bin/rake zeitwerk:check
     - name: Run rspec
       run: bin/rspec
