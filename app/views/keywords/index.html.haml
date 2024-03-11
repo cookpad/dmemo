@@ -1,31 +1,37 @@
 - content_for :title, "Keyword"
 - content_for :header do
-  %h1.page-header
-    Keywords
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        Keywords
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa.fa-home
-        Home
-    %li.active
-      Keywords
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item.active
+          Keywords
 
-.box
-  .box-header.with-border
-    %h2.box-title Keywords
+.card
+  .card-header
+    %h2.card-title Keywords
 
-    .pull-right
+    .float-right
       = link_to new_keyword_path, class: "btn btn-primary" do
-        %i.fa.fa-plus
+        %i.fas.fa-plus
         New
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th.leftmost-th Name
-        %th Description
-      - @keywords.each do |keyword|
-        %tr
-          %td.truncate-td= link_to keyword.name, keyword_path(keyword.name)
-          %td.truncate-td= keyword.description_text.truncate(200)
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
+          %tr
+            %th.col-4 Name
+            %th Description
+        %tbody
+          - @keywords.each do |keyword|
+            %tr
+              %td.truncate-td= link_to keyword.name, keyword_path(keyword.name)
+              %td.truncate-td= keyword.description_text.truncate(200)
 

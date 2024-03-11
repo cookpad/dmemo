@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/node:16 as assets-builder
+FROM public.ecr.aws/docker/library/node:20 as assets-builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install

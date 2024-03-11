@@ -1,53 +1,57 @@
-.box-header.with-border
-  %h2.box-title Schema Candidates
+.card-header
+  %h2.card-title Schema Candidates
 
-.box-body
-  %p
-    Schema Candidates is a whitelist of schemas to be imported. Only
-    %span.label.label-success subscribe
-    status schemas will be imported by batch. Click the Import button to add a schema to the whitelist.
-  %p
-    This schemas list is retrieved from
-    - case @data_source.adapter
-      - when 'postgresql'
-        %code pg_catalog.pg_namespace
-      - when 'mysql2'
-        %code database_name
-      - when 'redshift'
-        %code pg_catalog.pg_namespace
-      - else
-        %code (catalog table)
-    , so it has no effect on search_path or Ignored Tables on the setting page.
+.card-body.p-0
+  .m-2
+    %p
+      Schema Candidates is a whitelist of schemas to be imported. Only
+      %span.badge.badge-success subscribe
+      status schemas will be imported by batch. Click the Import button to add a schema to the whitelist.
+    %p
+      This schemas list is retrieved from
+      - case @data_source.adapter
+        - when 'postgresql'
+          %code pg_catalog.pg_namespace
+        - when 'mysql2'
+          %code database_name
+        - when 'redshift'
+          %code pg_catalog.pg_namespace
+        - else
+          %code (catalog table)
+      , so it has no effect on search_path or Ignored Tables on the setting page.
 
-  %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-    %tr
-      %th schema name
-      %th schema owner
-      %th{ width: "90px"} subscribe status
-      %th{ width: "90px"} data source status
-      %th{ width: "170px"}
-    - @all_schemas.each do |schema_name, schema_owner|
-      %tr
-        %td
-          = schema_name
-        %td
-          = schema_owner
-        %td
-          - if subscribe?(schema_name)
-            %span.label.label-success Subscribe
-          - else
-            %span.label.label-danger Unsubscribe
-        %td
-          - if exist?(schema_name)
-            %span.label.label-success Exist
-          - else
-            %span.label.label-danger Disappeared
-        %td
-          = link_to import_schema_path(@data_source.id, schema_name), method: :patch,
-              class: "btn btn-primary pull-left #{disable_import_button(schema_name)}",
-              data: { confirm: "Import information of #{schema_name} schema? (Subscribe)" } do
-            Import
-          = link_to unlink_schema_path(@data_source.id, schema_name), method: :patch,
-              class: "btn btn-primary pull-right #{disable_unlink_button(schema_name)}",
-              data: { confirm: "Unlink #{schema_name} schema? \n(Not Delete, only unlink & stop subscribe)" } do
-            Unlink
+  .table-responsive
+    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+      %thead
+        %tr
+          %th schema name
+          %th schema owner
+          %th.col-sm-1 subscribe status
+          %th.col-sm-1 data source status
+          %th.col-sm-2
+      %tbody
+        - @all_schemas.each do |schema_name, schema_owner|
+          %tr
+            %td
+              = schema_name
+            %td
+              = schema_owner
+            %td
+              - if subscribe?(schema_name)
+                %span.badge.badge-success Subscribe
+              - else
+                %span.badge.badge-danger Unsubscribe
+            %td
+              - if exist?(schema_name)
+                %span.badge.badge-success Exist
+              - else
+                %span.badge.badge-danger Disappeared
+            %td
+              = link_to import_schema_path(@data_source.id, schema_name), method: :patch,
+                  class: "btn btn-primary float-left #{disable_import_button(schema_name)}",
+                  data: { confirm: "Import information of #{schema_name} schema? (Subscribe)" } do
+                Import
+              = link_to unlink_schema_path(@data_source.id, schema_name), method: :patch,
+                  class: "btn btn-primary float-right #{disable_unlink_button(schema_name)}",
+                  data: { confirm: "Unlink #{schema_name} schema? \n(Not Delete, only unlink & stop subscribe)" } do
+                Unlink

@@ -1,5 +1,6 @@
-.box.box-info.with-border
-  .box-header
-    %h4
+.card
+  .card-header.border-0
+    %h4.card-title
       = @column_memo.name
-  = render "shared/description_editor", memo: @column_memo
+  .card-body
+    = render "shared/description_editor", memo: @column_memo

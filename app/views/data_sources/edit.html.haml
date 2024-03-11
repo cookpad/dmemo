@@ -1,19 +1,22 @@
 - content_for :title, "#{@data_source.name} « Data Source"
 - content_for :header do
-  %h1.page-header= @data_source.name
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap= @data_source.name
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa.fa-home
-        Home
-    %li
-      = link_to "Data Sources", data_sources_path
-    %li.active
-      = @data_source.name
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to "Data Sources", data_sources_path
+        %li.breadcrumb-item.active
+          = @data_source.name
 
-.box
+.card
   = render "form"
 - if @data_source_schemas
-  .box
+  .card
     = render "schema"

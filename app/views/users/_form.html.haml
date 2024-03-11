@@ -1,13 +1,15 @@
-= form_for @user, html: { class: "form-horizontal" } do |f|
-  .box-body
-    .form-group
-      = f.label :name, class: "col-sm-2 control-label"
-      .col-sm-10= f.text_field :name, class: "form-control", placeholder: "localhost"
+= form_for @user do |f|
+  .card-body
+    .form-group.row
+      = f.label :name, class: "col-sm-2 col-form-label"
+      .col-sm-10= f.text_field :name, class: "form-control", placeholder: "Your Name"
     - if current_user.admin?
-      .checkbox
+      .form-group.row
         .col-sm-2
-        = f.label :admin, class: "col-sm-10" do
-          = f.check_box :admin
-          Admin
-  .box-footer
-    = f.submit class: "btn btn-primary pull-right"
+        .col-sm-10
+          .form-check
+            = f.check_box :admin, class: "form-check-input"
+            = f.label :admin, class: "form-check-label col-sm-10" do
+              Admin
+  .card-footer
+    = f.submit class: "btn btn-primary float-right"

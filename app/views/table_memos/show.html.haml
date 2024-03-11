@@ -1,65 +1,74 @@
 - content_for :title, "#{@table_memo.name} « Table"
 - content_for :header do
-  %h1.page-header
-    = @table_memo.name
-    - favorited_status = @table_memo.favorited_by?(current_user) ? "favorited" : "unfavorited"
-    %span.favorite-table-block{ class: favorited_status }
-      = link_to table_memo_favorite_table_path(@table_memo.id), method: :delete, remote: true, class: "unfavorite-table-link" do
-        %i.fa.fa-star
-      = link_to table_memo_favorite_table_path(@table_memo.id), method: :post, remote: true, class: "favorite-table-link" do
-        %i.fa.fa-star-o
-    = link_to edit_table_memo_path(@table_memo) do
-      %i.fa.fa-edit
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap
+        = @table_memo.name
+        - favorited_status = @table_memo.favorited_by?(current_user) ? "favorited" : "unfavorited"
+        %span.favorite-table-block{ class: favorited_status }
+          = link_to table_memo_favorite_table_path(@table_memo.id), method: :delete, remote: true, class: "unfavorite-table-link" do
+            %i.fas.fa-star
+          = link_to table_memo_favorite_table_path(@table_memo.id), method: :post, remote: true, class: "favorite-table-link" do
+            %i.far.fa-star
+        = link_to edit_table_memo_path(@table_memo) do
+          %i.fas.fa-pen-to-square
+
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to @table_memo.database_memo.name, database_memo_path(@table_memo.database_memo.name)
+        - unless @table_memo.database_memo.single_schema?
+          %li.breadcrumb-item
+            = link_to @table_memo.schema_memo.name, database_schema_path(@table_memo.database_memo.name, @table_memo.schema_memo.name)
+        %li.breadcrumb-item.active
+          = @table_memo.name
 
   - unless @table_memo.linked?
-    .box.box-warning
-      .box-header
-        %h4
-          %i.fa.fa-warning= t("unlinked_table")
-      .box-body
-        = link_to "Delete table information", @table_memo,
-          method: :delete,
-          class: "btn btn-lg btn-danger",
-          data: { confirm: "Delete table #{@table_memo.name} information?" }
+    .row.mb-2
+      .col
+        .card.card-warning
+          .card-header
+            %h4.card-title
+              %i.fas.fa-triangle-exclamation
+              = t("unlinked_table")
+          .card-body
+            = link_to "Delete table information", @table_memo,
+              method: :delete,
+              class: "btn btn-lg btn-danger",
+              data: { confirm: "Delete table #{@table_memo.name} information?" }
 
-  %ul.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa.fa-home
-        Home
-    %li
-      = link_to @table_memo.database_memo.name, database_memo_path(@table_memo.database_memo.name)
-    - unless @table_memo.database_memo.single_schema?
-      %li
-        = link_to @table_memo.schema_memo.name, database_schema_path(@table_memo.database_memo.name, @table_memo.schema_memo.name)
-    %li.active
-      = @table_memo.name
-
-.memo-block.box.box-info.with-border
-  .box-body
+.memo-block.card
+  .card-body
     .markdown-block
       - if @table_memo.description.present?
         = @table_memo.description_html
       - else
         = t("no_description")
-  .box-footer
+  .card-footer
     = l(@table_memo.updated_at)
     - if @table_memo.logs.exists?
       = link_to table_memo_logs_path(@table_memo.id) do
-        %i.fa.fa-clock-o
+        %i.far.fa-clock
 
-.box
-  .box-header
-    %h3.box-title Schema
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th{width: '200px'} Name
-        %th{width: 'auto' } Description
-        %th{width: '200px'} Sql Type
-        %th{width: '100px'} Default Value
-        %th{width: '100px'} Nullable
-      = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
+.card
+  .card-header
+    %h3.card-title Schema
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
+          %tr
+            %th.col-sm-2 Name
+            %th Description
+            %th.col-sm-2 Sql Type
+            %th.col-sm-1 Default Value
+            %th.col-sm-1 Nullable
+        %tbody
+          = render partial: "column_memo", collection: @table_memo.column_memos.sort_by(&:display_order)
 
 - if @view_meta_data
   = render partial: "view_meta_data"

@@ -1,38 +1,53 @@
 %aside.main-sidebar
-  %section.sidebar
+  %a.brand-link{ href: root_path }
+    - # float-none for vertically centering the icon
+    %span.brand-image.float-none.mr-0
+      %i.fas.fa-home{ style: "line-height: normal;" }
+    %span.brand-text
+      %b> Database
+      MEMO
+
+  %div.sidebar
     - if current_user
-      .user-panel
-        .pull-left.image
-          = image_tag current_user.image_url, class: "img-rounded"
-        .pull-left.info
-          %p= current_user.name
+      .user-panel.mt-3.pb-3.mb-3.d-flex.border-0
+        .image
+          = image_tag current_user.image_url, class: "rounded"
+        .info
+          %span.d-block= current_user.name
 
-    = form_for @search_result, method: :get, html: { class: "sidebar-form" } do |f|
-      .input-group
-        = f.text_field :keyword, placeholder: "Search...", class: "form-control"
-        %span.input-group-btn
-          %button#search-btn.btn.btn-flat{name: "search", type: "submit"}
-            %i.fa.fa-search
+    = form_for @search_result, method: :get, class: "form-inline" do |f|
+      .input-group.mb-3
+        = f.search_field :keyword, placeholder: "Search...", class: "form-control form-control-sidebar"
+        .input-group-append
+          %button.btn.btn-sidebar{name: "search", type: "submit"}
+            %i.fas.fa-magnifying-glass
 
-    %ul.sidebar-menu
-      %li
-        = link_to root_path do
-          %i.fa.fa-home
-          Home
-      %li
-        = link_to users_path do
-          %i.fa.fa-user
-          User
-      %li
-        = link_to keywords_path do
-          %i.fa.fa-book
-          Keyword
-      %li.treeview.opened
-        %a.disable-click
-          %i.fa.fa-database
-          %span Database
-          %i.fa.fa-angle-down.pull-right
-        %ul.treeview-menu
+    %ul.nav.nav-pills.nav-sidebar.flex-column{ role: "menu" }
+      %li.nav-item
+        = link_to root_path, class: "nav-link" do
+          %i.nav-icon.fas.fa-home
+          %p
+            Home
+      %li.nav-item
+        = link_to users_path, class: "nav-link" do
+          %i.nav-icon.fas.fa-user
+          %p
+            User
+      %li.nav-item
+        = link_to keywords_path, class: "nav-link" do
+          %i.nav-icon.fas.fa-book
+          %p
+            Keyword
+      %li.nav-item
+        %a.nav-link.disable-click
+          %i.nav-icon.fas.fa-database
+          %p
+            Database
+            %i.fas.fa-angle-down.float-right
+        %ul.nav.nav-pills.nav-sidebar
           - @sidebar_databases.map(&:name).each do |name|
-            %li
-              = link_to name, database_memo_path(name)
+            %li.nav-item
+              = link_to database_memo_path(name), class: "nav-link" do
+                %i.nav-icon.far.fa-circle
+                %p
+                  = name

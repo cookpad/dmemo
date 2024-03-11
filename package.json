@@ -2,26 +2,24 @@
   "name": "dmemo",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "dev": "USE_WEBPACK_DEV_SERVER=1 webpack-dev-server",
+    "webpack": "webpack"
+  },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
     "@rails/ujs": "^6.1.5",
-    "admin-lte": "2.3.3",
-    "font-awesome": "4.5.0",
-    "jquery": "^2.2.4",
+    "admin-lte": "^3.2.0",
+    "jquery": "^3.7.1",
     "jquery-colorbox": "1.6.4",
     "pygments-css": "1.0.0"
   },
   "devDependencies": {
-    "css-loader": "^6.7.1",
-    "mini-css-extract-plugin": "^2.6.0",
-    "sass": "^1.50.0",
-    "sass-loader": "^12.6.0",
-    "webpack": "^5.72.0",
-    "webpack-assets-manifest": "^5.1.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
-  },
-  "scripts": {
-    "dev": "USE_WEBPACK_DEV_SERVER=1 webpack-dev-server",
-    "webpack": "webpack"
+    "css-loader": "^6.10.0",
+    "mini-css-extract-plugin": "^2.8.1",
+    "webpack": "^5.90.3",
+    "webpack-assets-manifest": "^5.2.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   }
 }

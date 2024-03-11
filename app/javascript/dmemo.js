@@ -17,9 +17,9 @@ function markdownEditor() {
   }, 300);
 };
 
-$(document).ready(() => {
+$(() => {
   $('.markdown-editor').on('keyup', markdownEditor);
-  $(document).bind('cbox_complete', () => $('#colorbox .markdown-editor').on('keyup', markdownEditor));
+  $(document).on('cbox_complete', () => $('#colorbox .markdown-editor').on('keyup', markdownEditor));
 
   $('a.colorbox').colorbox({closeButton: false, width: '600px', maxWidth: '1200px'});
 

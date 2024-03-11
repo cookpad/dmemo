@@ -1,38 +1,44 @@
 - content_for :title, "Dmemo"
 - content_for :header do
-  %h1.memo_title Home
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap Home
 
-.box
-  .box-header.with-border
-    %h2.box-title Databases
+.card
+  .card-header
+    %h2.card-title Databases
 
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %thead
-        %tr
-          %th.leftmost-th Database
-          %th Description
-          %th Tables
-      %tbody
-        - @database_memos.each do |database_memo|
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
           %tr
-            %td.truncate-td
-              = link_to database_memo.name, database_memo_path(database_memo.name)
-              - unless database_memo.linked?
-                %i.fa.fa-exclamation-triangle{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_database") } }
-            %td.truncate-td
-              - if database_memo.description.present?
-                = database_memo.description_text.truncate(200)
-            %td.truncate-td
-              = database_memo.schema_memos.map(&:table_memos).flatten.map(&:name).join(", ").truncate(200)
+            %th.col-4 Database
+            %th Description
+            %th Tables
+        %tbody
+          - @database_memos.each do |database_memo|
+            %tr
+              %td.truncate-td
+                = link_to database_memo.name, database_memo_path(database_memo.name)
+                - unless database_memo.linked?
+                  %i.fas.fa-triangle-exclamation{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_database") } }
+              %td.truncate-td
+                - if database_memo.description.present?
+                  = database_memo.description_text.truncate(200)
+              %td.truncate-td
+                = database_memo.schema_memos.map(&:table_memos).flatten.map(&:name).join(", ").truncate(200)
 
-.box
-  .box-header.with-border
-    %h2.box-title Favorite tables
+.card
+  .card-header
+    %h2.card-title Favorite tables
 
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th.leftmost-th Name
-        %th Description
-      = render partial: "table_memo", collection: @favorite_tables
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
+          %tr
+            %th.col-4 Name
+            %th Description
+        %tbody
+          = render partial: "table_memo", collection: @favorite_tables

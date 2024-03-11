@@ -1,40 +1,43 @@
-.box
-  .box-header.with-border
-    %h2.box-title Data Sources
+.card
+  .card-header
+    %h2.card-title Data Sources
 
     - if current_user.admin?
-      = link_to new_data_source_path, class: "btn btn-default btn-sm pull-right" do
-        %i.fa.fa-plus
+      = link_to new_data_source_path, class: "btn btn-secondary btn-sm float-right" do
+        %i.fas.fa-plus
         Add Data Source
-  .box-body
-    %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
-      %tr
-        %th Name
-        %th Description
-        %th Adapter
-        %th Host
-        %th Port
-        %th Database Name
-        %th
-      - @data_sources.each do |data_source|
-        %tr
-          %td
-            = data_source.name
-          %td
-            = data_source.description.truncate(50)
-          %td
-            = data_source.adapter
-          %td
-            = data_source.host
-          %td
-            = data_source.port
-          %td
-            = data_source.dbname
-          %td
-            - if current_user.admin?
-              = link_to edit_data_source_path(data_source) do
-                %button.btn.btn-default
-                  %i.fa.fa-edit
-              = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
-                %button.btn.btn-default
-                  %i.fa.fa-trash
+  .card-body.p-0
+    .table-responsive
+      %table.table.table-hover.table-bordered.table-striped{ role: "grid" }
+        %thead
+          %tr
+            %th Name
+            %th Description
+            %th Adapter
+            %th Host
+            %th Port
+            %th Database Name
+            %th
+        %tbody
+          - @data_sources.each do |data_source|
+            %tr
+              %td
+                = data_source.name
+              %td
+                = data_source.description.truncate(50)
+              %td
+                = data_source.adapter
+              %td
+                = data_source.host
+              %td
+                = data_source.port
+              %td
+                = data_source.dbname
+              %td
+                - if current_user.admin?
+                  = link_to edit_data_source_path(data_source) do
+                    %button.btn.btn-secondary
+                      %i.fas.fa-pen-to-square
+                  = link_to data_source_path(data_source), method: :delete, data: { confirm: "Delete data source #{data_source.name}?" } do
+                    %button.btn.btn-secondary
+                      %i.fas.fa-trash

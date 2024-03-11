@@ -1,16 +1,19 @@
 - content_for :title, "User"
 - content_for :header do
-  %h1.page-header= @user.name
+  .row.mb-2
+    .col
+      %h1.m-0.text-nowrap= @user.name
 
-  %ol.breadcrumb
-    %li
-      = link_to root_path do
-        %i.fa.fa-home
-        Home
-    %li
-      = link_to "Users", users_path
-    %li.active
-      = @user.name
+    .col
+      %ol.breadcrumb.float-sm-right
+        %li.breadcrumb-item
+          = link_to root_path do
+            %i.fas.fa-home
+            Home
+        %li.breadcrumb-item
+          = link_to "Users", users_path
+        %li.breadcrumb-item.active
+          = @user.name
 
-.box
+.card
   = render "form"
