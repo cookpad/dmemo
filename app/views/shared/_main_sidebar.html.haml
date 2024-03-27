@@ -15,7 +15,7 @@
         .info
           %span.d-block= current_user.name
 
-    = form_for @search_result, method: :get, class: "form-inline" do |f|
+    = form_with model: @search_result, method: :get, local: true, class: "form-inline" do |f|
       .input-group.mb-3
         = f.search_field :keyword, placeholder: "Search...", class: "form-control form-control-sidebar"
         .input-group-append

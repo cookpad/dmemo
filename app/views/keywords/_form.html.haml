@@ -1,4 +1,4 @@
-= form_for @keyword, html: { class: "form" } do |f|
+= form_with model: @keyword, class: "form", local: true do |f|
   .card
     .card-body
       .row
