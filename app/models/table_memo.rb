@@ -6,7 +6,6 @@ class TableMemo < ApplicationRecord
 
   belongs_to :schema_memo
 
-  has_one :raw_dataset, class_name: "TableMemoRawDataset", dependent: :destroy
   has_one :view_meta_data, class_name: "ViewMetaDatum", dependent: :destroy
 
   has_many :column_memos, dependent: :destroy
@@ -21,10 +20,6 @@ class TableMemo < ApplicationRecord
 
   after_save :clear_keyword_links
   after_destroy :clear_keyword_links
-
-  def masked?
-    MaskedDatum.masked_table?(database_memo.name, name)
-  end
 
   def favorited_by?(user)
     FavoriteTable.where(user_id: user.id, table_memo_id: id).exists?
