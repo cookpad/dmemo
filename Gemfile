@@ -4,7 +4,6 @@ gem 'denv'
 
 gem 'rails', '~> 6.1'
 
-gem 'activerecord6-redshift-adapter'
 gem 'google-cloud-bigquery'
 gem 'mysql2'
 gem 'pg'
