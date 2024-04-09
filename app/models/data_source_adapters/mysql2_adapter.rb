@@ -9,16 +9,5 @@ module DataSourceAdapters
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
-
-    def fetch_count(table)
-      adapter = connection.pool.connection
-      connection.select_value(<<-SQL).to_i
-        SELECT TABLE_ROWS
-        FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_SCHEMA = #{adapter.quote(table.schema_name)} AND TABLE_NAME = #{adapter.quote(table.table_name)};
-      SQL
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error => e
-      raise DataSource::ConnectionBad.new(e)
-    end
   end
 end

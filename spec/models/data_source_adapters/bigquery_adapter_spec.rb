@@ -37,21 +37,4 @@ describe DataSourceAdapters::BigqueryAdapter, type: :model do
       expect(adapter.fetch_columns(table).map(&:sql_type)).to eq %w(INTEGER RECORD[] INTEGER INTEGER)
     end
   end
-
-  describe "#fetch_rows" do
-    it "return rows" do
-      moc = double('bq_table_moc')
-      allow(adapter).to receive(:bq_table).and_return(moc)
-      allow(moc).to receive(:fields).and_return(dummy_fields)
-      allow(moc).to receive_message_chain(:gapi, :type).and_return('TABLE')
-      allow(moc).to receive(:data).and_return(
-        [{
-          col1: 10,
-          col2: [{ subcol1: 11, subcol2: 12 }],
-        }]
-      )
-
-      expect(adapter.fetch_rows(table, 20)).to eq [[10, '', 11, 12]]
-    end
-  end
 end

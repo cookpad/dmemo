@@ -15,25 +15,6 @@ module DataSourceAdapters
       raise DataSource::ConnectionBad.new(e)
     end
 
-    def fetch_rows(table, limit)
-      adapter = connection.pool.connection
-      column_names = raw_columns(table).map { |column| adapter.quote_column_name(column.name) }.join(", ")
-      rows = connection.select_rows(<<~SQL, "#{table.full_table_name.classify} Load")
-        SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};
-      SQL
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
-      raise DataSource::ConnectionBad.new(e)
-    end
-
-    def fetch_count(table)
-      adapter = connection.pool.connection
-      connection.select_value(<<~SQL).to_i
-        SELECT COUNT(*) FROM #{adapter.quote_table_name(table.full_table_name)};
-      SQL
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
-      raise DataSource::ConnectionBad.new(e)
-    end
-
     def fetch_view_query_plan(query)
       adapter = connection.pool.connection
       connection.query("EXPLAIN #{query}", 'EXPLAIN').join("\n")

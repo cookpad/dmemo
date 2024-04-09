@@ -1,6 +1,4 @@
 class SynchronizeDataSources
-  DEFAULT_FETCH_ROWS_LIMIT = 20
-
   def self.run
     DataSource.all.find_each do |data_source|
       import_data_source!(data_source)
@@ -9,7 +7,7 @@ class SynchronizeDataSources
 
   def self.import_data_source!(data_source)
     db_memo = DatabaseMemo.find_or_create_by!(name: data_source.name)
-    schema_memos = db_memo.schema_memos.includes(table_memos: [:column_memos, :raw_dataset]).to_a
+    schema_memos = db_memo.schema_memos.includes(table_memos: :column_memos).to_a
     schema_memos.each { |memo| memo.linked = false }
 
     all_table_memos = schema_memos.map(&:table_memos).map(&:to_a).flatten
@@ -41,7 +39,6 @@ class SynchronizeDataSources
     column_memos = table_memo.column_memos.to_a
 
     columns = source_table.columns
-    import_table_memo_raw_dataset!(table_memo, source_table, columns)
     import_view_query!(table_memo, source_table)
 
     column_names = columns.map(&:name)
@@ -57,32 +54,6 @@ class SynchronizeDataSources
     table_memo.save! if table_memo.changed?
   end
   private_class_method :import_table_memo!
-
-  def self.import_table_memo_raw_dataset!(table_memo, source_table, columns)
-    table_count = source_table.fetch_count
-    if table_memo.raw_dataset
-      unless table_memo.raw_dataset.same_columns?(columns) && (table_memo.raw_dataset.rows.count >= DEFAULT_FETCH_ROWS_LIMIT || table_memo.raw_dataset.rows.count == table_count)
-        import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
-      end
-      table_memo.raw_dataset.update!(count: table_count)
-    else
-      table_memo.create_raw_dataset!(count: table_count)
-      import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
-    end
-  end
-  private_class_method :import_table_memo_raw_dataset!
-
-  def self.import_table_memo_raw_dataset_rows!(table_memo, source_table, columns)
-    table_memo.raw_dataset.columns.delete_all
-    dataset_columns = columns.map.with_index do |column, position|
-      table_memo.raw_dataset.columns.create!(name: column.name, sql_type: column.sql_type, position: position)
-    end
-    table_memo.raw_dataset.rows.delete_all
-    source_table.fetch_rows(DEFAULT_FETCH_ROWS_LIMIT).each do |row|
-      table_memo.raw_dataset.rows.create!(row: row.map.with_index { |value, i| dataset_columns[i].format_value(value) })
-    end
-  end
-  private_class_method :import_table_memo_raw_dataset_rows!
 
   def self.import_view_query!(table_memo, source_table)
     return unless source_table.data_source.adapter.is_a?(DataSourceAdapters::RedshiftAdapter)

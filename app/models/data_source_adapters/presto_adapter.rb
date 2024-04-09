@@ -20,15 +20,6 @@ module DataSourceAdapters
       end
     end
 
-    def fetch_rows(table, limit)
-      rows = run_query("select * from #{table.full_table_name} limit #{limit}")
-      rows[1]
-    end
-
-    def fetch_count(*)
-      nil # difficult to count rows in some presto's data store
-    end
-
     def reset!
       @client = nil
     end

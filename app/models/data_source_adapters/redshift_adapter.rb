@@ -71,29 +71,6 @@ module DataSourceAdapters
       raise DataSource::ConnectionBad.new(e)
     end
 
-    def fetch_rows(table, limit)
-      return [] if late_binding_view?(table)
-      return fetch_spectrum_rows(table, limit) if spectrum?(table)
-      super
-    end
-
-    def fetch_spectrum_rows(table, limit)
-      adapter = connection.pool.connection
-      column_names = table.columns.map { |column| adapter.quote_column_name(column.name) }.join(", ")
-      sql = "SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};"
-      rows = connection.select_rows(sql, "#{table.full_table_name.classify} Load")
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
-      raise DataSource::ConnectionBad.new(e)
-    end
-
-    def fetch_count(table)
-      return 0 if late_binding_view?(table) # Late binding view executes SELECT on access and the scan volume cannot be estimated
-      return super if spectrum?(table)      # Spectrum tables can't get information from svv_table_info
-      connection.query(<<~SQL)
-        SELECT estimated_visible_rows FROM svv_table_info WHERE "schema" = '#{table.schema_name}' and "table" = '#{table.table_name}'
-      SQL
-    end
-
     def fetch_view_query(table)
       return nil unless view?(table)
       adapter = connection.pool.connection
