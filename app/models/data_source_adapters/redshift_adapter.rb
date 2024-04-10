@@ -1,9 +1,7 @@
-require "active_record/connection_adapters/redshift_adapter"
-
 module DataSourceAdapters
   class RedshiftAdapter < StandardAdapter
     def fetch_schema_names
-      @schema_names ||= source_base_class.connection.query(<<~SQL, 'SCHEMA')
+      @schema_names ||= exec_query(<<~SQL)
         SELECT nspname as schema_name, usename as owner_name
         FROM pg_catalog.pg_namespace s join pg_catalog.pg_user u on u.usesysid = s.nspowner
         WHERE usename != 'rdsdb'
@@ -12,7 +10,7 @@ module DataSourceAdapters
     end
 
     def fetch_table_names
-      query_result = source_base_class.connection.query(<<~SQL, 'SCHEMA')
+      query_result = exec_query(<<~SQL)
         SELECT table_schema, table_name, table_type
         FROM (
           SELECT table_schema, table_name, table_type
@@ -35,19 +33,18 @@ module DataSourceAdapters
       @late_binding_view_names = table_groups['LATE BINDING'] || []
 
       (@base_table_names + @external_table_names + @view_names + @late_binding_view_names).uniq
-    rescue ActiveRecord::ActiveRecordError, PG::Error => e
+    rescue PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
 
     def fetch_columns(table)
-      adapter = connection.pool.connection
       query = <<~SQL
         SELECT column_name, data_type, column_default, is_nullable, character_maximum_length
         FROM svv_columns
         WHERE table_schema = '#{table.schema_name}' and table_name = '#{table.table_name}'
         ORDER BY ordinal_position;
       SQL
-      connection.query(query, 'COLUMN').map do |name, sql_type, default, nullable, char_length|
+      exec_query(query).map do |name, sql_type, default, nullable, char_length|
         is_nullable =
           if spectrum?(table)
             # FIXME: could not get nullable info from Spectrum table
@@ -65,39 +62,15 @@ module DataSourceAdapters
             end
           end
         column_type = sql_type == 'character varying' ? "varchar(#{char_length})" : sql_type
-        Column.new(name, column_type, adapter.quote(default), is_nullable)
+        Column.new(name, column_type, default.nil? ? 'NULL' : default, is_nullable)
       end
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
+    rescue PG::Error => e
       raise DataSource::ConnectionBad.new(e)
-    end
-
-    def fetch_rows(table, limit)
-      return [] if late_binding_view?(table)
-      return fetch_spectrum_rows(table, limit) if spectrum?(table)
-      super
-    end
-
-    def fetch_spectrum_rows(table, limit)
-      adapter = connection.pool.connection
-      column_names = table.columns.map { |column| adapter.quote_column_name(column.name) }.join(", ")
-      sql = "SELECT #{column_names} FROM #{adapter.quote_table_name(table.full_table_name)} LIMIT #{limit};"
-      rows = connection.select_rows(sql, "#{table.full_table_name.classify} Load")
-    rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
-      raise DataSource::ConnectionBad.new(e)
-    end
-
-    def fetch_count(table)
-      return 0 if late_binding_view?(table) # Late binding view executes SELECT on access and the scan volume cannot be estimated
-      return super if spectrum?(table)      # Spectrum tables can't get information from svv_table_info
-      connection.query(<<~SQL)
-        SELECT estimated_visible_rows FROM svv_table_info WHERE "schema" = '#{table.schema_name}' and "table" = '#{table.table_name}'
-      SQL
     end
 
     def fetch_view_query(table)
       return nil unless view?(table)
-      adapter = connection.pool.connection
-      connection.query(<<~SQL, 'VIEW QUERY').join("\n")
+      exec_query(<<~SQL).join("\n")
         SELECT definition FROM pg_views WHERE schemaname = '#{table.schema_name}' and viewname = '#{table.table_name}';
       SQL
     end
@@ -106,10 +79,35 @@ module DataSourceAdapters
       return nil if query.blank?
       # to explain, extract of select statement from view query without 'with no schema binding'
       query = query.match(/select(.|\n)+/i)[0].sub(/\)? ?with no schema binding/, '')
-      super
+      exec_query("EXPLAIN #{query}").join("\n")
+    end
+
+    def reset!
+      # We don't use any transactions for Redshift, so it's enough to just remove the source base class.
+      DynamicTable.send(:remove_const, source_base_class_name) if DynamicTable.const_defined?(source_base_class_name)
     end
 
     private
+
+    def connection_config
+      {
+        host: @data_source.host,
+        port: @data_source.port,
+        dbname: @data_source.dbname,
+        user: @data_source.user,
+        password: @data_source.password,
+        client_encoding: @data_source.encoding,
+      }.compact
+    end
+
+    def connection
+      @connection ||= PG.connect(connection_config)
+    end
+
+    def exec_query(query)
+      Rails.logger.info(query)
+      connection.exec(query).values
+    end
 
     def group_by_table_type(records)
       records.group_by { |r| r[2] }.map { |k, v| [k, reject_table_type(v)] }.to_h

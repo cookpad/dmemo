@@ -13,20 +13,6 @@ module DataSourceAdapters
       flatten_fields(bq_table.fields, '')
     end
 
-    def fetch_rows(table, limit)
-      bq_table = bq_table(table)
-      return [] if bq_table.gapi.type == 'VIEW' || bq_table.gapi.type == 'MODEL'
-
-      bq_table.data(max: limit).map do |row|
-        extract_row_data(row, bq_table.fields)
-      end
-    end
-
-    def fetch_count(table)
-      bq_table = bq_table(table)
-      bq_table.rows_count
-    end
-
     def disconnect_data_source!
       @bq_dataset = nil
       @latest_table_names = nil
@@ -90,30 +76,6 @@ module DataSourceAdapters
         result << Column.new("#{field_prefix}#{field.name}", type, '', nullable)
 
         result.concat(flatten_fields(field.fields, "#{field_prefix}#{field.name}.")) if field.type == 'RECORD'
-      end
-      result
-    end
-
-    def extract_row_data(row, fields)
-      result = []
-
-      fields.each do |field|
-        value = row[field.name.to_sym]
-        if field.type == 'RECORD'
-          result << ''
-          if value.is_a? Array
-            next_row = value.first || {}
-            result.concat(extract_row_data(next_row, field.fields))
-          else
-            result.concat(extract_row_data(row, field.fields))
-          end
-        else
-          if value.is_a? Array
-            result << value&.take(5)
-          else
-            result << value
-          end
-        end
       end
       result
     end

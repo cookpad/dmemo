@@ -1,5 +1,10 @@
 def ridgepole_exec(args)
+  args = args.dup
   env = ENV["RAILS_ENV"] || "development"
+  drop_table = ENV.fetch("RIDGEPOLE_DROP_TABLE", nil)
+  if drop_table
+    args << "--drop-table"
+  end
   cd "db"
   sh "bundle", "exec", "ridgepole", "-c", "../config/database.yml", "-E", env, *args
 end

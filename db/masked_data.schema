@@ -1,7 +1,0 @@
-create_table "masked_data", force: :cascade do |t|
-  t.string   "database_name", null: false
-  t.string   "table_name",    null: false
-  t.string   "column_name",   null: false
-  t.datetime "created_at",    null: false
-end
-

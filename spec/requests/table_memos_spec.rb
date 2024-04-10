@@ -17,12 +17,10 @@ describe :table_memos, type: :request do
       SynchronizeDataSources.run
     end
 
-    it "shows table memo and data" do
+    it "shows table memo" do
       get database_schema_table_path(database_memo.name, schema_memo.name, table_memo.name)
       expect(response).to render_template("table_memos/show")
       expect(table_memo).to eq(assigns(:table_memo))
-      %w(id name description adapter host port dbname user).each { |attr| expect(page).to have_content(data_source.public_send(attr)) }
-      expect(page).not_to have_content(/\d+:\d+:\d+ UTC/)
     end
 
     context "with id param" do

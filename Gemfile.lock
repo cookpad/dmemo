@@ -57,9 +57,6 @@ GEM
     activerecord (7.0.8.1)
       activemodel (= 7.0.8.1)
       activesupport (= 7.0.8.1)
-    activerecord7-redshift-adapter-pennylane (1.0.4)
-      activerecord (~> 7.0)
-      pg (~> 1.0)
     activestorage (7.0.8.1)
       actionpack (= 7.0.8.1)
       activejob (= 7.0.8.1)
@@ -401,7 +398,6 @@ PLATFORMS
 DEPENDENCIES
   action_args
   active_decorator
-  activerecord7-redshift-adapter-pennylane
   addressable
   anbt-sql-formatter
   bootsnap
@@ -447,4 +443,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.4.22
+   2.5.7

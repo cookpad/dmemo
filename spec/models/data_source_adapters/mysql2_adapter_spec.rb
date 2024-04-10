@@ -29,8 +29,4 @@ describe DataSourceAdapters::Mysql2Adapter, type: :model do
       ANALYZE TABLE #{table.table_name};
     SQL
   end
-
-  describe '#fetch_count' do
-    it { expect(adapter.fetch_count(table)).to eq 1 }
-  end
 end

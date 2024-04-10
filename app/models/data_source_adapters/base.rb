@@ -16,14 +16,6 @@ module DataSourceAdapters
       raise NotImplementedError
     end
 
-    def fetch_rows(table, limit)
-      raise NotImplementedError
-    end
-
-    def fetch_count(table)
-      nil
-    end
-
     def fetch_view_query(view)
       nil
     end

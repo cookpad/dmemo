@@ -24,11 +24,9 @@ Since we have created batches for each granularity, we need to specify the targe
 ```
 $bundle exec rails runner 'ImportDataSourceDefinitions.run("DWH”)’
 
-$bundle exec rails runner 'ImportSchemaRawDatasets.run("DWH", “sample_schema”)’
-
 $bundle exec rails runner 'ImportTableDefinitions.run("DWH", “sample_schema", “target_table”)'
 ```
 
-## SynchronizeDefinitions / SynchronizeRawDatasets
+## SynchronizeDefinitions
 
-Run `ImportDataSourceDefinitions` / `ImportDataSourceRawDatasets` for all data sources.
+Run `ImportDataSourceDefinitions` for all data sources.
