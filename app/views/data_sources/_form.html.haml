@@ -1,6 +1,6 @@
 .card-header
   %h2.card-title Data Source Adapter Setting
-= form_for @data_source do |f|
+= form_with model: @data_source, local: true do |f|
   .card-body
     .form-group.row
       = f.label :name, class: "col-sm-2 col-form-label"
@@ -33,7 +33,7 @@
         .col-sm-10= f.text_field :encoding, class: "form-control"
 
     #bigquery-config-fields.adapter-config
-      = f.fields_for :bigquery_config, @data_source.bigquery_config || BigqueryConfig.new do |bq|
+      = fields_for :bigquery_config, @data_source.bigquery_config || BigqueryConfig.new do |bq|
         .form-group.row
           = bq.label :project_id, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.text_field :project_id, class: "form-control", placeholder: "project-1234"

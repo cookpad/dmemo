@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'denv'
 
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0.0'
 
 gem 'google-cloud-bigquery'
 gem 'mysql2'
