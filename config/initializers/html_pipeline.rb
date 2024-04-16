@@ -1,7 +1,5 @@
 require 'html/pipeline'
 
-# TODO(nekketsuuu): The following `require` can be removed after upgrading html-pipeline gem to v3.
-# https://github.com/gjtorikian/html-pipeline/pull/383
 require 'html/pipeline/autolink_filter'
 require 'html/pipeline/autolink_keyword_filter'
 require 'html/pipeline/inner_text_filter'

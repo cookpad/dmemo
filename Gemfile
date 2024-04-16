@@ -14,10 +14,10 @@ gem 'active_decorator'
 gem 'addressable'
 gem 'anbt-sql-formatter', require: 'anbt-sql-formatter/formatter'
 gem 'bootsnap'
-gem 'commonmarker'
+gem 'commonmarker', '< 1'  # html-pipeline v2 depends on commonmarker v0
 gem 'diffy'
 gem 'haml-rails'
-gem 'html-pipeline'
+gem 'html-pipeline', '< 3'  # html-pipeline v3 has an issue around context handling https://github.com/gjtorikian/html-pipeline/issues/402
 gem 'jbuilder'
 gem 'kaminari'
 gem 'omniauth-google-oauth2'
