@@ -28,7 +28,7 @@ class ImportDataSourceDefinitions
 
     schema_memos.each { |memo| memo.save! if memo.has_changes_to_save? }
     db_memos.save! if db_memo.has_changes_to_save?
-  end
 
-  Rails.logger.info "[Finish] Imported dataset"
+    Rails.logger.info "[Finish] Imported dataset"
+  end
 end
