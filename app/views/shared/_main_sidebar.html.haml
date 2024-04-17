@@ -9,14 +9,14 @@
 
   %div.sidebar
     - if current_user
-      .user-panel.mt-3.pb-3.mb-3.d-flex.border-0
+      .user-panel.mt-3.mb-3.d-flex.border-0
         .image
           = image_tag current_user.image_url, class: "rounded"
         .info
           %span.d-block= current_user.name
 
-    = form_with model: @search_result, method: :get, local: true, class: "form-inline" do |f|
-      .input-group.mb-3
+    = form_with model: @search_result, method: :get, local: true, class: "form-inline mt-3 mb-3" do |f|
+      .input-group
         = f.search_field :keyword, placeholder: "Search...", class: "form-control form-control-sidebar"
         .input-group-append
           %button.btn.btn-sidebar{name: "search", type: "submit"}
