@@ -11,7 +11,7 @@ require "action_view/railtie"
 Bundler.require(*Rails.groups)
 
 module Dmemo
-  VERSION = "1.0.0"
+  VERSION = "2.0.0"
 
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
