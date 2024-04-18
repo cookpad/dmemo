@@ -31,7 +31,7 @@ jobs:
         cache: 'npm'
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'
+        ruby-version: .ruby-version
         bundler-cache: true
     - name: Setup DB
       run: bin/rails db:create ridgepole:apply
