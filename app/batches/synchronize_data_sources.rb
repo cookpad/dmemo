@@ -1,5 +1,6 @@
 class SynchronizeDataSources
   def self.run
+    Rails.logger.warn 'SynchronizeDataSources is deprecated. Please consider using ImportDataSourceDefinitions instead.'
     DataSource.all.find_each do |data_source|
       import_data_source!(data_source)
     end
