@@ -14,7 +14,7 @@ FactoryBot.define do
     trait :bigquery_adapter do
       adapter { "bigquery" }
       after(:create) do |data_source|
-        FactoryBot.create(:bigquery_config, data_source: data_source)
+        FactoryBot.create(:bigquery_config, data_source:)
       end
     end
   end

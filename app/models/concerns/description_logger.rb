@@ -7,7 +7,7 @@ module DescriptionLogger
       current_revision = last_log.try(:revision).to_i
       logs.build(
         revision: current_revision + 1,
-        user_id: user_id,
+        user_id:,
         description: self.description,
         description_diff: diff(last_log.try(:description), self.description),
       )

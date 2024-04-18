@@ -9,11 +9,11 @@ module RequestSpecHelper
 
   def set_rack_session(hash)
     data = ::RackSessionAccess.encode(hash)
-    put RackSessionAccess.path, params: { data: data }
+    put RackSessionAccess.path, params: { data: }
   end
 
   def login!(user: nil, admin: false)
-    user ||= FactoryBot.create(:user, admin: admin)
+    user ||= FactoryBot.create(:user, admin:)
     set_rack_session(user_id: user.id)
   end
 

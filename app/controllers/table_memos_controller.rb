@@ -8,7 +8,7 @@ class TableMemosController < ApplicationController
       includes(column_memos: :logs).
       joins(:schema_memo).
       merge(SchemaMemo.where(name: schema_name).joins(:database_memo).merge(DatabaseMemo.where(name: database_name))).
-      where(name: name).
+      where(name:).
       take!
     @view_meta_data = @table_memo.view_meta_data
   end

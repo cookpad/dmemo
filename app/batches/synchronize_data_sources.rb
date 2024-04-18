@@ -47,7 +47,7 @@ class SynchronizeDataSources
     columns.each_with_index do |column, position|
       column_memo = column_memos.find { |memo| memo.name == column.name } || table_memo.column_memos.build(name: column.name)
       column_memo.linked = true
-      column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position: position)
+      column_memo.assign_attributes(sql_type: column.sql_type, default: column.default, nullable: column.null, position:)
       column_memo.save! if column_memo.changed?
     end
 

@@ -4,7 +4,7 @@ describe :favorite_tables, type: :request do
   let(:user) { FactoryBot.create(:user) }
   let(:table_memo) { FactoryBot.create(:table_memo) }
   before do
-    login!(user: user)
+    login!(user:)
   end
 
   describe "#create" do
@@ -19,7 +19,7 @@ describe :favorite_tables, type: :request do
 
   describe "#destroy" do
     before do
-      FactoryBot.create(:favorite_table, user: user, table_memo: table_memo)
+      FactoryBot.create(:favorite_table, user:, table_memo:)
     end
 
     it "destroys favorite table" do

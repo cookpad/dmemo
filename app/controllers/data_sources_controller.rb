@@ -111,6 +111,6 @@ class DataSourcesController < ApplicationController
       bigquery_config_params[:credentials] = bigquery_config_params[:credentials].read
     end
 
-    BigqueryConfig.find_or_initialize_by(data_source: data_source).update!(bigquery_config_params)
+    BigqueryConfig.find_or_initialize_by(data_source:).update!(bigquery_config_params)
   end
 end
