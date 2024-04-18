@@ -6,7 +6,7 @@ class SynchronizeDefinitions
     DataSource.all.find_each do |data_source|
       ImportDataSourceDefinitions.run(data_source.name)
     end
-  end
 
-  Rails.logger.info "[Finish] Synchronized definition"
+    Rails.logger.info "[Finish] Synchronized definition"
+  end
 end
