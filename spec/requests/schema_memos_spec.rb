@@ -10,7 +10,7 @@ describe :schema_memos, type: :request do
   describe "#show" do
     context "with multiple schemas" do
       before do
-        FactoryBot.create(:schema_memo, database_memo: database_memo)
+        FactoryBot.create(:schema_memo, database_memo:)
       end
 
       it "shows memo" do

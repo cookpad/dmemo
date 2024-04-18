@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe HTML::Pipeline::AutolinkKeywordFilter do
   describe "#call" do
-    let(:filter) { HTML::Pipeline::AutolinkKeywordFilter.new(doc, autolink_keywords: autolink_keywords) }
+    let(:filter) { HTML::Pipeline::AutolinkKeywordFilter.new(doc, autolink_keywords:) }
     let(:doc) { Nokogiri::HTML::DocumentFragment.parse(html) }
     let(:autolink_keywords) { {
       "ruby" => "https://www.ruby-lang.org/",

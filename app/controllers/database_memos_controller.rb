@@ -35,6 +35,6 @@ class DatabaseMemosController < ApplicationController
 
   def redirect_named_path(id = nil)
     return unless id =~ /\A\d+\z/
-    redirect_to database_memo_path(DatabaseMemo.where(id: id).pluck(:name).first)
+    redirect_to database_memo_path(DatabaseMemo.where(id:).pluck(:name).first)
   end
 end

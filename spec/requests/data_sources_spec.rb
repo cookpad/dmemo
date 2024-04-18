@@ -69,8 +69,8 @@ describe :data_sources, type: :request do
 
   describe "#edit" do
     let!(:data_source) { FactoryBot.create(:data_source) }
-    let!(:database_memo) { FactoryBot.create(:database_memo, name: "db", data_source: data_source) }
-    let!(:schema_memo) { FactoryBot.create(:schema_memo, database_memo: database_memo, name: "myapp") }
+    let!(:database_memo) { FactoryBot.create(:database_memo, data_source:, name: "db") }
+    let!(:schema_memo) { FactoryBot.create(:schema_memo, database_memo:, name: "myapp") }
 
     it "shows form" do
       get edit_data_source_path(data_source)

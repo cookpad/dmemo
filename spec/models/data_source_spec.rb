@@ -31,12 +31,12 @@ describe DataSource, type: :model do
 
     context "with ignored pattern" do
       it "ignores specified table" do
-        FactoryBot.create(:ignored_table, data_source: data_source, pattern: "data_sources")
+        FactoryBot.create(:ignored_table, data_source:, pattern: "data_sources")
         expect(data_source.data_source_tables.map(&:table_name)).not_to include("data_sources")
       end
 
       it "ignores specified schema" do
-        FactoryBot.create(:ignored_table, data_source: data_source, pattern: "public")
+        FactoryBot.create(:ignored_table, data_source:, pattern: "public")
         expect(data_source.data_source_tables.map(&:table_name)).to eq []
       end
     end
