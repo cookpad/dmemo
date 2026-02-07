@@ -17,7 +17,7 @@
   "devDependencies": {
     "css-loader": "^6.10.0",
     "mini-css-extract-plugin": "^2.8.1",
-    "webpack": "^5.94.0",
+    "webpack": "^5.105.0",
     "webpack-assets-manifest": "^5.2.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.2"
