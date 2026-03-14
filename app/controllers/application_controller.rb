@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_action :require_login
-  before_action :set_sidebar_databases, :set_search_result, only: %w(index show new edit)
+  before_action :set_sidebar_databases, :set_search_result, if: -> { action_name.in?(%w[index show new edit]) }
 
   private
 

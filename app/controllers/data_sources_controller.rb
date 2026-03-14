@@ -1,5 +1,5 @@
 class DataSourcesController < ApplicationController
-  before_action :require_admin_login, only: %w(new create edit update destroy import_schema remove_schema)
+  before_action :require_admin_login, only: %w(new create edit update destroy import_schema unlink_schema)
 
   DUMMY_PASSWORD = "__DUMMY__"
 
