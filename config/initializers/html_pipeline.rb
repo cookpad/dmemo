@@ -1,8 +1,6 @@
 require 'html/pipeline'
 
 require 'html/pipeline/autolink_filter'
-require 'html/pipeline/autolink_keyword_filter'
-require 'html/pipeline/inner_text_filter'
 require 'html/pipeline/markdown_filter'
 require 'html/pipeline/syntax_highlight_filter'
 
