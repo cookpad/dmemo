@@ -12,10 +12,10 @@ Database description management tool.
 
 ## Setup
 ```
-$ ./bin/setup
+$ bin/setup --skip-server
 $ # Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET of your OAuth client credential
 $ vi .env
-$ bundle exec foreman start
+$ bin/dev
 ```
 
 ### Docker
