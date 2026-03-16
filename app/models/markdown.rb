@@ -2,11 +2,16 @@ class Markdown
   attr_reader :md
 
   def initialize(md)
-    @md = md
+    @md = md.to_s
   end
 
   def html
-    @html ||= Rails.application.config.markdown_to_html_pipeline.call(@md, html_context)[:output].html_safe
+    @html ||=
+      if @md.empty?
+        ""
+      else
+        Rails.application.config.markdown_to_html_pipeline.call(@md, context: html_context)[:output].html_safe
+      end
   end
 
   def html_context
@@ -14,6 +19,11 @@ class Markdown
   end
 
   def text
-    @text ||= Rails.application.config.markdown_to_text_pipeline.call(@md)[:output].html_safe
+    @text ||=
+      if @md.empty?
+        ""
+      else
+        Rails.application.config.markdown_to_text_pipeline.call(@md)[:output].html_safe
+      end
   end
 end

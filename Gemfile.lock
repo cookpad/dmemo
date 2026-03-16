@@ -87,7 +87,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     anbt-sql-formatter (0.1.0)
     ast (2.4.2)
-    base64 (0.2.0)
+    base64 (0.3.0)
     benchmark (0.5.0)
     bigdecimal (4.0.1)
     bootsnap (1.18.3)
@@ -108,8 +108,9 @@ GEM
     cgi (0.5.1)
     childprocess (5.0.0)
     coderay (1.1.3)
-    commonmarker (0.23.10)
-    concurrent-ruby (1.3.1)
+    commonmarker (2.0.1)
+      rb_sys (~> 0.9)
+    concurrent-ruby (1.3.6)
     connection_pool (2.5.5)
     crass (1.0.6)
     database_rewinder (1.0.1)
@@ -173,11 +174,11 @@ GEM
       haml (>= 4.0.6)
       railties (>= 5.1)
     hashie (5.0.0)
-    html-pipeline (2.14.3)
-      activesupport (>= 2)
-      nokogiri (>= 1.4)
+    html-pipeline (3.2.3)
+      selma (~> 0.4)
+      zeitwerk (~> 2.5)
     httpclient (2.8.3)
-    i18n (1.14.5)
+    i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
     irb (1.17.0)
@@ -222,7 +223,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (5.23.1)
+    minitest (5.27.0)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -239,7 +240,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.18.9)
+    nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -344,6 +345,9 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
+    rake-compiler-dock (1.11.0)
+    rb_sys (0.9.124)
+      rake-compiler-dock (= 1.11.0)
     rdoc (7.2.0)
       erb
       psych (>= 4.0.0)
@@ -362,7 +366,6 @@ GEM
     ridgepole (2.0.2)
       activerecord (>= 6.1, < 7.2)
       diffy
-    rinku (2.0.6)
     rouge (4.2.1)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
@@ -413,6 +416,8 @@ GEM
     ruby-prof (1.7.0)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    selma (0.4.10)
+      rb_sys (~> 0.9)
     signet (0.19.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -463,7 +468,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
-  commonmarker (< 1)
+  commonmarker
   database_rewinder
   denv
   diffy
@@ -471,7 +476,7 @@ DEPENDENCIES
   foreman
   google-cloud-bigquery
   haml-rails
-  html-pipeline (< 3)
+  html-pipeline
   jbuilder
   kaminari
   launchy
@@ -488,7 +493,6 @@ DEPENDENCIES
   rails-controller-testing
   revision_plate
   ridgepole
-  rinku
   rouge
   rspec-rails
   rubocop
