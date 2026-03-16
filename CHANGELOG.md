@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 2.1.0
+
+- Upgrade Ruby to 3.4 and remove some development gems [#397](https://github.com/cookpad/dmemo/pull/397)
+- Upgrade Node.js to v24 LTS [#399](https://github.com/cookpad/dmemo/pull/399)
+- Upgrade Rails to 8.1 [#395](https://github.com/cookpad/dmemo/pull/395), [#398](https://github.com/cookpad/dmemo/pull/398), [#400](https://github.com/cookpad/dmemo/pull/400)
+- Upgrade html-pipeline to v3 [#396](https://github.com/cookpad/dmemo/pull/396)
+- Roll several versions on CI [#367](https://github.com/cookpad/dmemo/pull/367), [#393](https://github.com/cookpad/dmemo/pull/393)
+- Package minor-version upgrades by Dependabot
+
 ## 2.0.0
 
 This release contains relatively many code changes. Please read our [upgrade guide](./UPGRADING.md) before upgrading.
