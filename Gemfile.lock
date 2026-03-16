@@ -272,7 +272,6 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     os (1.1.4)
-    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -412,9 +411,6 @@ GEM
     rubocop-rspec (3.9.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.81)
-    ruby-prof (2.0.4)
-      base64
-      ostruct
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     selma (0.4.15)
@@ -491,7 +487,6 @@ DEPENDENCIES
   rubocop-factory_bot
   rubocop-rails
   rubocop-rspec
-  ruby-prof
   silencer
   simpacker
 
