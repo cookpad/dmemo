@@ -7,14 +7,14 @@ module RequestSpecHelper
     @response = response
   end
 
-  def set_rack_session(hash)
-    data = ::RackSessionAccess.encode(hash)
-    put RackSessionAccess.path, params: { data: }
-  end
-
   def login!(user: nil, admin: false)
     user ||= FactoryBot.create(:user, admin:)
-    set_rack_session(user_id: user.id)
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
+      provider: user.provider,
+      uid: user.uid,
+      info: { name: user.name, email: user.email, image: user.image_url },
+    )
+    get "/auth/google_oauth2/callback"
   end
 
   def page

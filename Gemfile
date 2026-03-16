@@ -52,7 +52,6 @@ group :test do
   gem 'database_rewinder'
   gem 'factory_bot_rails'
   gem 'launchy'
-  gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
 end
