@@ -17,7 +17,9 @@ describe DataSourceAdapters::Mysql2Adapter, type: :model do
 
   def execute_sql(sql)
     sql.split(';').select(&:present?).each do |s|
-      adapter.source_base_class.lease_connection.execute(s)
+      adapter.source_base_class.with_connection do |conn|
+        conn.execute(s)
+      end
     end
   end
 
