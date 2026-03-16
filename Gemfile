@@ -48,6 +48,5 @@ group :test do
   gem 'capybara'
   gem 'database_rewinder'
   gem 'factory_bot_rails'
-  gem 'launchy'
   gem 'rails-controller-testing'
 end
