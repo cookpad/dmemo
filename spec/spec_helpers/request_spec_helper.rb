@@ -14,7 +14,7 @@ module RequestSpecHelper
       uid: user.uid,
       info: { name: user.name, email: user.email, image: user.image_url },
     )
-    get "/auth/google_oauth2/callback"
+    get auth_google_oauth2_callback_path
   end
 
   def page
