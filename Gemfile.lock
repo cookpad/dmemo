@@ -364,6 +364,10 @@ GEM
       diffy
       logger
     rouge (4.7.0)
+    rspec (3.13.2)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.5)
@@ -481,6 +485,7 @@ DEPENDENCIES
   revision_plate
   ridgepole
   rouge
+  rspec
   rspec-rails
   rubocop
   rubocop-capybara

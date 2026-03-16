@@ -29,6 +29,7 @@ gem 'silencer', require: 'silencer/rails/logger'
 gem 'simpacker'
 
 group :development, :test do
+  gem 'rspec'
   gem 'rspec-rails'
 end
 
