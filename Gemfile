@@ -29,9 +29,7 @@ gem 'silencer', require: 'silencer/rails/logger'
 gem 'simpacker'
 
 group :development, :test do
-  gem 'byebug'
-  gem 'pry-byebug'
-  gem 'pry-rails'
+  gem 'rspec'
   gem 'rspec-rails'
 end
 
@@ -44,15 +42,11 @@ group :development do
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'ruby-prof'
 end
 
 group :test do
   gem 'capybara'
   gem 'database_rewinder'
   gem 'factory_bot_rails'
-  gem 'launchy'
-  gem 'rack_session_access'
   gem 'rails-controller-testing'
-  gem 'simplecov', require: false
 end

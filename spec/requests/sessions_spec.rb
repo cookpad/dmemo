@@ -6,7 +6,6 @@ describe :sessions, type: :request do
       { provider: "google_oauth2", uid: 1, info: { name: "foo", email: "foo@example.com", image: "foo.jpg" } }
     }
     before do
-      OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(oauth)
     end
 
