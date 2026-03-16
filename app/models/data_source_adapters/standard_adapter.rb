@@ -9,15 +9,17 @@ module DataSourceAdapters
     end
 
     def fetch_columns(table)
-      adapter = connection.pool.connection
-      raw_columns(table).map { |c| Column.new(c.name, c.sql_type, adapter.quote(c.default), c.null) }
+      with_connection do |conn|
+        conn.columns(table.full_table_name).map { |c| Column.new(c.name, c.sql_type, conn.quote(c.default), c.null) }
+      end
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
 
     def fetch_view_query_plan(query)
-      adapter = connection.pool.connection
-      connection.query("EXPLAIN #{query}", 'EXPLAIN').join("\n")
+      with_connection do |conn|
+        conn.query("EXPLAIN #{query}", 'EXPLAIN').join("\n")
+      end
     rescue ActiveRecord::ActiveRecordError, Mysql2::Error, PG::Error => e
       raise DataSource::ConnectionBad.new(e)
     end
@@ -38,12 +40,8 @@ module DataSourceAdapters
 
     private
 
-    def raw_columns(table)
-      connection.columns(table.full_table_name)
-    end
-
-    def connection
-      source_base_class.connection
+    def with_connection(&block)
+      source_base_class.with_connection(&block)
     end
 
     def source_base_class_name
