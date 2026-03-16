@@ -95,8 +95,6 @@ GEM
     brakeman (8.0.4)
       racc
     builder (3.3.0)
-    byebug (13.0.0)
-      reline (>= 0.6.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -109,7 +107,6 @@ GEM
     cgi (0.5.1)
     childprocess (5.1.0)
       logger (~> 1.5)
-    coderay (1.1.3)
     commonmarker (2.7.0)
       rb_sys (~> 0.9)
     concurrent-ruby (1.3.6)
@@ -231,7 +228,6 @@ GEM
     matrix (0.4.3)
     mcp (0.8.0)
       json-schema (>= 4.1)
-    method_source (1.1.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.2)
@@ -297,15 +293,6 @@ GEM
       msgpack (>= 0.7.0)
     prettyprint (0.2.0)
     prism (1.9.0)
-    pry (0.16.0)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-      reline (>= 0.6.0)
-    pry-byebug (3.12.0)
-      byebug (~> 13.0)
-      pry (>= 0.13, < 0.17)
-    pry-rails (0.3.11)
-      pry (>= 0.13.0)
     psych (5.3.1)
       date
       stringio
@@ -488,7 +475,6 @@ DEPENDENCIES
   anbt-sql-formatter
   bootsnap
   brakeman
-  byebug
   capybara
   commonmarker
   database_rewinder
@@ -507,8 +493,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   pg
   presto-client
-  pry-byebug
-  pry-rails
   puma
   rails (~> 7.1.0)
   rails-controller-testing
