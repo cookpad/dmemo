@@ -431,6 +431,10 @@ GEM
     tilt (2.7.0)
     timeout (0.6.1)
     trailblazer-option (0.1.2)
+    trino-client (1.0.0)
+      faraday (~> 0.12)
+      faraday_middleware (~> 0.12.2)
+      msgpack (>= 0.7.0)
     tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -491,6 +495,7 @@ DEPENDENCIES
   rubocop-rspec
   silencer
   simpacker
+  trino-client (= 1.0.0)
 
 BUNDLED WITH
    2.6.9

@@ -8,6 +8,8 @@ gem 'google-cloud-bigquery'
 gem 'mysql2'
 gem 'pg'
 gem 'presto-client'
+# trino-client >= 1.0.1 depends on faraday >= 1.0, which conflicts with presto-client
+gem 'trino-client', '1.0.0'
 
 gem 'action_args'
 gem 'active_decorator'
