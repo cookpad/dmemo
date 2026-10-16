@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.1.1
+
+- Upgrade several dependencies
+
 ## 2.1.0
 
 - Upgrade Ruby to 3.4 and remove some development gems [#397](https://github.com/cookpad/dmemo/pull/397)
