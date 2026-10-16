@@ -3,8 +3,8 @@ module DataSourceAdapters
     def fetch_schema_names
       @schema_names ||= with_connection do |conn|
         conn.query(<<~SQL, 'SCHEMA')
-          SELECT nspname as schema_name, usename as owner_name
-          FROM pg_catalog.pg_namespace s join pg_catalog.pg_user u on u.usesysid = s.nspowner
+          SELECT nspname as schema_name, rolname as owner_name
+          FROM pg_catalog.pg_namespace s join pg_catalog.pg_roles r on r.oid = s.nspowner
           ORDER BY schema_name;
         SQL
       end
