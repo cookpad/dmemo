@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support Trino as DataSource
+
 ## 2.1.0
 
 - Upgrade Ruby to 3.4 and remove some development gems [#397](https://github.com/cookpad/dmemo/pull/397)
