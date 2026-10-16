@@ -1,9 +1,9 @@
-.card
+.card.mb-3
   .card-header
     %h2.card-title Ignored Tables
 
     - if current_user.admin?
-      = link_to new_ignored_table_path, class: "btn btn-secondary btn-sm float-right" do
+      = link_to new_ignored_table_path, class: "btn btn-secondary btn-sm float-end" do
         %i.fas.fa-plus
         Add Ignored Table
   .card-body.p-0

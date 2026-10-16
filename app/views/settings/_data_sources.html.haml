@@ -1,9 +1,9 @@
-.card
+.card.mb-3
   .card-header
     %h2.card-title Data Sources
 
     - if current_user.admin?
-      = link_to new_data_source_path, class: "btn btn-secondary btn-sm float-right" do
+      = link_to new_data_source_path, class: "btn btn-secondary btn-sm float-end" do
         %i.fas.fa-plus
         Add Data Source
   .card-body.p-0

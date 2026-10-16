@@ -2,14 +2,14 @@
   %td
     = column_memo.name
     - unless column_memo.linked?
-      %i.fas.fa-triangle-exclamation{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_column") } }
+      %i.fas.fa-triangle-exclamation{ title: t("unlinked_column"), data: { bs_toggle: "tooltip", bs_placement: "bottom" } }
       = link_to column_memo, method: :delete, data: { confirm: "Delete column #{column_memo.name}?" } do
         %i.fas.fa-trash
   %td
     - if column_memo.logs.present?
-      = link_to column_memo_logs_path(column_memo.id), class: "float-right colorbox" do
+      = link_to column_memo_logs_path(column_memo.id), class: "float-end colorbox" do
         %i.far.fa-clock
-    = link_to edit_column_memo_path(column_memo), class: "float-right colorbox" do
+    = link_to edit_column_memo_path(column_memo), class: "float-end colorbox" do
       %i.fas.fa-pen-to-square
     .column-description
       - if column_memo.description.present?

@@ -1,19 +1,19 @@
 = form_with model: @keyword, class: "form", local: true do |f|
-  .card
+  .card.mb-3
     .card-body
       .row
-        .col-sm-6.form-group
-          = f.label :name
+        .col-sm-6.mb-3
+          = f.label :name, class: "form-label"
           = f.text_field :name, class: "form-control", placeholder: "keyword", tabindex: 1
       .row
-        .col-sm-6.form-group
-          = f.label :description
+        .col-sm-6.mb-3
+          = f.label :description, class: "form-label"
           = f.text_area :description, rows: 20, class: "form-control markdown-editor", data: { target: ".description-preview" }, tabindex: 2
-        .col-sm-6.form-group
-          %label Preview
+        .col-sm-6.mb-3
+          %label.form-label Preview
           .markdown-block.description-preview
             = @keyword.description_html
     .card-footer
       = f.submit class: "btn btn-primary", tabindex: 3
       - if @keyword.persisted?
-        = link_to "Delete keyword", @keyword, class: "btn btn-danger float-right", method: :delete, data: { confirm: t(:delete_keyword, name: @keyword.name) }
+        = link_to "Delete keyword", @keyword, class: "btn btn-danger float-end", method: :delete, data: { confirm: t(:delete_keyword, name: @keyword.name) }

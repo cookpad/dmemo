@@ -7,8 +7,8 @@ import 'jquery-colorbox/example4/colorbox.css';
 import 'pygments-css/github.css';
 import '../dmemo.css';
 
-import 'admin-lte/dist/js/adminlte';
-import 'admin-lte/node_modules/bootstrap/dist/js/bootstrap';
+import 'bootstrap';
+import 'admin-lte';
 import 'jquery-colorbox/jquery.colorbox';
 import Rails from '@rails/ujs';
 import '../dmemo';
