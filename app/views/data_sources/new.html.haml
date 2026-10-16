@@ -5,7 +5,7 @@
       %h1.m-0.text-nowrap New Data Source
 
     .col
-      %ol.breadcrumb.float-sm-right
+      %ol.breadcrumb.float-sm-end
         %li.breadcrumb-item
           = link_to root_path do
             %i.fas.fa-home
@@ -17,5 +17,5 @@
         %li.breadcrumb-item.active
           New Data Source
 
-.card
+.card.mb-3
   = render "form"

@@ -1,81 +1,113 @@
 .skin-blue {
+  --bs-link-color: #3c8dbc;
+  --bs-link-color-rgb: 60, 141, 188;
+  --bs-link-hover-color: #72afd2;
+  --bs-link-hover-color-rgb: 114, 175, 210;
+
   a {
-    color: #3c8dbc;
+    text-decoration: none;
 
     &:active,
     &:focus,
     &:hover {
       outline: none;
-      text-decoration: none;
-      color: #72afd2;
     }
   }
 
-  .btn {
-    color: #ffffff;
+  .app-content-header .breadcrumb a {
+    color: var(--bs-link-color);
   }
 
   .btn-primary {
-    background: #3c8dbc;
+    --bs-btn-bg: #3c8dbc;
+    --bs-btn-border-color: #3c8dbc;
+    --bs-btn-hover-bg: #367fa9;
+    --bs-btn-hover-border-color: #367fa9;
+    --bs-btn-active-bg: #357ca5;
+    --bs-btn-active-border-color: #357ca5;
   }
 
-  .main-header.navbar {
-    background: #3c8dbc;
-    border-bottom: 0 solid transparent;
-    
-    .nav-item > a {
-      color: #ffffff;
+  .app-header {
+    --bs-navbar-color: #ffffff;
+    --bs-navbar-hover-color: #f6f6f6;
+    --bs-navbar-active-color: #ffffff;
+    background-color: #3c8dbc;
+    border-bottom: 0;
 
+    .nav-link {
       &:active,
       &:focus,
       &:hover {
-        background: rgba(0, 0, 0, 0.1);
-        color: #f6f6f6;
+        background-color: rgba(0, 0, 0, 0.1);
       }
     }
   }
 
-  .main-sidebar {
-    background: #222d32;
+  .app-sidebar {
+    --lte-sidebar-color: #b8c7ce;
+    --lte-sidebar-submenu-color: #b8c7ce;
+    background-color: #222d32;
 
-    .brand-link {
-      background: #367fa9;
-      border-bottom: 0 solid transparent;
-      color: #ffffff;
-
-      padding: 0.8rem 0.5rem;
+    .sidebar-brand {
+      background-color: #367fa9;
+      border-bottom: 0;
 
       &:active,
       &:hover {
         background-color: #357ca5;
       }
+
+      .brand-link,
+      .brand-text {
+        color: #ffffff;
+      }
     }
 
-    .sidebar {
-      .user-panel .info {
-        color: #b8c7ce;
+    .user-panel {
+      color: #b8c7ce;
+
+      img {
+        width: 2.1rem;
+        height: auto;
       }
+    }
 
-      .nav-item {
-        a {
-          color: #b8c7ce;
-        }
-
-        &:active > .nav-link,
-        &:hover > .nav-link {
-          background: rgba(255, 255, 255, 0.1);
-          color: #ffffff;
-        }
-      }
-
-      .btn,
+    .sidebar-search {
       .form-control {
-        background-color: #374850;
-        border: 1px solid #56606a;
-        color: white;
+        --lte-search-field-bg: #374850;
+        --lte-search-field-hover-bg: #374850;
+        --lte-search-field-focus-bg: #374850;
+        --lte-search-field-border-color: #56606a;
+        --lte-search-field-color: #ffffff;
+      }
+
+      .btn {
+        --bs-btn-bg: #374850;
+        --bs-btn-border-color: #56606a;
+        --bs-btn-color: #ffffff;
+        --bs-btn-hover-bg: #374850;
+        --bs-btn-hover-border-color: #56606a;
+        --bs-btn-hover-color: #ffffff;
       }
     }
   }
+}
+
+.app-sidebar .sidebar-brand {
+  justify-content: flex-start;
+  padding-left: 1.5rem;
+
+  .brand-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    max-width: 1.5rem;
+  }
+}
+
+.sidebar-mini.sidebar-collapse .app-sidebar:not(:hover) .user-panel .info {
+  display: none;
 }
 
 .brand-text {

@@ -1,11 +1,11 @@
 = form_with model: memo, local: true do |f|
   .card-body
     .row
-      .col-sm-6.form-group
-        = f.label :description
+      .col-sm-6.mb-3
+        = f.label :description, class: "form-label"
         = f.text_area :description, rows: 20, class: "form-control markdown-editor", data: { target: ".description-preview" }, tabindex: 1
-      .col-sm-6.form-group
-        %label Preview
+      .col-sm-6.mb-3
+        %label.form-label Preview
         .markdown-block.description-preview
           = memo.description_html
   .card-footer

@@ -2,52 +2,52 @@
   %h2.card-title Data Source Adapter Setting
 = form_with model: @data_source, local: true do |f|
   .card-body
-    .form-group.row
+    .row.mb-3
       = f.label :name, class: "col-sm-2 col-form-label"
       .col-sm-10= f.text_field :name, class: "form-control", placeholder: "localhost"
-    .form-group.row
+    .row.mb-3
       = f.label :description, class: "col-sm-2 col-form-label"
       .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
-    .form-group.row
+    .row.mb-3
       = f.label :adapter, class: "col-sm-2 col-form-label"
-      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, { id: "data-source-adapter", class: "form-control" }
+      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, { id: "data-source-adapter", class: "form-select" }
 
     #standard-config-fields.adapter-config
-      .form-group.row
+      .row.mb-3
         = f.label :host, class: "col-sm-2 col-form-label"
         .col-sm-10= f.text_field :host, class: "form-control", placeholder: "localhost"
-      .form-group.row
+      .row.mb-3
         = f.label :port, class: "col-sm-2 col-form-label"
         .col-sm-10= f.text_field :port, class: "form-control", placeholder: "5432"
-      .form-group.row
+      .row.mb-3
         = f.label :dbname, "Database Name", class: "col-sm-2 col-form-label"
         .col-sm-10= f.text_field :dbname, class: "form-control", placeholder: "dmemo"
-      .form-group.row
+      .row.mb-3
         = f.label :user, class: "col-sm-2 col-form-label"
         .col-sm-10= f.text_field :user, class: "form-control", placeholder: "root"
-      .form-group.row
+      .row.mb-3
         = f.label :password, class: "col-sm-2 col-form-label"
         .col-sm-10= f.password_field :password, class: "form-control", value: @data_source.password
-      .form-group.row
+      .row.mb-3
         = f.label :encoding, class: "col-sm-2 col-form-label"
         .col-sm-10= f.text_field :encoding, class: "form-control"
 
     #bigquery-config-fields.adapter-config
       = fields_for :bigquery_config, @data_source.bigquery_config || BigqueryConfig.new do |bq|
-        .form-group.row
+        .row.mb-3
           = bq.label :project_id, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.text_field :project_id, class: "form-control", placeholder: "project-1234"
-        .form-group.row
+        .row.mb-3
           = bq.label :dataset, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.text_field :dataset, class: "form-control", placeholder: "public"
-        .form-group.row
+        .row.mb-3
           = bq.label :credentials, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.file_field :credentials, class: "form-control", placeholder: "public"
     
     #data-source-form-data.d-none{ 'data-standard-adapters': DataSourceAdapters.standard_adapter_names.to_json }
 
   .card-footer
-    = f.submit class: "btn btn-primary float-right"
+    = f.submit class: "btn btn-primary float-end"
 
 :javascript
   $(() => {

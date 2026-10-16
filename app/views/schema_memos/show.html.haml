@@ -8,7 +8,7 @@
           %i.fas.fa-pen-to-square
 
     .col
-      %ol.breadcrumb.float-sm-right
+      %ol.breadcrumb.float-sm-end
         %li.breadcrumb-item
           = link_to root_path do
             %i.fas.fa-home
@@ -21,7 +21,7 @@
   - unless @schema_memo.linked?
     .row.mb-2
       .col
-        .card.card-warning
+        .card.card-warning.mb-3
           .card-header
             %h4.card-title
               %i.fas.fa-triangle-exclamation
@@ -32,7 +32,7 @@
               class: "btn btn-lg btn-danger",
               data: { confirm: "Delete database #{@schema_memo.name} information?" }
 
-.memo-block.card
+.memo-block.card.mb-3
   .card-body
     .markdown-block
       - if @schema_memo.description.present?
@@ -45,7 +45,7 @@
       = link_to schema_memo_logs_path(@schema_memo.id) do
         %i.far.fa-clock
 
-.card
+.card.mb-3
   .card-header
     %h2.card-title Tables
 

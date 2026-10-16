@@ -1,10 +1,10 @@
 = form_with model: @ignored_table, local: true do |f|
   .card-body
-    .form-group.row
+    .row.mb-3
       = f.label :data_source_id, class: "col-sm-2 col-form-label"
-      .col-sm-10= f.select :data_source_id, @database_name_options, {}, class: "form-control"
-    .form-group.row
+      .col-sm-10= f.select :data_source_id, @database_name_options, {}, class: "form-select"
+    .row.mb-3
       = f.label :pattern, "Pattern (regexp)", class: "col-sm-2 col-form-label"
       .col-sm-10= f.text_field :pattern, class: "form-control", placeholder: ".+_(?:old|wk|l)"
   .card-footer
-    = f.submit class: "btn btn-primary float-right"
+    = f.submit class: "btn btn-primary float-end"

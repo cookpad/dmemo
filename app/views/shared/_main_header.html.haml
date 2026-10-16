@@ -1,23 +1,24 @@
-%nav.main-header.navbar.navbar-expand{ role: "navigation" }
-  %ul.navbar-nav
-    %li.nav-item
-      = link_to "#", role: "button", class: "nav-link", "data-widget": "pushmenu" do
-        %i.nav-icon.fas.fa-bars
+%nav.app-header.navbar.navbar-expand
+  .container-fluid
+    %ul.navbar-nav
+      %li.nav-item
+        = link_to "#", role: "button", class: "nav-link", "data-lte-toggle": "sidebar", "aria-label": "Toggle sidebar" do
+          %i.fas.fa-bars
 
-  - if current_user
-    %ul.navbar-nav.ml-auto
-      %li.nav-item
-        = link_to setting_path, class: "nav-link" do
-          %i.nav-icon.fas.fa-gear
-          %span.d-none.d-sm-inline
-            Setting
-      %li.nav-item
-        = link_to edit_user_path(current_user), class: "nav-link" do
-          %i.nav-icon.fas.fa-user
-          %span.d-none.d-sm-inline
-            = current_user.name
-      %li.nav-item
-        = link_to logout_path, method: :delete, class: "nav-link" do
-          %i.nav-icon.fas.fa-arrow-right-from-bracket
-          %span.d-none.d-sm-inline
-            Sign-out
+    - if current_user
+      %ul.navbar-nav.ms-auto
+        %li.nav-item
+          = link_to setting_path, class: "nav-link" do
+            %i.fas.fa-gear.me-1
+            %span.d-none.d-sm-inline
+              Setting
+        %li.nav-item
+          = link_to edit_user_path(current_user), class: "nav-link" do
+            %i.fas.fa-user.me-1
+            %span.d-none.d-sm-inline
+              = current_user.name
+        %li.nav-item
+          = link_to logout_path, method: :delete, class: "nav-link" do
+            %i.fas.fa-arrow-right-from-bracket.me-1
+            %span.d-none.d-sm-inline
+              Sign-out

@@ -9,25 +9,25 @@
       #{@search_result.tables.total_count} Table hits / #{@search_result.columns.total_count} Column hits
 
 - unless @search_result.tables.present? || @search_result.columns.present?
-  .card
+  .card.mb-3
     .card-body
       No results found.
 - else
   - @search_result.tables.each do |result|
-    .card
+    .card.mb-3
       .card-header
         %h3.card-title
-          %small.badge.badge-success Table
+          %small.badge.text-bg-success Table
           = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
       .card-body
         = highlight(markdown_html(result.description).html_safe, @search_result.keyword)
   = paginate @search_result.tables, param_name: 'table_page'
 
   - @search_result.columns.each do |result|
-    .card
+    .card.mb-3
       .card-header
         %h3.card-title
-          %small.badge.badge-info Column
+          %small.badge.text-bg-info Column
           = link_to highlight(result.full_name, @search_result.keyword), url_for(result)
       .card-body
         = highlight(markdown_html(result.description).html_safe, @search_result.keyword)

@@ -4,7 +4,7 @@
     .col
       %h1.m-0.text-nowrap Home
 
-.card
+.card.mb-3
   .card-header
     %h2.card-title Databases
 
@@ -22,14 +22,14 @@
               %td.truncate-td
                 = link_to database_memo.name, database_memo_path(database_memo.name)
                 - unless database_memo.linked?
-                  %i.fas.fa-triangle-exclamation{ data: { toggle: "tooltip", placement: "bottom", title: t("unlinked_database") } }
+                  %i.fas.fa-triangle-exclamation{ title: t("unlinked_database"), data: { bs_toggle: "tooltip", bs_placement: "bottom" } }
               %td.truncate-td
                 - if database_memo.description.present?
                   = database_memo.description_text.truncate(200)
               %td.truncate-td
                 = database_memo.schema_memos.map(&:table_memos).flatten.map(&:name).join(", ").truncate(200)
 
-.card
+.card.mb-3
   .card-header
     %h2.card-title Favorite tables
 

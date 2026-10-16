@@ -1,10 +1,10 @@
 = form_with model: @user, local: true do |f|
   .card-body
-    .form-group.row
+    .row.mb-3
       = f.label :name, class: "col-sm-2 col-form-label"
       .col-sm-10= f.text_field :name, class: "form-control", placeholder: "Your Name"
     - if current_user.admin?
-      .form-group.row
+      .row.mb-3
         .col-sm-2
         .col-sm-10
           .form-check
@@ -12,4 +12,4 @@
             = f.label :admin, class: "form-check-label col-sm-10" do
               Admin
   .card-footer
-    = f.submit class: "btn btn-primary float-right"
+    = f.submit class: "btn btn-primary float-end"

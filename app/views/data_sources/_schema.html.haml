@@ -5,7 +5,7 @@
   .m-2
     %p
       Schema Candidates is a whitelist of schemas to be imported. Only
-      %span.badge.badge-success subscribe
+      %span.badge.text-bg-success subscribe
       status schemas will be imported by batch. Click the Import button to add a schema to the whitelist.
     %p
       This schemas list is retrieved from
@@ -38,20 +38,20 @@
               = schema_owner
             %td
               - if subscribe?(schema_name)
-                %span.badge.badge-success Subscribe
+                %span.badge.text-bg-success Subscribe
               - else
-                %span.badge.badge-danger Unsubscribe
+                %span.badge.text-bg-danger Unsubscribe
             %td
               - if exist?(schema_name)
-                %span.badge.badge-success Exist
+                %span.badge.text-bg-success Exist
               - else
-                %span.badge.badge-danger Disappeared
+                %span.badge.text-bg-danger Disappeared
             %td
               = link_to import_schema_path(@data_source.id, schema_name), method: :patch,
-                  class: "btn btn-primary float-left #{disable_import_button(schema_name)}",
+                  class: "btn btn-primary float-start #{disable_import_button(schema_name)}",
                   data: { confirm: "Import information of #{schema_name} schema? (Subscribe)" } do
                 Import
               = link_to unlink_schema_path(@data_source.id, schema_name), method: :patch,
-                  class: "btn btn-primary float-right #{disable_unlink_button(schema_name)}",
+                  class: "btn btn-primary float-end #{disable_unlink_button(schema_name)}",
                   data: { confirm: "Unlink #{schema_name} schema? \n(Not Delete, only unlink & stop subscribe)" } do
                 Unlink

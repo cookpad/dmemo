@@ -1,3 +1,5 @@
+import { Tooltip } from 'bootstrap';
+
 let timeoutId = undefined;
 function markdownEditor() {
   if (timeoutId) {
@@ -35,5 +37,5 @@ $(() => {
     $('.favorite-table-block').removeClass('unfavorited');
   });
 
-  $('.disable-click').on('click', (e) => e.stopPropagation());
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => new Tooltip(el));
 });
