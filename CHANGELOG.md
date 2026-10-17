@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.2.0
+
+- Upgrade admin-lte to v4. Because of this, the appearance of the web page has changed slightly [#467](https://github.com/cookpad/dmemo/pull/467)
+- Upgrade @fortawesome/fontawesome-free to v7 [#468](https://github.com/cookpad/dmemo/pull/468)
+- fix: Show public schema for PostgreSQL >= 15 [#466](https://github.com/cookpad/dmemo/pull/466)
+
 ## 2.1.1
 
 - Upgrade several dependencies
