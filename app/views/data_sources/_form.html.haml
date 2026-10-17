@@ -10,7 +10,7 @@
       .col-sm-10= f.text_field :description, class: "form-control", placeholder: "localhost database"
     .row.mb-3
       = f.label :adapter, class: "col-sm-2 col-form-label"
-      .col-sm-10= f.select :adapter, DataSourceAdapters.adapter_names, {}, { id: "data-source-adapter", class: "form-select" }
+      .col-sm-10= f.select :adapter, adapter_options_for_select(@data_source), {}, { id: "data-source-adapter", class: "form-select" }
 
     #standard-config-fields.adapter-config
       .row.mb-3
@@ -43,20 +43,17 @@
         .row.mb-3
           = bq.label :credentials, class: "col-sm-2 col-form-label"
           .col-sm-10= bq.file_field :credentials, class: "form-control", placeholder: "public"
-    
-    #data-source-form-data.d-none{ 'data-standard-adapters': DataSourceAdapters.standard_adapter_names.to_json }
 
   .card-footer
     = f.submit class: "btn btn-primary float-end"
 
 :javascript
   $(() => {
-    const standardAdpaters = $('#data-source-form-data').data('standard-adapters');
     const toggleAdapter = (adapterName) => {
-      const adapterId = standardAdpaters.includes(adapterName) ? 'standard' : adapterName;
+      const adapterFields = $('#' + adapterName + '-config-fields');
 
       $('.adapter-config').hide();
-      $('#' + adapterId + '-config-fields').show();
+      (adapterFields.length ? adapterFields : $('#standard-config-fields')).show();
     };
 
     $('#data-source-adapter').change(() => {

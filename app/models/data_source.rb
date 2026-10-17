@@ -1,5 +1,6 @@
 class DataSource < ApplicationRecord
   validates :name, :adapter, presence: true
+  validates :adapter, inclusion: { in: ->(_) { DataSourceAdapters.adapter_names } }, if: :adapter_changed?
   validates :host, :dbname, :user, presence: true, if: :standard_adapter?
 
   has_many :ignored_tables
@@ -7,8 +8,9 @@ class DataSource < ApplicationRecord
   has_one :database_memo, class_name: "DatabaseMemo", foreign_key: :name, primary_key: :name, dependent: :destroy
   has_one :bigquery_config, dependent: :destroy
 
-  class ConnectionBad < IOError
-  end
+  class ConnectionBad < IOError; end
+
+  class AdapterDeprecated < StandardError; end
 
   def source_table_names
     table_names = access_logging { data_source_adapter.fetch_table_names }
@@ -34,11 +36,17 @@ class DataSource < ApplicationRecord
   end
 
   def data_source_adapter
+    raise AdapterDeprecated, "#{adapter} adapter is deprecated and can no longer be used to fetch data" if deprecated_adapter?
+
     @data_source_adapter ||= DataSourceAdapters.adapters[adapter].new(self)
   end
 
   def standard_adapter?
-    adapter.in? DataSourceAdapters.standard_adapter_names
+    adapter.in?(DataSourceAdapters.standard_adapter_names)
+  end
+
+  def deprecated_adapter?
+    DataSourceAdapters.deprecated?(adapter)
   end
 
   private

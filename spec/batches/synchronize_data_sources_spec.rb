@@ -36,6 +36,16 @@ describe SynchronizeDataSources do
         expect(SchemaMemo.count).to eq(0)
       end
     end
+
+    context "with deprecated adapter" do
+      let!(:data_source) { FactoryBot.create(:data_source, :deprecated_adapter) }
+
+      it "skips the data source" do
+        expect { batch.run }.not_to raise_error
+
+        expect(data_source.database_memo).to be_nil
+      end
+    end
   end
 
   describe ".import_data_source" do

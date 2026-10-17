@@ -121,8 +121,6 @@ GEM
       railties (>= 6.1.0)
     faraday (0.17.6)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.12.2)
-      faraday (>= 0.7.4, < 1.0)
     foreman (0.90.0)
       thor (~> 1.4)
     globalid (1.4.0)
@@ -278,10 +276,6 @@ GEM
     pg (1.6.3)
     pp (0.6.4)
       prettyprint
-    presto-client (0.6.6)
-      faraday (~> 0.12)
-      faraday_middleware (~> 0.12.2)
-      msgpack (>= 0.7.0)
     prettyprint (0.2.1)
     prism (1.9.0)
     public_suffix (7.0.5)
@@ -480,7 +474,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg
-  presto-client
   puma
   rails (~> 8.1.0)
   rails-controller-testing
@@ -539,7 +532,6 @@ CHECKSUMS
   factory_bot (6.5.6) sha256=12beb373214dccc086a7a63763d6718c49769d5606f0501e0a4442676917e077
   factory_bot_rails (6.5.1) sha256=d3cc4851eae4dea8a665ec4a4516895045e710554d2b5ac9e68b94d351bc6d68
   faraday (0.17.6) sha256=a572118695fce2937e3a8bed33498ac0c25a263cdb570ea5cd2e41b36c821c34
-  faraday_middleware (0.12.2) sha256=2d90093c18c23e7f5a6f602ed3114d2c62abc3f7f959dd3046745b24a863f1dc
   foreman (0.90.0) sha256=ff675e2d47b607ac58714a6d4ac3e1ee8f06f41d8db084531c31961e2c3f117c
   globalid (1.4.0) sha256=037f12fbf1d9d7a014d501c2d5c77356fd4ddd96d7a7991d6700bba96706f427
   google-apis-bigquery_v2 (0.61.0) sha256=4663cd5dc310e664f6c696b4c1d753f4b6081386646b73041867df0f6b30fe01
@@ -599,7 +591,6 @@ CHECKSUMS
   parser (3.3.10.2) sha256=6f60c84aa4bdcedb6d1a2434b738fe8a8136807b6adc8f7f53b97da9bc4e9357
   pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
   pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
-  presto-client (0.6.6) sha256=da37048e39e750e90081bb66ec96ef0337693be160293a088eda1874520112fc
   prettyprint (0.2.1) sha256=d555d57ea6d7cf001d4774b693546a6bd88bec1e778ddffb5c60b68ceec4b7d4
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
