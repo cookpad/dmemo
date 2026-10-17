@@ -25,6 +25,16 @@ OmniAuth.config.test_mode = true
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
+# Ensures that the test database schema matches the current schema file.
+# If there are pending migrations it will invoke `db:test:prepare` to
+# recreate the test database by loading the schema.
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError => e
+  abort e.to_s.strip
+end
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
