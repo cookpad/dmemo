@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support Trino as DataSource
+
 ## 2.2.0
 
 - Upgrade admin-lte to v4. Because of this, the appearance of the web page has changed slightly [#467](https://github.com/cookpad/dmemo/pull/467)
