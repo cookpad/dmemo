@@ -64,6 +64,8 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DataSource.all.each do |ds|
+      next if ds.deprecated_adapter?
+
       ds.data_source_adapter.reset!
     end
     DatabaseRewinder.clean

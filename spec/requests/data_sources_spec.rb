@@ -65,6 +65,19 @@ describe :data_sources, type: :request do
         expect(data_source.bigquery_config).to be_present
       end
     end
+
+    context "with deprecated adapter" do
+      before do
+        data_source_param[:adapter] = "presto"
+      end
+
+      it "shows error" do
+        post data_sources_path, params: { data_source: data_source_param }
+        expect(response).to redirect_to(new_data_source_path)
+        expect(flash[:error]).to include("Adapter")
+        expect(DataSource.count).to eq(0)
+      end
+    end
   end
 
   describe "#edit" do
@@ -76,6 +89,17 @@ describe :data_sources, type: :request do
       get edit_data_source_path(data_source)
       expect(response).to render_template("data_sources/edit")
       expect(page).to have_xpath("//input[@id='data_source_name'][@value='#{data_source.name}']")
+    end
+
+    context "with deprecated adapter" do
+      let!(:data_source) { FactoryBot.create(:data_source, :deprecated_adapter) }
+
+      it "shows form with the deprecated adapter selected" do
+        get edit_data_source_path(data_source)
+        expect(response).to render_template("data_sources/edit")
+        expect(flash[:error]).to include("deprecated")
+        expect(page).to have_xpath("//select[@id='data-source-adapter']/option[@selected][@value='presto']")
+      end
     end
   end
 
@@ -108,6 +132,28 @@ describe :data_sources, type: :request do
 
         data_source = assigns(:data_source)
         expect(data_source.bigquery_config.project_id).to eq "new_project"
+      end
+    end
+
+    context "with deprecated adapter" do
+      let(:data_source) { FactoryBot.create(:data_source, :deprecated_adapter) }
+
+      it "updates other attributes" do
+        patch data_source_path(data_source.id), params: { data_source: { adapter: "presto", description: "legacy", host: "presto.example.com", port: 8080 } }
+
+        expect(response).to redirect_to(data_sources_path)
+        data_source.reload
+        expect(data_source.description).to eq("legacy")
+      end
+    end
+
+    context "when changing to deprecated adapter" do
+      it "shows error" do
+        patch data_source_path(data_source.id), params: { data_source: { adapter: "presto" } }
+
+        expect(response).to redirect_to(edit_data_source_path(data_source.id))
+        expect(flash[:error]).to include("Adapter")
+        expect(data_source.reload.adapter).not_to eq("presto")
       end
     end
   end

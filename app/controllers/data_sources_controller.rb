@@ -42,6 +42,8 @@ class DataSourcesController < ApplicationController
     rescue NotImplementedError => e
       # when not implement fetch_schema_names for adapter
       # data_sources/:id/edit page does not view Schema Candidates block
+    rescue DataSource::AdapterDeprecated => e
+      flash.now[:error] = e.message
     rescue ActiveRecord::ActiveRecordError, DataSource::ConnectionBad => e
       flash[:error] = e.message
       redirect_to data_sources_path
