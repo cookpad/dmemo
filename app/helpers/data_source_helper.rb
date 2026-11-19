@@ -1,4 +1,10 @@
 module DataSourceHelper
+  def adapter_options_for_select(data_source)
+    options = DataSourceAdapters.adapter_names.map { |name| [name, name] }
+    options << ["#{data_source.adapter} (deprecated)", data_source.adapter] if data_source.deprecated_adapter?
+    options
+  end
+
   def subscribe?(schema_name)
     @subscribe_schema_names.include?(schema_name)
   end

@@ -27,6 +27,8 @@
                 = data_source.description.truncate(50)
               %td
                 = data_source.adapter
+                - if data_source.deprecated_adapter?
+                  %span.badge.text-bg-warning deprecated
               %td
                 = data_source.host
               %td

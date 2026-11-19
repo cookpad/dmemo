@@ -11,6 +11,11 @@ FactoryBot.define do
     encoding { nil }
     pool { 1 }
 
+    trait :deprecated_adapter do
+      adapter { "presto" }
+      to_create { |instance| instance.save!(validate: false) }
+    end
+
     trait :bigquery_adapter do
       adapter { "bigquery" }
       after(:create) do |data_source|

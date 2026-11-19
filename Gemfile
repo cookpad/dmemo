@@ -7,7 +7,6 @@ gem 'rails', '~> 8.1.0'
 gem 'google-cloud-bigquery'
 gem 'mysql2'
 gem 'pg'
-gem 'presto-client'
 
 gem 'action_args'
 gem 'active_decorator'

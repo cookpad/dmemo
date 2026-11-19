@@ -4,6 +4,6 @@ Rails.application.config.to_prepare do
     DataSourceAdapters.register_adapter(DataSourceAdapters::Mysql2Adapter, 'mysql2')
     DataSourceAdapters.register_adapter(DataSourceAdapters::RedshiftAdapter, 'redshift')
     DataSourceAdapters.register_adapter(DataSourceAdapters::BigqueryAdapter, 'bigquery')
-    DataSourceAdapters.register_adapter(DataSourceAdapters::PrestoAdapter, 'presto')
+    DataSourceAdapters.deprecate_adapter('presto')
   end
 end

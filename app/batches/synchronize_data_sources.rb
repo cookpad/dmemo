@@ -2,6 +2,11 @@ class SynchronizeDataSources
   def self.run
     Rails.logger.warn 'SynchronizeDataSources is deprecated. Please consider using ImportDataSourceDefinitions instead.'
     DataSource.all.find_each do |data_source|
+      if data_source.deprecated_adapter?
+        Rails.logger.warn "[Skip] #{data_source.name} uses deprecated #{data_source.adapter} adapter"
+        next
+      end
+
       import_data_source!(data_source)
     end
   end

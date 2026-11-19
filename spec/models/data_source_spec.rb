@@ -47,4 +47,33 @@ describe DataSource, type: :model do
       expect(data_source.data_source_tables.size).to be > 0
     end
   end
+
+  describe "validation" do
+    it "rejects creating with a deprecated adapter" do
+      data_source = FactoryBot.build(:data_source, adapter: "presto")
+      expect(data_source).not_to be_valid
+      expect(data_source.errors[:adapter]).to be_present
+    end
+
+    it "rejects changing to a deprecated adapter" do
+      data_source.adapter = "presto"
+      expect(data_source).not_to be_valid
+    end
+  end
+
+  context "with deprecated adapter" do
+    let(:data_source) { FactoryBot.create(:data_source, :deprecated_adapter) }
+
+    it "is deprecated" do
+      expect(data_source).to be_deprecated_adapter
+    end
+
+    it "raises AdapterDeprecated when fetching data" do
+      expect { data_source.data_source_tables }.to raise_error(DataSource::AdapterDeprecated)
+    end
+
+    it "allows updating other attributes" do
+      expect(data_source.update(description: "legacy")).to eq(true)
+    end
+  end
 end
