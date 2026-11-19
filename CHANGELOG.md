@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 2.2.1
+
+- fix: Ensure schema is loaded and DatabaseRewinder is initialized [#470](https://github.com/cookpad/dmemo/pull/470)
+- Fix undefined variable db_memos [#473](https://github.com/cookpad/dmemo/pull/473)
+- Upgrade dependencies
+
 ## 2.2.0
 
 - Upgrade admin-lte to v4. Because of this, the appearance of the web page has changed slightly [#467](https://github.com/cookpad/dmemo/pull/467)
