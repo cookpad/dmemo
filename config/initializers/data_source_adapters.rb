@@ -5,5 +5,6 @@ Rails.application.config.to_prepare do
     DataSourceAdapters.register_adapter(DataSourceAdapters::RedshiftAdapter, 'redshift')
     DataSourceAdapters.register_adapter(DataSourceAdapters::BigqueryAdapter, 'bigquery')
     DataSourceAdapters.deprecate_adapter('presto')
+    DataSourceAdapters.register_adapter(DataSourceAdapters::TrinoAdapter, 'trino')
   end
 end

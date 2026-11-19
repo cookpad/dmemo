@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support Trino as DataSource
+
 ## 2.2.1
 
 - fix: Ensure schema is loaded and DatabaseRewinder is initialized [#470](https://github.com/cookpad/dmemo/pull/470)
